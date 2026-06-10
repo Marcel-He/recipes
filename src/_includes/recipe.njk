@@ -1,0 +1,32 @@
+---
+layout: base.njk
+pageScript: recipe.js
+---
+<article data-recipe-id="{{ id }}" data-base-servings="{{ servings }}">
+  <header>
+    <h1>{{ title }}</h1>
+    <span class="difficulty">{{ difficulty }}</span>
+
+    <div class="servings-control">
+      <label>Servings</label>
+      <button id="servings-down">−</button>
+      <output id="servings">{{ servings }}</output>
+      <button id="servings-up">+</button>
+    </div>
+
+    <button id="wake-lock-toggle">Keep screen on</button>
+    <button id="add-to-planner" data-id="{{ id }}">+ Planner</button>
+  </header>
+
+  <section id="ingredients-section">
+    <h2>Ingredients</h2>
+    <button id="toggle-view">Show per step</button>
+    <div id="ingredients-all"></div>
+    <div id="ingredients-by-step" hidden></div>
+  </section>
+
+  <section id="steps-section">
+    <h2>Steps</h2>
+    {{ content | safe }}
+  </section>
+</article>

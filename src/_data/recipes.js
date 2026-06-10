@@ -8,7 +8,7 @@ export default async function() {
   const dir = join(__dirname, '../recipes');
   let files;
   try {
-    files = (await readdir(dir)).filter(f => f.endsWith('.json'));
+    files = (await readdir(dir)).filter(f => f.endsWith('.json') && !f.includes('.11tydata.'));
   } catch {
     return [];
   }
