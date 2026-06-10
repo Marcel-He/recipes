@@ -36,7 +36,7 @@ recipes-app/
 
 Each recipe has two files:
 
-**`bolognese.md`** — frontmatter with `id`, `title`, `aufwand`, `servings`, followed by markdown description and step-by-step instructions.
+**`bolognese.md`** — frontmatter with `id`, `title`, `difficulty`, `servings`, followed by markdown description and step-by-step instructions.
 
 **`bolognese.json`** — structured data consumed by client-side JS:
 
@@ -44,7 +44,7 @@ Each recipe has two files:
 {
   "id": "bolognese",
   "title": "Spaghetti Bolognese",
-  "aufwand": "einfach",
+  "difficulty": "easy",
   "servings": 4,
   "ingredients": [
     { "name": "Hackfleisch", "amount": 500, "unit": "g", "step": 1 }
@@ -60,7 +60,7 @@ The `step` field on each ingredient links it to a specific recipe step, enabling
 
 ### Recipe List (`/`)
 - Loads `index.json` on page load, holds all recipe metadata in memory
-- Fuse.js powers live fuzzy search over title, tags, aufwand
+- Fuse.js powers live fuzzy search over title, tags, difficulty
 - Each card links to the 11ty-rendered recipe detail page
 - "Add to planner" button on each card writes the recipe ID to `localStorage`
 
