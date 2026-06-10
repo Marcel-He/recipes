@@ -4,14 +4,28 @@ import { buildBringUrl } from './lib/bring.js';
 async function init() {
   const ids = JSON.parse(localStorage.getItem('planner') || '[]');
 
+  // Wire clear button regardless of planner state
+  document.getElementById('clear-planner').addEventListener('click', () => {
+    localStorage.removeItem('planner');
+    window.location.reload();
+  });
+
   if (ids.length === 0) {
     document.getElementById('shopping-list').innerHTML = '<li>No recipes selected.</li>';
     return;
   }
 
-  const recipes = await Promise.all(
+  const settled = await Promise.allSettled(
     ids.map(id => fetch(`/recipes/${id}.json`).then(r => r.json()))
   );
+  const recipes = settled
+    .filter(r => r.status === 'fulfilled')
+    .map(r => r.value);
+
+  if (recipes.length === 0) {
+    document.getElementById('shopping-list').innerHTML = '<li>Could not load recipes.</li>';
+    return;
+  }
 
   renderRecipeTags(recipes, ids);
   const aggregated = aggregateIngredients(recipes);
@@ -21,11 +35,6 @@ async function init() {
   bringBtn.disabled = false;
   bringBtn.addEventListener('click', () => {
     window.location.href = buildBringUrl(aggregated);
-  });
-
-  document.getElementById('clear-planner').addEventListener('click', () => {
-    localStorage.removeItem('planner');
-    window.location.reload();
   });
 }
 

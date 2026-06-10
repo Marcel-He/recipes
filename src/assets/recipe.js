@@ -2,15 +2,21 @@ import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
 
 const article = document.querySelector('[data-recipe-id]');
+if (!article) return;
 const recipeId = article.dataset.recipeId;
 const baseServings = parseInt(article.dataset.baseServings, 10);
 let currentServings = baseServings;
 let recipeData = null;
 
 async function loadRecipe() {
-  const res = await fetch(`/recipes/${recipeId}.json`);
-  recipeData = await res.json();
-  renderIngredients();
+  try {
+    const res = await fetch(`/recipes/${recipeId}.json`);
+    if (!res.ok) return;
+    recipeData = await res.json();
+    renderIngredients();
+  } catch {
+    // recipe data unavailable; page remains static
+  }
 }
 
 function renderIngredients() {
