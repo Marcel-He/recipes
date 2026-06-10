@@ -1,6 +1,6 @@
 export default function(eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("recipes/*.json");
+  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/recipes/*.json");
   eleventyConfig.addPassthroughCopy({
     "node_modules/fuse.js/dist/fuse.min.mjs": "assets/fuse.min.mjs"
   });
