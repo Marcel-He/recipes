@@ -1,0 +1,17 @@
+---
+layout: base.njk
+title: Recipes
+pageScript: main.js
+---
+<section>
+  <input id="search" type="search" placeholder="Search recipes…" autocomplete="off">
+</section>
+<ul id="recipe-list">
+  {% for recipe in recipes %}
+  <li data-id="{{ recipe.id }}">
+    <a href="/recipes/{{ recipe.id }}/">{{ recipe.title }}</a>
+    <span>{{ recipe.difficulty }}</span>
+    <button class="add-to-planner" data-id="{{ recipe.id }}">+ Planner</button>
+  </li>
+  {% endfor %}
+</ul>
