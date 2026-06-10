@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Planner
+pageScript: planner.js
+---
+<h1>Planner</h1>
+
+<section>
+  <h2>Selected recipes</h2>
+  <ul id="recipe-tags"></ul>
+</section>
+
+<section>
+  <h2>Shopping list</h2>
+  <ul id="shopping-list"></ul>
+</section>
+
+<div style="display:flex;gap:.5rem;margin-top:1rem">
+  <button id="bring-export" disabled>Export to Bring</button>
+  <button id="clear-planner">Clear planner</button>
+</div>
