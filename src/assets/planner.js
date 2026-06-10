@@ -18,16 +18,18 @@ async function init() {
   const settled = await Promise.allSettled(
     ids.map(id => fetch(`/recipes/${id}.json`).then(r => r.json()))
   );
-  const recipes = settled
-    .filter(r => r.status === 'fulfilled')
-    .map(r => r.value);
+  const loaded = settled
+    .map((r, i) => r.status === 'fulfilled' ? { recipe: r.value, id: ids[i] } : null)
+    .filter(Boolean);
 
-  if (recipes.length === 0) {
+  if (loaded.length === 0) {
     document.getElementById('shopping-list').innerHTML = '<li>Could not load recipes.</li>';
     return;
   }
 
-  renderRecipeTags(recipes, ids);
+  const recipes = loaded.map(x => x.recipe);
+  const loadedIds = loaded.map(x => x.id);
+  renderRecipeTags(recipes, loadedIds);
   const aggregated = aggregateIngredients(recipes);
   renderShoppingList(aggregated);
 

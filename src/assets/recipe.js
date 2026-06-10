@@ -2,7 +2,6 @@ import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
 
 const article = document.querySelector('[data-recipe-id]');
-if (!article) return;
 const recipeId = article.dataset.recipeId;
 const baseServings = parseInt(article.dataset.baseServings, 10);
 let currentServings = baseServings;
@@ -20,6 +19,7 @@ async function loadRecipe() {
 }
 
 function renderIngredients() {
+  if (!recipeData) return;
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
   renderByStep(scaled);
