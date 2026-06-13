@@ -9,7 +9,7 @@ let recipeData = null;
 
 async function loadRecipe() {
   try {
-    const res = await fetch(`/recipes/${recipeId}.json`);
+    const res = await fetch(`/recipes/${recipeId}/${recipeId}.json`);
     if (!res.ok) return;
     recipeData = await res.json();
     renderIngredients();

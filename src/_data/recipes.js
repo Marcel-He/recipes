@@ -8,13 +8,14 @@ export default async function() {
   const dir = join(__dirname, '../recipes');
   let files;
   try {
-    files = (await readdir(dir)).filter(f => f.endsWith('.json') && !f.match(/\.11tydata\.json$/));
+    files = (await readdir(dir, { recursive: true, withFileTypes: true }))
+      .filter(f => f.isFile() && f.name.endsWith('.json') && !f.name.match(/\.11tydata\.json$/));
   } catch {
     return [];
   }
   return Promise.all(
-    files.map(async file => {
-      const content = await readFile(join(dir, file), 'utf-8');
+    files.map(async f => {
+      const content = await readFile(join(f.parentPath ?? f.path, f.name), 'utf-8');
       return JSON.parse(content);
     })
   );

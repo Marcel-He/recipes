@@ -16,7 +16,7 @@ async function init() {
   }
 
   const settled = await Promise.allSettled(
-    ids.map(id => fetch(`/recipes/${id}.json`).then(r => r.json()))
+    ids.map(id => fetch(`/recipes/${id}/${id}.json`).then(r => r.json()))
   );
   const loaded = settled
     .map((r, i) => r.status === 'fulfilled' ? { recipe: r.value, id: ids[i] } : null)
