@@ -7,17 +7,15 @@
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="/">Recipes</a>
-      <a href="/planner/">Planner</a>
-    </nav>
-  </header>
   <main>
     {{ content | safe }}
   </main>
   {% if pageScript %}
   <script type="module" src="/assets/{{ pageScript }}"></script>
   {% endif %}
+  <nav class="nav-island">
+    <a href="/">Recipes</a>
+    <a href="/planner/">Planner</a>
+  </nav>
 </body>
 </html>
