@@ -25,9 +25,14 @@ function renderIngredients() {
   renderByStep(scaled);
 }
 
+function formatIngredient(i) {
+  const qty = i.amount != null && i.amount !== 0 ? `${i.amount}${i.unit ? ' ' + i.unit : ''}` : null;
+  return qty ? `${i.name}: ${qty}` : i.name;
+}
+
 function renderAll(ingredients) {
   document.getElementById('ingredients-all').innerHTML =
-    `<ul>${ingredients.map(i => `<li>${i.name}: ${i.amount} ${i.unit}</li>`).join('')}</ul>`;
+    `<ul>${ingredients.map(i => `<li>${formatIngredient(i)}</li>`).join('')}</ul>`;
 }
 
 function renderByStep(ingredients) {
@@ -36,7 +41,7 @@ function renderByStep(ingredients) {
     Object.entries(groups)
       .map(([step, ings]) =>
         `<div><strong>Step ${step}</strong><ul>${ings.map(i =>
-          `<li>${i.name}: ${i.amount} ${i.unit}</li>`
+          `<li>${formatIngredient(i)}</li>`
         ).join('')}</ul></div>`
       ).join('');
 }
