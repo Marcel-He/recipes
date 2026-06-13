@@ -1,0 +1,42 @@
+// Surfaces
+$background:                #fcf9f8;
+$surface-container-lowest:  #ffffff;
+$surface-container-low:     #f6f3f2;
+$surface-container:         #f0eded;
+$surface-container-high:    #eae7e7;
+$surface-container-highest: #e4e2e1;
+$surface-dim:               #dcd9d9;
+
+// Content
+$on-surface:         #1b1c1c;
+$on-surface-variant: #414844;
+$outline:            #717973;
+$outline-variant:    #c1c8c2;
+
+// Primary (Forest Green)
+$primary:           #012d1d;
+$on-primary:        #ffffff;
+$primary-container: #1b4332;
+
+// Tertiary (Ochre — planner chips)
+$tertiary:           #3b1f00;
+$tertiary-container: #56340e;
+
+// Error (destructive actions)
+$error: #ba1a1a;
+
+// Typography
+$font-display: 'Playfair Display', Georgia, serif;
+$font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+// Layout
+$max-width: 1200px;
+$gutter:    16px;
+
+// Radius
+$radius-sm:   0.25rem;
+$radius:      0.5rem;
+$radius-md:   0.75rem;
+$radius-lg:   1rem;
+$radius-xl:   1.5rem;
+$radius-full: 9999px;
