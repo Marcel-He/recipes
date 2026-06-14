@@ -29,19 +29,19 @@ describe('nav active state', () => {
 
   it('includes pill-bg span in each nav link on home page', () => {
     const html = readFileSync('_site/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg"></span>Planner');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
   });
 
   it('includes pill-bg span in each nav link on a recipe page', () => {
     const html = readFileSync('_site/recipes/bolognese/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg"></span>Planner');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
   });
 
   it('includes pill-bg span in each nav link on the planner page', () => {
     const html = readFileSync('_site/planner/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg"></span>Planner');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
+    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
   });
 });
