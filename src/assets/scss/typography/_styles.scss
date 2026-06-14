@@ -24,7 +24,6 @@ body {
 }
 
 // ── Type scale ─────────────────────────────────────────────────────────────
-// display: 36px → 48px  (hero sections only)
 .display {
   font-family: $font-display;
   font-size: clamp(2.25rem, 1.5rem + 3vw, 3rem);
@@ -34,7 +33,6 @@ body {
   color: $text-heading;
 }
 
-// headline: 20px → 32px
 .headline {
   font-family: $font-display;
   font-size: clamp(1.25rem, 0.875rem + 2vw, 2rem);
@@ -43,7 +41,6 @@ body {
   color: $text-heading;
 }
 
-// body: 16px → 18px
 .body {
   font-family: $font-body;
   font-size: clamp(1rem, 0.875rem + 0.333vw, 1.125rem);
@@ -51,7 +48,6 @@ body {
   line-height: 1.56;
 }
 
-// label: 12px → 14px
 .label {
   font-family: $font-body;
   font-size: clamp(0.75rem, 0.625rem + 0.333vw, 0.875rem);

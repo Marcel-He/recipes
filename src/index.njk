@@ -11,7 +11,7 @@ pageScript: main.js
   <li data-id="{{ item.data.id }}">
     <a href="{{ item.url }}">
       {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
-      {{ item.data.title }}
+      <span class="headline">{{ item.data.title }}</span>
     </a>
   </li>
   {% endfor %}
