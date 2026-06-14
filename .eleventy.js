@@ -1,4 +1,5 @@
 export default function(eleventyConfig) {
+  eleventyConfig.addWatchTarget("src/assets/**/*.scss");
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/recipes/**/*.json");
   eleventyConfig.addPassthroughCopy({
