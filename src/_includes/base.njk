@@ -14,8 +14,8 @@
   <script type="module" src="/assets/{{ pageScript }}"></script>
   {% endif %}
   <nav class="nav-island" aria-label="Main navigation">
-    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><span class="pill-bg"></span>Recipes</a>
-    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><span class="pill-bg"></span>Planner</a>
+    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><span class="pill-bg" aria-hidden="true"></span>Recipes</a>
+    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><span class="pill-bg" aria-hidden="true"></span>Planner</a>
   </nav>
 </body>
 </html>
