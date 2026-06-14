@@ -15,22 +15,75 @@
   font-display: swap;
 }
 
-// ── Typography ─────────────────────────────────────────────────────────────
+// ── Base ───────────────────────────────────────────────────────────────────
 body {
   font-family: $font-body;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   color: $text-base;
 }
 
-h1, h2, h3,
-.h1, .h2, .h3, .h4 {
+// ── Type scale ─────────────────────────────────────────────────────────────
+// display: 36px → 48px  (hero sections only)
+.display {
   font-family: $font-display;
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3rem);
+  font-weight: 700;
+  line-height: 1.17;
+  letter-spacing: -0.02em;
   color: $text-heading;
 }
 
-.h1 { font-size: 32px; font-weight: 700; line-height: 40px; margin: 0 0 0.25rem; }
-.h2 { font-size: 24px; font-weight: 600; line-height: 32px; margin: 0 0 0.75rem; }
-.h3 { font-size: 20px; font-weight: 600; line-height: 28px; margin: 0 0 0.5rem; }
-.h4 { font-size: 16px; font-weight: 700; line-height: 24px; margin: 0 0 0.25rem; }
-.label { font-size: 12px; font-weight: 600; line-height: 16px; }
+// headline: 20px → 32px
+.headline {
+  font-family: $font-display;
+  font-size: clamp(1.25rem, 0.875rem + 2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: $text-heading;
+}
+
+// body: 16px → 18px
+.body {
+  font-family: $font-body;
+  font-size: clamp(1rem, 0.875rem + 0.333vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.56;
+}
+
+// label: 12px → 14px
+.label {
+  font-family: $font-body;
+  font-size: clamp(0.75rem, 0.625rem + 0.333vw, 0.875rem);
+  font-weight: 600;
+  line-height: 1.43;
+  letter-spacing: 0.05em;
+}
+
+// ── HTML element defaults ───────────────────────────────────────────────────
+h1 {
+  font-family: $font-display;
+  font-size: clamp(1.25rem, 0.875rem + 2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: $text-heading;
+  margin: 0 0 0.25rem;
+}
+
+h2 {
+  font-family: $font-display;
+  font-size: clamp(1.125rem, 1rem + 0.667vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.33;
+  color: $text-heading;
+  margin: 0 0 0.75rem;
+}
+
+h3 {
+  font-family: $font-display;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: $text-heading;
+  margin: 0 0 0.5rem;
+}
