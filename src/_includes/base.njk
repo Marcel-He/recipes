@@ -14,8 +14,47 @@
   <script type="module" src="/assets/{{ pageScript }}"></script>
   {% endif %}
   <nav class="nav-island" aria-label="Main navigation">
-    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><span class="pill-bg" aria-hidden="true"></span>Recipes</a>
-    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><span class="pill-bg" aria-hidden="true"></span>Planner</a>
+    <div class="nav-pill" aria-hidden="true"></div>
+    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}>Recipes</a>
+    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}>Planner</a>
   </nav>
+  <script>
+  (function () {
+    var nav = document.querySelector('.nav-island');
+    var pill = nav.querySelector('.nav-pill');
+    var active = nav.querySelector('[aria-current="page"]');
+    if (!pill || !active) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function measure(el) {
+      var nr = nav.getBoundingClientRect(), er = el.getBoundingClientRect();
+      return { left: er.left - nr.left, top: er.top - nr.top, width: er.width, height: er.height };
+    }
+    function place(p) {
+      pill.style.left = p.left + 'px';
+      pill.style.top = p.top + 'px';
+      pill.style.width = p.width + 'px';
+      pill.style.height = p.height + 'px';
+    }
+    var prevHref = sessionStorage.getItem('nav-pill');
+    var prevLink = prevHref ? nav.querySelector('a[href="' + prevHref + '"]') : null;
+    if (!reduced && prevLink && prevLink !== active) {
+      pill.style.transition = 'none';
+      place(measure(prevLink));
+      pill.style.opacity = '1';
+      pill.getBoundingClientRect();
+      pill.style.transition = '';
+      place(measure(active));
+    } else {
+      pill.style.transition = 'none';
+      place(measure(active));
+      pill.style.opacity = '1';
+    }
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        sessionStorage.setItem('nav-pill', a.getAttribute('href'));
+      });
+    });
+  }());
+  </script>
 </body>
 </html>

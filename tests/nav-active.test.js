@@ -27,21 +27,18 @@ describe('nav active state', () => {
     expect(html).toMatch(/href="\/planner\/" aria-current="page"/);
   });
 
-  it('includes pill-bg span in each nav link on home page', () => {
+  it('includes nav-pill div in the nav island', () => {
     const html = readFileSync('_site/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
+    expect(html).toContain('<div class="nav-pill" aria-hidden="true"></div>');
   });
 
-  it('includes pill-bg span in each nav link on a recipe page', () => {
+  it('includes nav-pill div on recipe pages', () => {
     const html = readFileSync('_site/recipes/bolognese/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
+    expect(html).toContain('<div class="nav-pill" aria-hidden="true"></div>');
   });
 
-  it('includes pill-bg span in each nav link on the planner page', () => {
+  it('includes nav-pill div on the planner page', () => {
     const html = readFileSync('_site/planner/index.html', 'utf8');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Recipes');
-    expect(html).toContain('<span class="pill-bg" aria-hidden="true"></span>Planner');
+    expect(html).toContain('<div class="nav-pill" aria-hidden="true"></div>');
   });
 });
