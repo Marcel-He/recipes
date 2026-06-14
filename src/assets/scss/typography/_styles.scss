@@ -1,0 +1,36 @@
+@use '../tokens' as *;
+
+// ── Fonts ──────────────────────────────────────────────────────────────────
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+// ── Typography ─────────────────────────────────────────────────────────────
+body {
+  font-family: $font-body;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $on-surface;
+}
+
+h1, h2, h3,
+.h1, .h2, .h3, .h4 {
+  font-family: $font-display;
+  color: $on-surface;
+}
+
+.h1 { font-size: 32px; font-weight: 700; line-height: 40px; margin: 0 0 0.25rem; }
+.h2 { font-size: 24px; font-weight: 600; line-height: 32px; margin: 0 0 0.75rem; }
+.h3 { font-size: 20px; font-weight: 600; line-height: 28px; margin: 0 0 0.5rem; }
+.h4 { font-size: 16px; font-weight: 700; line-height: 24px; margin: 0 0 0.25rem; }
+.label { font-size: 12px; font-weight: 600; line-height: 16px; }

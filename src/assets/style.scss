@@ -1,19 +1,5 @@
-@use 'variables' as *;
-
-// ── Fonts ──────────────────────────────────────────────────────────────────
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/assets/fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
-  font-weight: 300 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 800;
-  font-display: swap;
-}
+@use './scss/tokens' as *;
+@use './scss/typography';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *, *::before, *::after { box-sizing: border-box; }
@@ -22,11 +8,7 @@
 // ── Base ───────────────────────────────────────────────────────────────────
 body {
   margin: 0;
-  font-family: $font-body;
-  font-size: 16px;
-  line-height: 1.6;
   background: $background;
-  color: $on-surface;
   padding-bottom: 80px;
 }
 
@@ -35,15 +17,6 @@ main {
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
-
-// ── Typography ─────────────────────────────────────────────────────────────
-h1, h2, h3 {
-  font-family: $font-display;
-  color: $on-surface;
-}
-
-h1 { font-size: 32px; font-weight: 700; line-height: 40px; margin: 0 0 0.25rem; }
-h2 { font-size: 24px; font-weight: 600; line-height: 32px; margin: 0 0 0.75rem; }
 
 // ── Nav island ─────────────────────────────────────────────────────────────
 .nav-island {
@@ -301,6 +274,77 @@ button {
     font-weight: 600;
     color: $tertiary;
   }
+}
+
+// ── Pattern library ────────────────────────────────────────────────────────
+.pl-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pl-subnav {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid $outline-variant;
+  padding-bottom: 0;
+
+  a {
+    font-family: $font-body;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    color: $outline;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+
+    &:hover { color: $on-surface; }
+
+    &[aria-current="page"] {
+      color: $primary;
+      border-bottom-color: $primary;
+    }
+  }
+}
+
+.pl-content {
+  h1 { margin-bottom: 2rem; }
+}
+
+.pl-section {
+  margin-bottom: 3rem;
+}
+
+.pl-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $outline;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $outline-variant;
+}
+
+.pl-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid $surface-container-high;
+
+  &:last-child { border-bottom: none; }
+
+  > :first-child { min-width: 280px; margin: 0; }
+}
+
+.pl-label {
+  font-size: 11px;
+  color: $outline;
+  font-family: monospace;
+  white-space: nowrap;
 }
 
 // ── Shopping list ──────────────────────────────────────────────────────────
