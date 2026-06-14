@@ -4,8 +4,14 @@
 @use './scss/recipe-list';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
-*, *::before, *::after { box-sizing: border-box; }
-[hidden] { display: none !important; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
 
 // ── Base ───────────────────────────────────────────────────────────────────
 body {
@@ -44,8 +50,9 @@ main {
     background: $brand;
     pointer-events: none;
     opacity: 0;
-    transition: left 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
-                width 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+    transition:
+      left 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
+      width 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
   }
 
   a {
@@ -59,10 +66,15 @@ main {
     transition: color 0.15s;
     position: relative;
 
-    &:hover { color: $brand; }
-    &:focus-visible { outline: 2px solid $brand; outline-offset: 2px; }
+    &:hover {
+      color: $brand;
+    }
+    &:focus-visible {
+      outline: 2px solid $brand;
+      outline-offset: 2px;
+    }
 
-    &[aria-current="page"] {
+    &[aria-current='page'] {
       color: $brand-text;
     }
   }
@@ -80,7 +92,9 @@ main {
   color: $text-base;
   margin-bottom: 1.5rem;
 
-  &::placeholder { color: $text-subtle; }
+  &::placeholder {
+    color: $text-subtle;
+  }
 
   &:focus {
     outline: none;
@@ -100,11 +114,22 @@ button {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 
-  &:hover:not(:disabled) { background: rgba($brand, 0.06); }
-  &:focus-visible { outline: 2px solid $brand; outline-offset: 2px; }
-  &:disabled { opacity: 0.4; cursor: default; }
+  &:hover:not(:disabled) {
+    background: rgba($brand, 0.06);
+  }
+  &:focus-visible {
+    outline: 2px solid $brand;
+    outline-offset: 2px;
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
 }
 
 // Primary — recipe detail page + export
@@ -141,7 +166,9 @@ button {
   color: $danger;
   border-color: $danger;
 
-  &:hover:not(:disabled) { background: rgba($danger, 0.06); }
+  &:hover:not(:disabled) {
+    background: rgba($danger, 0.06);
+  }
 }
 
 // Circular servings controls
@@ -165,11 +192,15 @@ button {
   font-size: 1rem;
   cursor: pointer;
 
-  &:hover { color: $tag; }
+  &:hover {
+    color: $tag;
+  }
 }
 
 // ── Recipe detail ──────────────────────────────────────────────────────────
-[data-recipe-id] h1 { margin: 2rem 0 0.25rem; }
+[data-recipe-id] h1 {
+  margin: 2rem 0 0.25rem;
+}
 
 .difficulty {
   display: inline-block;
@@ -188,7 +219,10 @@ button {
   gap: 0.5rem;
   margin: 1.25rem 0;
 
-  label { font-weight: 600; font-size: 13px; }
+  label {
+    font-weight: 600;
+    font-size: 13px;
+  }
 }
 
 #servings {
@@ -208,9 +242,17 @@ button {
   border-radius: $radius-lg;
   box-shadow: $shadow-card;
 
-  h2 { margin: 0 0 0.75rem; }
-  ul, ol { padding-left: 1.25rem; margin: 0; }
-  li { margin-bottom: 0.35rem; }
+  h2 {
+    margin: 0 0 0.75rem;
+  }
+  ul,
+  ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+  li {
+    margin-bottom: 0.35rem;
+  }
 }
 
 // ── Planner chips ──────────────────────────────────────────────────────────
@@ -259,11 +301,15 @@ button {
     padding: 0.5rem 1rem;
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
-    transition: color 0.15s, border-color 0.15s;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
 
-    &:hover { color: $text-base; }
+    &:hover {
+      color: $text-base;
+    }
 
-    &[aria-current="page"] {
+    &[aria-current='page'] {
       color: $brand;
       border-bottom-color: $brand;
     }
@@ -292,9 +338,14 @@ button {
   padding: 0.75rem 0;
   border-bottom: 1px solid $row;
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 
-  > :first-child { min-width: 280px; margin: 0; }
+  > :first-child {
+    min-width: 280px;
+    margin: 0;
+  }
 }
 
 .pl-label {
@@ -315,7 +366,8 @@ button {
     border-bottom: 1px solid $border;
     font-size: 16px;
 
-    &:last-child { border-bottom: none; }
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
-

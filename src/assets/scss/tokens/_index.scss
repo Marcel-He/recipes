@@ -4,25 +4,25 @@
 // ── Roles ──────────────────────────────────────────────────────────────────
 
 // Text
-$text-base:    $neutral-950;
+$text-base: $neutral-950;
 $text-heading: $neutral-950;
-$text-subtle:  $neutral-700;
+$text-subtle: $neutral-700;
 
 // Surfaces
-$bg:   $neutral-50;
+$bg: $neutral-50;
 $card: $neutral-0;
-$row:  $neutral-300;
+$row: $neutral-300;
 
 // Border
 $border: $neutral-650;
 
 // Brand
-$brand:       $green-900;
-$brand-text:  $neutral-0;
+$brand: $green-900;
+$brand-text: $neutral-0;
 $brand-hover: $green-800;
 
 // Tags
-$tag:    $ochre-900;
+$tag: $ochre-900;
 $tag-bg: $ochre-800;
 
 // Danger
@@ -30,21 +30,23 @@ $danger: $red-600;
 
 // Typography
 $font-display: 'Playfair Display', Georgia, serif;
-$font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+$font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
 
 // Layout
 $max-width: 1200px;
-$gutter:    16px;
+$gutter: 16px;
 
 // Radius
-$radius-sm:   0.25rem;
-$radius:      0.5rem;
-$radius-md:   0.75rem;
-$radius-lg:   1rem;
-$radius-xl:   1.5rem;
+$radius-sm: 0.25rem;
+$radius: 0.5rem;
+$radius-md: 0.75rem;
+$radius-lg: 1rem;
+$radius-xl: 1.5rem;
 $radius-full: 9999px;
 
 // Shadows — sorted by visual elevation (low → high)
-$shadow-card:  0 2px 12px rgba($brand, 0.08);                                     // cards, drawers
-$shadow-nav:   0 4px 24px rgba($brand, 0.14), 0 1px 4px rgba($brand, 0.08);      // floating nav island
-$shadow-focus: 0 0 0 2px rgba($brand, 0.15);                                       // focus ring
+$shadow-card: 0 2px 12px rgba($brand, 0.08); // cards, drawers
+$shadow-nav:
+  0 4px 24px rgba($brand, 0.14),
+  0 1px 4px rgba($brand, 0.08); // floating nav island
+$shadow-focus: 0 0 0 2px rgba($brand, 0.15); // focus ring

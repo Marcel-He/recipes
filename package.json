@@ -6,7 +6,8 @@
     "build": "eleventy",
     "start": "eleventy --serve",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "precommit": "prettier --write 'src/**/*.scss'"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
@@ -14,6 +15,7 @@
     "fuse.js": "^7.0.0"
   },
   "devDependencies": {
+    "prettier": "^3.8.4",
     "sass": "^1.101.0",
     "scss": "^0.2.4",
     "vitest": "^2.0.0"
