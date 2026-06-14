@@ -1,0 +1,16 @@
+{
+  "id": "tortilla-de-patatas",
+  "title": "Tortilla de Patatas",
+  "aufwand": "aufwändig",
+  "servings": 4,
+  "ingredients": [
+    { "name": "Kartoffeln", "amount": 900, "unit": "g", "step": 1 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 1 },
+    { "name": "Olivenöl", "amount": null, "unit": "ml", "step": 2 },
+    { "name": "Zwiebel", "amount": 1, "unit": "Stück", "step": 3 },
+    { "name": "Olivenöl", "amount": null, "unit": "ml", "step": 3 },
+    { "name": "Eier", "amount": 8, "unit": "Stück", "step": 4 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 4 },
+    { "name": "Olivenöl", "amount": null, "unit": "ml", "step": 5 }
+  ]
+}
