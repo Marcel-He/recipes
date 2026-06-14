@@ -43,3 +43,8 @@ $radius-md:   0.75rem;
 $radius-lg:   1rem;
 $radius-xl:   1.5rem;
 $radius-full: 9999px;
+
+// Shadows — sorted by visual elevation (low → high)
+$shadow-card:  0 2px 12px rgba($brand, 0.08);                                     // cards, drawers
+$shadow-nav:   0 4px 24px rgba($brand, 0.14), 0 1px 4px rgba($brand, 0.08);      // floating nav island
+$shadow-focus: 0 0 0 2px rgba($brand, 0.15);                                       // focus ring

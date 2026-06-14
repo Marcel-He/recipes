@@ -36,7 +36,7 @@ main {
   border: 1px solid rgba($border, 0.6);
   border-radius: $radius-full;
   padding: 0.45rem 0.75rem;
-  box-shadow: 0 4px 24px rgba($brand, 0.14), 0 1px 4px rgba($brand, 0.08);
+  box-shadow: $shadow-nav;
 
   .nav-pill {
     position: absolute;
@@ -85,7 +85,7 @@ main {
   &:focus {
     outline: none;
     border-color: $brand;
-    box-shadow: 0 0 0 2px rgba($brand, 0.15);
+    box-shadow: $shadow-focus;
   }
 }
 
@@ -206,7 +206,7 @@ button {
   background: $card;
   border: none;
   border-radius: $radius-lg;
-  box-shadow: 0 2px 12px rgba($brand, 0.08);
+  box-shadow: $shadow-card;
 
   h2 { margin: 0 0 0.75rem; }
   ul, ol { padding-left: 1.25rem; margin: 0; }
