@@ -1,0 +1,49 @@
+// Tier 1 — Palette
+// Raw color values named by hue and lightness only.
+// No semantic meaning — reference from system tokens (_index.scss) only.
+
+// Green (Forest Green)
+$green-100: #c1ecd4;
+$green-200: #a5d0b9;
+$green-400: #86af99;
+$green-600: #3f6653;
+$green-700: #274e3d;
+$green-800: #1b4332;
+$green-900: #012d1d;
+$green-950: #002114;
+
+// Ochre (Warm Amber)
+$ochre-100: #ffdcbd;
+$ochre-200: #f0bd8b;
+$ochre-400: #cd9d6d;
+$ochre-700: #623f18;
+$ochre-800: #56340e;
+$ochre-900: #3b1f00;
+$ochre-950: #2c1600;
+
+// Neutral (warm surfaces through charcoal)
+$neutral-0:   #ffffff;
+$neutral-50:  #fcf9f8;
+$neutral-100: #f6f3f2;
+$neutral-150: #f3f0f0;
+$neutral-200: #f0eded;
+$neutral-300: #eae7e7;
+$neutral-400: #e4e2e1;
+$neutral-450: #e4e2dd;
+$neutral-500: #e1dfdb;
+$neutral-550: #dcd9d9;
+$neutral-600: #c8c6c2;
+$neutral-650: #c1c8c2;
+$neutral-700: #717973;
+$neutral-750: #63635f;
+$neutral-800: #5e5e5b;
+$neutral-850: #474744;
+$neutral-875: #414844;
+$neutral-900: #303030;
+$neutral-950: #1b1c1c;
+$neutral-975: #1b1c19;
+
+// Red (error)
+$red-100: #ffdad6;
+$red-600: #ba1a1a;
+$red-900: #93000a;

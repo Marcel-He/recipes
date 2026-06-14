@@ -20,13 +20,13 @@ body {
   font-family: $font-body;
   font-size: 16px;
   line-height: 1.6;
-  color: $on-surface;
+  color: $text-base;
 }
 
 h1, h2, h3,
 .h1, .h2, .h3, .h4 {
   font-family: $font-display;
-  color: $on-surface;
+  color: $text-heading;
 }
 
 .h1 { font-size: 32px; font-weight: 700; line-height: 40px; margin: 0 0 0.25rem; }

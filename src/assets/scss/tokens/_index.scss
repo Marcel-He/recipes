@@ -1,0 +1,73 @@
+@forward 'palette';
+@use 'palette' as *;
+
+// Surfaces
+$background:                $neutral-50;
+$surface-container-lowest:  $neutral-0;
+$surface-container-low:     $neutral-100;
+$surface-container:         $neutral-200;
+$surface-container-high:    $neutral-300;
+$surface-container-highest: $neutral-400;
+$surface-dim:               $neutral-550;
+
+// Content
+$on-surface:         $neutral-950;
+$on-surface-variant: $neutral-875;
+$outline:            $neutral-700;
+$outline-variant:    $neutral-650;
+
+// Primary (Forest Green)
+$primary:           $green-900;
+$on-primary:        $neutral-0;
+$primary-container: $green-800;
+
+// Tertiary (Ochre — planner chips)
+$tertiary:           $ochre-900;
+$tertiary-container: $ochre-800;
+
+// Error (destructive actions)
+$error: $red-600;
+
+// Typography
+$font-display: 'Playfair Display', Georgia, serif;
+$font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+// Layout
+$max-width: 1200px;
+$gutter:    16px;
+
+// Radius
+$radius-sm:   0.25rem;
+$radius:      0.5rem;
+$radius-md:   0.75rem;
+$radius-lg:   1rem;
+$radius-xl:   1.5rem;
+$radius-full: 9999px;
+
+// ── Tier 3 — Usage aliases ─────────────────────────────────────────────────
+// What tokens DO in specific UI contexts. Use these in components, not Tier 2.
+
+// Text
+$text-base:    $on-surface;   // body copy
+$text-heading: $on-surface;   // headings — separate alias so they can diverge
+$text-muted:   $outline;      // inactive nav, placeholders, metadata labels
+
+// Surfaces
+$surface-page: $background;              // page canvas
+$surface-card: $surface-container-lowest; // cards, drawers, inputs
+$surface-row:  $surface-container-high;   // subtle row / divider backgrounds
+
+// Borders
+$border: $outline-variant; // default border: nav island, search, dividers
+
+// Action (interactive / brand)
+$action:       $primary;           // buttons, active nav, focus rings
+$action-text:  $on-primary;        // text on action-colored surfaces
+$action-hover: $primary-container; // button hover surface
+
+// Chips / tags
+$chip-text:    $tertiary;
+$chip-surface: $tertiary-container;
+
+// Feedback
+$destructive: $error;
