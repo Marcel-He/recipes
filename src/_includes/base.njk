@@ -51,7 +51,8 @@
     }
     nav.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
-        sessionStorage.setItem('nav-pill', a.getAttribute('href'));
+        var src = nav.querySelector('[aria-current="page"]');
+        if (src) sessionStorage.setItem('nav-pill', src.getAttribute('href'));
       });
     });
   }());
