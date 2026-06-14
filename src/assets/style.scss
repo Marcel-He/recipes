@@ -1,5 +1,6 @@
 @use './scss/tokens' as *;
 @use './scss/typography';
+@use './scss/images';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *, *::before, *::after { box-sizing: border-box; }
