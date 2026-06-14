@@ -73,6 +73,7 @@ h2 { font-size: 24px; font-weight: 600; line-height: 32px; margin: 0 0 0.75rem; 
     border-radius: $radius-full;
     transition: color 0.15s;
     position: relative;
+    isolation: isolate;
 
     &:hover { color: $primary; }
     &:focus-visible { outline: 2px solid $primary; outline-offset: 2px; }
