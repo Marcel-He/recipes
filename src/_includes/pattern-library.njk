@@ -1,0 +1,13 @@
+---
+layout: base.njk
+---
+<div class="pl-layout">
+  <nav class="pl-subnav" aria-label="Pattern library">
+    <a href="/pattern-library/atoms/" {% if page.url == "/pattern-library/atoms/" %}aria-current="page"{% endif %}>Atoms</a>
+    <a href="/pattern-library/components/" {% if page.url == "/pattern-library/components/" %}aria-current="page"{% endif %}>Components</a>
+  </nav>
+  <div class="pl-content">
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </div>
+</div>
