@@ -6,7 +6,14 @@ export default class RecipesIndex {
     };
   }
 
-  render({ recipes }) {
-    return JSON.stringify(recipes);
+  render({ collections }) {
+    return JSON.stringify(
+      collections.recipe.map(item => ({
+        id: item.data.id,
+        title: item.data.title,
+        difficulty: item.data.difficulty,
+        aufwand: item.data.aufwand,
+      }))
+    );
   }
 }

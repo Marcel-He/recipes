@@ -1,8 +1,5 @@
 {
   "id": "shakshuka-nach-ottolenghi",
-  "title": "Shakshuka nach Ottolenghi",
-  "aufwand": "mittel",
-  "servings": 4,
   "ingredients": [
     { "name": "Olivenöl", "amount": 2, "unit": "EL", "step": 1 },
     { "name": "Harissa", "amount": 2, "unit": "EL", "step": 1 },

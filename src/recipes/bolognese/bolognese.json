@@ -1,8 +1,5 @@
 {
   "id": "bolognese",
-  "title": "Spaghetti Bolognese",
-  "difficulty": "easy",
-  "servings": 4,
   "ingredients": [
     { "name": "Minced beef", "amount": 500, "unit": "g", "step": 1 },
     { "name": "Olive oil", "amount": 2, "unit": "tbsp", "step": 1 },

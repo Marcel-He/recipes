@@ -7,11 +7,14 @@ pageScript: main.js
   <input id="search" type="search" placeholder="Search recipes…" autocomplete="off">
 </section>
 <ul id="recipe-list">
-  {% for recipe in recipes %}
-  <li data-id="{{ recipe.id }}">
-    <a href="/recipes/{{ recipe.id }}/">{{ recipe.title }}</a>
-    <span>{{ recipe.difficulty }}</span>
-    <button class="add-to-planner" data-id="{{ recipe.id }}">+ Planner</button>
+  {% for item in collections.recipe %}
+  <li data-id="{{ item.data.id }}">
+    <a href="{{ item.url }}">
+      {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
+      {{ item.data.title }}
+    </a>
+    <span>{{ item.data.difficulty }}</span>
+    <button class="add-to-planner" data-id="{{ item.data.id }}">+ Planner</button>
   </li>
   {% endfor %}
 </ul>

@@ -3,6 +3,7 @@ id: bolognese
 title: Spaghetti Bolognese
 difficulty: easy
 servings: 4
+image: /assets/images/dish-1.png
 ---
 
 A classic Italian meat sauce served over spaghetti.

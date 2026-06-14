@@ -1,8 +1,5 @@
 {
   "id": "rote-bete-carpaccio-mit-feta",
-  "title": "Rote Bete Carpaccio mit Feta",
-  "aufwand": "einfach",
-  "servings": 4,
   "ingredients": [
     { "name": "Feldsalat", "amount": 100, "unit": "g", "step": 1 },
     { "name": "Rote Bete (vakuumverpackt, vorgekocht)", "amount": 500, "unit": "g", "step": 1 },

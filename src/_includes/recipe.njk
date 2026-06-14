@@ -3,6 +3,9 @@ layout: base.njk
 pageScript: recipe.js
 ---
 <article data-recipe-id="{{ id }}" data-base-servings="{{ servings }}">
+  {% if image %}
+  <img src="{{ image }}" alt="{{ title }}" class="recipe-hero">
+  {% endif %}
   <header>
     <h1>{{ title }}</h1>
     <span class="difficulty">{{ difficulty }}</span>

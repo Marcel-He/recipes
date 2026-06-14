@@ -3,6 +3,7 @@ id: rote-bete-carpaccio-mit-feta
 title: Rote Bete Carpaccio mit Feta
 aufwand: einfach
 servings: 4
+image: /assets/images/dish-1.png
 ---
 
 Ein elegantes vegetarisches Vorspeisengericht mit dünn geschnittener Rote Bete auf Feldsalat.

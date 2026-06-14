@@ -17,8 +17,7 @@
   <nav class="nav-island" aria-label="Main navigation">
     <div class="nav-pill" aria-hidden="true"></div>
     <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><i class="fa-solid fa-utensils"></i></a>
-    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><i class="fa-solid fa-calendar"></i></a>
-  </nav>
+    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><i class="fa-solid fa-calendar"></i></a>  </nav>
   <script>
   (function () {
     var nav = document.querySelector('.nav-island');
