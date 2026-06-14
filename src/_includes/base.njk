@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title or "Recipes" }}</title>
-  <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "Recipes" }}</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-  <main>
+<main>
     {{ content | safe }}
-  </main>
-  {% if pageScript %}
-  <script type="module" src="/assets/{{ pageScript }}"></script>
-  {% endif %}
-  <nav class="nav-island" aria-label="Main navigation">
+</main>
+{% if pageScript %}
+<script type="module" src="/assets/{{ pageScript }}"></script>
+{% endif %}
+<nav class="nav-island" aria-label="Main navigation">
     <div class="nav-pill" aria-hidden="true"></div>
-    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><i class="fa-solid fa-utensils"></i></a>
-    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><i class="fa-solid fa-calendar"></i></a>  </nav>
-  <script>
-  (function () {
-    var nav = document.querySelector('.nav-island');
-    var pill = nav.querySelector('.nav-pill');
-    var active = nav.querySelector('[aria-current="page"]');
-    if (!pill || !active) return;
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function measure(el) {
-      var nr = nav.getBoundingClientRect(), er = el.getBoundingClientRect();
-      return { left: er.left - nr.left, top: er.top - nr.top, width: er.width, height: er.height };
-    }
-    function place(p) {
-      pill.style.left = p.left + 'px';
-      pill.style.top = p.top + 'px';
-      pill.style.width = p.width + 'px';
-      pill.style.height = p.height + 'px';
-    }
-    var prevHref = sessionStorage.getItem('nav-pill');
-    var prevLink = prevHref ? nav.querySelector('a[href="' + prevHref + '"]') : null;
-    if (!reduced && prevLink && prevLink !== active) {
-      pill.style.transition = 'none';
-      place(measure(prevLink));
-      pill.style.opacity = '1';
-      pill.getBoundingClientRect();
-      pill.style.transition = '';
-      place(measure(active));
-    } else {
-      pill.style.transition = 'none';
-      place(measure(active));
-      pill.style.opacity = '1';
-    }
-    nav.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        var src = nav.querySelector('[aria-current="page"]');
-        if (src) sessionStorage.setItem('nav-pill', src.getAttribute('href'));
-      });
-    });
-  }());
-  </script>
+    <a href="/" {% if page.url == "/" or "/recipes/" in page.url %}aria-current="page"{% endif %}><i class="fa-solid fa-utensils"></i>Rezepte</a>
+    <a href="/planner/" {% if page.url == "/planner/" %}aria-current="page"{% endif %}><i class="fa-solid fa-calendar"></i>Planer</a>
+</nav>
+<script>
+    (function () {
+        var nav = document.querySelector('.nav-island');
+        var pill = nav.querySelector('.nav-pill');
+        var active = nav.querySelector('[aria-current="page"]');
+        if (!pill || !active) return;
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function measure(el) {
+            var nr = nav.getBoundingClientRect(), er = el.getBoundingClientRect();
+            return { left: er.left - nr.left, top: er.top - nr.top, width: er.width, height: er.height };
+        }
+        function place(p) {
+            pill.style.left = p.left + 'px';
+            pill.style.top = p.top + 'px';
+            pill.style.width = p.width + 'px';
+            pill.style.height = p.height + 'px';
+        }
+        var prevHref = sessionStorage.getItem('nav-pill');
+        var prevLink = prevHref ? nav.querySelector('a[href="' + prevHref + '"]') : null;
+        if (!reduced && prevLink && prevLink !== active) {
+            pill.style.transition = 'none';
+            place(measure(prevLink));
+            pill.style.opacity = '1';
+            pill.getBoundingClientRect();
+            pill.style.transition = '';
+            place(measure(active));
+        } else {
+            pill.style.transition = 'none';
+            place(measure(active));
+            pill.style.opacity = '1';
+        }
+        nav.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                var src = nav.querySelector('[aria-current="page"]');
+                if (src) sessionStorage.setItem('nav-pill', src.getAttribute('href'));
+            });
+        });
+    }());
+</script>
 </body>
 </html>

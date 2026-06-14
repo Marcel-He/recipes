@@ -58,13 +58,16 @@ main {
   a {
     font-family: $font-body;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     text-decoration: none;
     color: $text-subtle;
     padding: 0.35rem 0.9rem;
     border-radius: $radius-full;
     transition: color 0.15s;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &:hover {
       color: $brand;
