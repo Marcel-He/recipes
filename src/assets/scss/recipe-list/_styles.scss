@@ -1,0 +1,33 @@
+@use '../tokens' as *;
+
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    border: none;
+    border-radius: $radius-lg;
+  }
+
+  a {
+    flex: 1;
+    text-decoration: none;
+    color: $text-base;
+    font-weight: 600;
+    text-align: center;
+
+    &:hover { color: $brand; }
+  }
+
+  span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $text-subtle;
+  }
+}

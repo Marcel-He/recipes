@@ -6,15 +6,13 @@ pageScript: main.js
 <section>
   <input id="search" type="search" placeholder="Search recipes…" autocomplete="off">
 </section>
-<ul id="recipe-list">
+<ul class="recipe-list">
   {% for item in collections.recipe %}
   <li data-id="{{ item.data.id }}">
     <a href="{{ item.url }}">
       {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
       {{ item.data.title }}
     </a>
-    <span>{{ item.data.difficulty }}</span>
-    <button class="add-to-planner" data-id="{{ item.data.id }}">+ Planner</button>
   </li>
   {% endfor %}
 </ul>

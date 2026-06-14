@@ -1,6 +1,7 @@
 @use './scss/tokens' as *;
 @use './scss/typography';
 @use './scss/images';
+@use './scss/recipe-list';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *, *::before, *::after { box-sizing: border-box; }
@@ -85,47 +86,6 @@ main {
     outline: none;
     border-color: $brand;
     box-shadow: 0 0 0 2px rgba($brand, 0.15);
-  }
-}
-
-// ── Recipe list ────────────────────────────────────────────────────────────
-#recipe-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 0.9rem 1.1rem;
-    background: $card;
-    border: none;
-    border-radius: $radius-lg;
-    box-shadow: 0 2px 12px rgba($brand, 0.08);
-    transition: box-shadow 0.15s, transform 0.15s;
-
-    &:hover { box-shadow: 0 4px 20px rgba($brand, 0.14); transform: translateY(-1px); }
-  }
-
-  a {
-    flex: 1;
-    text-decoration: none;
-    color: $text-base;
-    font-weight: 600;
-
-    &:hover { color: $brand; }
-  }
-
-  span {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: $text-subtle;
   }
 }
 
