@@ -17,4 +17,10 @@ describe('buildBringUrl', () => {
     expect(typeof url).toBe('string');
     expect(url.startsWith('bring://')).toBe(true);
   });
+
+  it('omits the quantity for an ingredient without amount or unit', () => {
+    const url = buildBringUrl([{ name: 'Balsamico-Creme', amount: null, unit: null }]);
+    expect(url).toContain('Balsamico-Creme,');
+    expect(url).not.toContain('null');
+  });
 });

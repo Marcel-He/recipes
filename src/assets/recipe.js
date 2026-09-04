@@ -1,5 +1,6 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
+import { formatIngredient } from './lib/format.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -23,11 +24,6 @@ function renderIngredients() {
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
   renderByStep(scaled);
-}
-
-function formatIngredient(i) {
-  const qty = i.amount != null && i.amount !== 0 ? `${i.amount}${i.unit ? ' ' + i.unit : ''}` : null;
-  return qty ? `${i.name}: ${qty}` : i.name;
 }
 
 function renderAll(ingredients) {
