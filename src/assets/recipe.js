@@ -23,7 +23,7 @@ function renderIngredients() {
   if (!recipeData) return;
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
-  renderByStep(scaled);
+  renderStepIngredients(scaled);
 }
 
 function renderAll(ingredients) {
@@ -31,15 +31,17 @@ function renderAll(ingredients) {
     `<ul>${ingredients.map(i => `<li>${formatIngredientLine(i)}</li>`).join('')}</ul>`;
 }
 
-function renderByStep(ingredients) {
+function renderStepIngredients(ingredients) {
   const groups = groupIngredientsByStep(ingredients);
-  document.getElementById('ingredients-by-step').innerHTML =
-    Object.entries(groups)
-      .map(([step, ings]) =>
-        `<div><strong>Step ${step}</strong><ul>${ings.map(i =>
-          `<li>${formatIngredientLine(i)}</li>`
-        ).join('')}</ul></div>`
-      ).join('');
+  document.querySelectorAll('#steps-section ol > li').forEach((li, index) => {
+    li.querySelector(':scope > .step-ingredients')?.remove();
+    const ings = groups[index + 1];
+    if (!ings || !ings.length) return;
+    const header = document.createElement('div');
+    header.className = 'step-ingredients';
+    header.textContent = ings.map(formatIngredientLine).join(' · ');
+    li.prepend(header);
+  });
 }
 
 // Servings controls
@@ -54,15 +56,6 @@ document.getElementById('servings-up').addEventListener('click', () => {
   currentServings++;
   document.getElementById('servings').value = currentServings;
   renderIngredients();
-});
-
-// Step toggle
-let showByStep = false;
-document.getElementById('toggle-view').addEventListener('click', () => {
-  showByStep = !showByStep;
-  document.getElementById('ingredients-all').hidden = showByStep;
-  document.getElementById('ingredients-by-step').hidden = !showByStep;
-  document.getElementById('toggle-view').textContent = showByStep ? 'Show all' : 'Show per step';
 });
 
 // Wake lock
