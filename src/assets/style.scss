@@ -59,8 +59,8 @@ main {
     font-size: 18px;
     text-decoration: none;
     color: $text-subtle;
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 44px;
     border-radius: $radius-full;
     transition: color 0.15s;
     position: relative;
@@ -213,6 +213,7 @@ button {
   border: 1.5px solid $brand;
   text-decoration: none;
   font-size: 14px;
+  margin-block-end: 1rem;
   transition:
     background 0.15s,
     color 0.15s;
