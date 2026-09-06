@@ -59,8 +59,8 @@ main {
     font-size: 18px;
     text-decoration: none;
     color: $text-subtle;
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 44px;
     border-radius: $radius-full;
     transition: color 0.15s;
     position: relative;
@@ -154,15 +154,6 @@ button {
   padding: 0.3rem 0.85rem;
 }
 
-// Ghost — show per step toggle
-#toggle-view {
-  background: none;
-  border: none;
-  color: $brand;
-  padding: 0;
-  font-size: 13px;
-}
-
 // Destructive — clear planner
 #clear-planner {
   color: $danger;
@@ -213,6 +204,7 @@ button {
   border: 1.5px solid $brand;
   text-decoration: none;
   font-size: 14px;
+  margin-block-end: 1rem;
   transition:
     background 0.15s,
     color 0.15s;
@@ -276,12 +268,34 @@ button {
   }
   ul,
   ol {
-    padding-left: 1.25rem;
     margin: 0;
   }
   li {
     margin-bottom: 0.35rem;
   }
+}
+
+#steps-section li {
+  margin-bottom: 1.25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Per-step ingredient header — inside each <li> in #steps-section
+.step-ingredients {
+  display: block;
+  font-family: $font-body;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $brand;
+  background: rgba($brand, 0.08);
+  padding: 0.4rem 0.65rem;
+  border-radius: $radius-sm;
+  margin-bottom: 0.6rem;
 }
 
 // ── Planner chips ──────────────────────────────────────────────────────────

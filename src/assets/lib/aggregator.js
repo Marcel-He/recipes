@@ -5,7 +5,9 @@ export function aggregateIngredients(recipes) {
       const key = `${ing.name}|${ing.unit}`;
       if (map.has(key)) {
         const existing = map.get(key);
-        existing.amount = Math.round((existing.amount + ing.amount) * 10) / 10;
+        existing.amount = existing.amount == null || ing.amount == null
+          ? null
+          : Math.round((existing.amount + ing.amount) * 10) / 10;
       } else {
         map.set(key, { name: ing.name, amount: ing.amount, unit: ing.unit });
       }

@@ -32,4 +32,24 @@ describe('aggregateIngredients', () => {
   it('returns empty array for empty input', () => {
     expect(aggregateIngredients([])).toEqual([]);
   });
+
+  it('keeps amount null when merging two entries with no amount, instead of coercing to 0', () => {
+    const recipes = [
+      { ingredients: [{ name: 'Salz', amount: null, unit: null }] },
+      { ingredients: [{ name: 'Salz', amount: null, unit: null }] }
+    ];
+    const result = aggregateIngredients(recipes);
+    expect(result).toHaveLength(1);
+    expect(result[0].amount).toBeNull();
+  });
+
+  it('keeps amount null when merging a numeric amount with a missing amount', () => {
+    const recipes = [
+      { ingredients: [{ name: 'Salz', amount: 1, unit: 'TL' }] },
+      { ingredients: [{ name: 'Salz', amount: null, unit: 'TL' }] }
+    ];
+    const result = aggregateIngredients(recipes);
+    expect(result).toHaveLength(1);
+    expect(result[0].amount).toBeNull();
+  });
 });

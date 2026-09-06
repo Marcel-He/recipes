@@ -1,5 +1,6 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
+import { formatIngredientLine } from './lib/format.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -22,28 +23,25 @@ function renderIngredients() {
   if (!recipeData) return;
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
-  renderByStep(scaled);
-}
-
-function formatIngredient(i) {
-  const qty = i.amount != null && i.amount !== 0 ? `${i.amount}${i.unit ? ' ' + i.unit : ''}` : null;
-  return qty ? `${i.name}: ${qty}` : i.name;
+  renderStepIngredients(scaled);
 }
 
 function renderAll(ingredients) {
   document.getElementById('ingredients-all').innerHTML =
-    `<ul>${ingredients.map(i => `<li>${formatIngredient(i)}</li>`).join('')}</ul>`;
+    `<ul>${ingredients.map(i => `<li>${formatIngredientLine(i)}</li>`).join('')}</ul>`;
 }
 
-function renderByStep(ingredients) {
+function renderStepIngredients(ingredients) {
   const groups = groupIngredientsByStep(ingredients);
-  document.getElementById('ingredients-by-step').innerHTML =
-    Object.entries(groups)
-      .map(([step, ings]) =>
-        `<div><strong>Step ${step}</strong><ul>${ings.map(i =>
-          `<li>${formatIngredient(i)}</li>`
-        ).join('')}</ul></div>`
-      ).join('');
+  document.querySelectorAll('#steps-section ol > li').forEach((li, index) => {
+    li.querySelector(':scope > .step-ingredients')?.remove();
+    const ings = groups[index + 1];
+    if (!ings || !ings.length) return;
+    const header = document.createElement('div');
+    header.className = 'step-ingredients';
+    header.textContent = ings.map(formatIngredientLine).join(' · ');
+    li.prepend(header);
+  });
 }
 
 // Servings controls
@@ -58,15 +56,6 @@ document.getElementById('servings-up').addEventListener('click', () => {
   currentServings++;
   document.getElementById('servings').value = currentServings;
   renderIngredients();
-});
-
-// Step toggle
-let showByStep = false;
-document.getElementById('toggle-view').addEventListener('click', () => {
-  showByStep = !showByStep;
-  document.getElementById('ingredients-all').hidden = showByStep;
-  document.getElementById('ingredients-by-step').hidden = !showByStep;
-  document.getElementById('toggle-view').textContent = showByStep ? 'Show all' : 'Show per step';
 });
 
 // Wake lock

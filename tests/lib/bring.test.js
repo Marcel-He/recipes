@@ -17,4 +17,9 @@ describe('buildBringUrl', () => {
     expect(typeof url).toBe('string');
     expect(url.startsWith('bring://')).toBe(true);
   });
+
+  it('does not include the literal word "null" for ingredients with no amount or unit', () => {
+    const url = buildBringUrl([{ name: 'Salz', amount: null, unit: null }]);
+    expect(url).not.toContain('null');
+  });
 });

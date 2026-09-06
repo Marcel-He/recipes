@@ -1,6 +1,6 @@
 ---
 id: rote-bete-carpaccio-mit-feta
-title: Rote Bete Carpaccio mit Feta
+title: Rote Bete Carpaccio
 aufwand: einfach
 servings: 4
 image: /assets/images/dish-1.png
