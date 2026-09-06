@@ -3,7 +3,7 @@ id: bifteki-mit-hirtenkaese-auf-orzotto
 title: Bifteki mit Hirtenkäse auf Orzotto
 aufwand: mittel
 servings: 2
-image: /assets/images/bifteki-mit-hirtenkaese-auf-orzotto.jpg
+image: /assets/images/bifteki-mit-hirtenkase.jpg
 ---
 
 Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto mit Karotten, Spinat und Ajvar. Ein würziges Soulfood-Gericht, bei dem fast alles in einer Pfanne gart.
