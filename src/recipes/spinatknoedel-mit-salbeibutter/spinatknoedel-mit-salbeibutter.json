@@ -1,0 +1,23 @@
+{
+  "id": "spinatknoedel-mit-salbeibutter",
+  "title": "Spinatknödel mit Salbeibutter",
+  "aufwand": "mittel",
+  "servings": 12,
+  "ingredients": [
+    { "name": "TK-Blattspinat", "amount": 250, "unit": "g", "step": 1 },
+    { "name": "Weißbrot (2-3 Tage alt)", "amount": 225, "unit": "g", "step": 2 },
+    { "name": "Schalotte", "amount": 1, "unit": "Stück", "step": 3 },
+    { "name": "Knoblauch", "amount": 1, "unit": "Zehe", "step": 3 },
+    { "name": "Butter", "amount": 1, "unit": "TL", "step": 3 },
+    { "name": "Salz", "amount": null, "unit": "Prise", "step": 4 },
+    { "name": "Pfeffer", "amount": null, "unit": "Prise", "step": 4 },
+    { "name": "Muskatnuss", "amount": null, "unit": "Prise", "step": 4 },
+    { "name": "Bergkäse (würzig, gehackt)", "amount": 100, "unit": "g", "step": 5 },
+    { "name": "Eier", "amount": 2, "unit": "Stück", "step": 5 },
+    { "name": "Mehl (gehäuft)", "amount": 2, "unit": "EL", "step": 5 },
+    { "name": "Milch", "amount": 50, "unit": "ml", "step": 5 },
+    { "name": "Butter", "amount": 100, "unit": "g", "step": 8 },
+    { "name": "Getrockneter Salbei", "amount": 1, "unit": "EL", "step": 8 },
+    { "name": "Parmesan (frisch gerieben)", "amount": null, "unit": null, "step": 9 }
+  ]
+}
