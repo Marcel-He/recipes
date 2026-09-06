@@ -1,6 +1,6 @@
 ---
 id: bifteki-mit-hirtenkaese-auf-orzotto
-title: Bifteki mit Hirtenkäse auf Orzotto
+title: Bifteki auf Orzotto
 aufwand: mittel
 servings: 2
 image: /assets/images/bifteki-mit-hirtenkase.jpg
