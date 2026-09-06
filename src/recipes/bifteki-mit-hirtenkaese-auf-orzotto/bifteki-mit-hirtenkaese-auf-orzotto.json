@@ -1,0 +1,27 @@
+{
+  "id": "bifteki-mit-hirtenkaese-auf-orzotto",
+  "title": "Bifteki mit Hirtenkäse auf Orzotto",
+  "aufwand": "mittel",
+  "servings": 2,
+  "ingredients": [
+    { "name": "Hackfleisch gemischt", "amount": 250, "unit": "g", "step": 1 },
+    { "name": "Hirtenkäse", "amount": 100, "unit": "g", "step": 1 },
+    { "name": "Gewürzmischung Hello Mezze", "amount": 4, "unit": "g", "step": 1 },
+    { "name": "Getrockneter Oregano", "amount": 1, "unit": "g", "step": 1 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 1 },
+    { "name": "Pfeffer", "amount": null, "unit": null, "step": 1 },
+    { "name": "Öl", "amount": 1, "unit": "EL", "step": 2 },
+    { "name": "Knoblauchzehe", "amount": 1, "unit": "Zehe", "step": 3 },
+    { "name": "Zwiebel", "amount": 1, "unit": "Stück", "step": 3 },
+    { "name": "Karotte", "amount": 1, "unit": "Stück", "step": 3 },
+    { "name": "Ajvar", "amount": 25, "unit": "g", "step": 4 },
+    { "name": "Getrockneter Oregano", "amount": 1, "unit": "g", "step": 4 },
+    { "name": "Orzo-Nudeln", "amount": 180, "unit": "g", "step": 4 },
+    { "name": "Hühnerbrühepulver", "amount": 4, "unit": "g", "step": 4 },
+    { "name": "Wasser", "amount": 400, "unit": "ml", "step": 4 },
+    { "name": "Babyspinat", "amount": 50, "unit": "g", "step": 5 },
+    { "name": "Geriebener Hartkäse", "amount": 20, "unit": "g", "step": 5 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 5 },
+    { "name": "Pfeffer", "amount": null, "unit": null, "step": 5 }
+  ]
+}
