@@ -53,7 +53,8 @@
 
   span {
     color: $text-base;
-    font-weight: 600;
+    font-weight: 400;
+    font-size: clamp(1rem, 1rem + 0.3vw, 1.5rem);
     text-align: center;
     text-decoration: none;
     align-self: start;
