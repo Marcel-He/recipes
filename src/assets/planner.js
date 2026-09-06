@@ -1,5 +1,6 @@
 import { aggregateIngredients } from './lib/aggregator.js';
 import { buildBringUrl } from './lib/bring.js';
+import { formatIngredientLine } from './lib/format.js';
 
 async function init() {
   const ids = JSON.parse(localStorage.getItem('planner') || '[]');
@@ -57,7 +58,7 @@ function renderRecipeTags(recipes, ids) {
 
 function renderShoppingList(ingredients) {
   document.getElementById('shopping-list').innerHTML = ingredients
-    .map(i => `<li>${i.name}: ${i.amount} ${i.unit}</li>`)
+    .map(i => `<li>${formatIngredientLine(i)}</li>`)
     .join('');
 }
 

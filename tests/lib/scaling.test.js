@@ -35,4 +35,9 @@ describe('scaleIngredients', () => {
     const result = scaleIngredients([{ name: 'Oil', amount: 1, unit: 'tbsp', step: 1 }], 3, 2);
     expect(result[0].amount).toBe(0.7);
   });
+
+  it('keeps a null amount as null instead of coercing it to 0', () => {
+    const result = scaleIngredients([{ name: 'Salz', amount: null, unit: null, step: 1 }], 2, 4);
+    expect(result[0].amount).toBeNull();
+  });
 });
