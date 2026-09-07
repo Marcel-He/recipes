@@ -1,6 +1,6 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
-import { formatIngredientLine } from './lib/format.js';
+import { formatIngredientLine, formatQuantity } from './lib/format.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -28,7 +28,12 @@ function renderIngredients() {
 
 function renderAll(ingredients) {
   document.getElementById('ingredients-all').innerHTML =
-    `<ul>${ingredients.map(i => `<li>${formatIngredientLine(i)}</li>`).join('')}</ul>`;
+    `<ul>${ingredients
+      .map(
+        i =>
+          `<li><span class="ingredient-name">${i.name}</span><span class="ingredient-qty">${formatQuantity(i)}</span></li>`
+      )
+      .join('')}</ul>`;
 }
 
 function renderStepIngredients(ingredients) {

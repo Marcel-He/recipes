@@ -197,12 +197,27 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 }
 
 #ingredients-section ul li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid $row;
 
   &:last-child {
     border-bottom: none;
   }
+}
+
+.ingredient-name {
+  color: $text-base;
+}
+
+.ingredient-qty {
+  color: $text-subtle;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 #steps-section {
