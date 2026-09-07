@@ -1,0 +1,225 @@
+@use '../tokens' as *;
+
+// ── Header ─────────────────────────────────────────────────────────────────
+.planner-header {
+  margin-bottom: 1.5rem;
+}
+
+.planner-header__eyebrow {
+  display: block;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $brand;
+  margin: 0 0 0.35rem;
+}
+
+// ── Recipe row ─────────────────────────────────────────────────────────────
+$recipe-row-image-size: 84px;
+$recipe-row-image-ring: 4px;
+
+.recipe-row {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.25rem 1.5rem;
+  margin: 0 -0.25rem 1.5rem;
+  scroll-snap-type: x proximity;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.recipe-row__item {
+  position: relative;
+  flex: 0 0 auto;
+  width: $recipe-row-image-size;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.recipe-row__image {
+  display: block;
+  width: $recipe-row-image-size;
+  height: $recipe-row-image-size;
+  padding: $recipe-row-image-ring;
+  background: $card;
+  border-radius: $radius-full;
+  box-shadow: $shadow-card;
+  object-fit: cover;
+}
+
+// Shown in place of the photo when a recipe has no image
+.recipe-row__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($brand, 0.08);
+  color: $brand;
+  font-size: 1.5rem;
+}
+
+.recipe-row__remove {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $radius-full;
+  background: $card;
+  color: $text-subtle;
+  box-shadow: $shadow-card;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $danger;
+  }
+}
+
+.recipe-row__name {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 600;
+  color: $text-base;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ── Drawer ─────────────────────────────────────────────────────────────────
+// Full-bleed like .recipe-drawer, but not seamed to a hero image above it —
+// just top padding to clear the drag handle.
+.planner-drawer {
+  position: relative;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  background: $card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  box-shadow: $shadow-drawer;
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.drawer-handle {
+  position: absolute;
+  top: 0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 4px;
+  border-radius: $radius-full;
+  background: $row;
+}
+
+.planner-drawer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.planner-drawer__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+
+  // Drawer header icons sit smaller than the recipe-detail header's 44px
+  .icon-button {
+    width: 38px;
+    height: 38px;
+    font-size: $text-body-lg-size;
+  }
+}
+
+// ── Menu ───────────────────────────────────────────────────────────────────
+.planner-menu-wrap {
+  position: relative;
+}
+
+.planner-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 190px;
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-nav;
+  padding: 0.4rem;
+  z-index: 10;
+}
+
+.planner-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  background: none;
+  border: none;
+  border-radius: $radius;
+  color: $text-base;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+
+  i {
+    width: 1em;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba($brand, 0.06);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.planner-menu__item--danger {
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background: rgba($danger, 0.06);
+  }
+}
+
+// ── Shopping list ────────────────────────────────────────────────────────
+.shopping-list li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item-name {
+  font-weight: 700;
+  color: $text-base;
+}
+
+.item-qty {
+  font-weight: 400;
+  color: $text-subtle;
+  margin-left: 0.3rem;
+}

@@ -4,6 +4,7 @@
 @use './scss/recipe-list';
 @use './scss/recipe-detail';
 @use './scss/recipe-preview';
+@use './scss/planner';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *,
@@ -136,33 +137,10 @@ button {
   }
 }
 
-// Primary — export
-#bring-export {
-  background: $brand;
-  color: $brand-text;
-  border-color: $brand;
-
-  &:hover:not(:disabled) {
-    background: $brand-hover;
-    border-color: $brand-hover;
-    color: $brand-text;
-  }
-}
-
 // Small secondary — list-item "+ Planner" (class, not id)
 .add-to-planner {
   font-size: $text-label-md-size;
   padding: 0.3rem 0.85rem;
-}
-
-// Destructive — clear planner
-#clear-planner {
-  color: $danger;
-  border-color: $danger;
-
-  &:hover:not(:disabled) {
-    background: rgba($danger, 0.06);
-  }
 }
 
 // Circular servings controls
@@ -175,20 +153,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-// Remove planner chip
-.remove-recipe {
-  background: none;
-  border: none;
-  color: $text-subtle;
-  padding: 0;
-  font-size: $text-body-lg-size;
-  cursor: pointer;
-
-  &:hover {
-    color: $tag;
-  }
 }
 
 // Circular icon-only link — back navigation
@@ -216,30 +180,6 @@ button {
   &:focus-visible {
     outline: 2px solid $brand;
     outline-offset: 2px;
-  }
-}
-
-// ── Planner chips ──────────────────────────────────────────────────────────
-#recipe-tags {
-  list-style: none;
-  margin: 0 0 1.5rem;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.85rem;
-    background: rgba($tag-bg, 0.12);
-    border: 1px solid rgba($tag-bg, 0.25);
-    border-radius: $radius-full;
-    font-family: $font-body;
-    font-size: 13px;
-    font-weight: 600;
-    color: $tag;
   }
 }
 
@@ -319,19 +259,3 @@ button {
   white-space: nowrap;
 }
 
-// ── Shopping list ──────────────────────────────────────────────────────────
-#shopping-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid $border;
-    font-size: $text-body-lg-size;
-
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}
