@@ -1,0 +1,18 @@
+{
+  "id": "chilioel-kartoffelsalat-mit-weichen-eiern",
+  "title": "Chiliöl-Kartoffelsalat mit weichen Eiern",
+  "aufwand": "mittel",
+  "servings": 2,
+  "ingredients": [
+    { "name": "Kartoffeln", "amount": 3, "unit": "Stück", "step": 1 },
+    { "name": "Joghurt", "amount": 350, "unit": "g", "step": 2 },
+    { "name": "Chiliöl", "amount": 1, "unit": "EL", "step": 2 },
+    { "name": "Remoulade", "amount": 1, "unit": "EL", "step": 2 },
+    { "name": "Eier", "amount": 4, "unit": "Stück", "step": 3 },
+    { "name": "Minigurke", "amount": 1, "unit": "Stück", "step": 5 },
+    { "name": "Cornichons", "amount": null, "unit": null, "step": 5 },
+    { "name": "Lauchzwiebeln", "amount": 2, "unit": "Stück", "step": 5 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 6 },
+    { "name": "Ei", "amount": 1, "unit": "Stück", "step": 7 }
+  ]
+}
