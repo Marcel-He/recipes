@@ -57,7 +57,7 @@ main {
   }
 
   a {
-    font-size: 18px;
+    font-size: $text-body-lg-size;
     text-decoration: none;
     color: $text-subtle;
     width: 56px;
@@ -91,7 +91,7 @@ main {
   border: 1px solid $border;
   border-radius: $radius-lg;
   font-family: $font-body;
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   color: $text-base;
   margin-bottom: 1.5rem;
 
@@ -114,7 +114,7 @@ button {
   border-radius: $radius-full;
   padding: 0.45rem 1.1rem;
   font-family: $font-body;
-  font-size: 14px;
+  font-size: $text-label-md-size;
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -150,7 +150,7 @@ button {
 
 // Small secondary — list-item "+ Planner" (class, not id)
 .add-to-planner {
-  font-size: 12px;
+  font-size: $text-label-md-size;
   padding: 0.3rem 0.85rem;
 }
 
@@ -170,7 +170,7 @@ button {
   width: 28px;
   height: 28px;
   padding: 0;
-  font-size: 16px;
+  font-size: $text-body-lg-size;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@ button {
   border: none;
   color: $text-subtle;
   padding: 0;
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   cursor: pointer;
 
   &:hover {
@@ -203,7 +203,7 @@ button {
   color: $brand;
   border: 1.5px solid $brand;
   text-decoration: none;
-  font-size: 14px;
+  font-size: $text-label-md-size;
   margin-block-end: 1rem;
   transition:
     background 0.15s,
@@ -327,7 +327,7 @@ button {
   li {
     padding: 0.6rem 0;
     border-bottom: 1px solid $border;
-    font-size: 16px;
+    font-size: $text-body-lg-size;
 
     &:last-child {
       border-bottom: none;

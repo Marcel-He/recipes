@@ -106,7 +106,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   border-radius: $radius-full;
   background: rgba($brand, 0.08);
   color: $brand;
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   cursor: pointer;
   transition: background 0.2s ease;
 
@@ -161,7 +161,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
     border-radius: $radius-full;
     background: rgba($brand, 0.08);
     color: $brand;
-    font-size: 1rem;
+    font-size: $text-body-lg-size;
     line-height: 1;
     cursor: pointer;
 
@@ -172,7 +172,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 }
 
 #servings {
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   font-weight: 700;
   min-width: 1.5rem;
   text-align: center;
@@ -215,7 +215,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 
 .ingredient-qty {
   color: $text-subtle;
-  font-size: 12px;
+  font-size: $text-label-md-size;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -237,7 +237,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 .step-ingredients {
   display: block;
   font-family: $font-body;
-  font-size: 12px;
+  font-size: $text-label-md-size;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
