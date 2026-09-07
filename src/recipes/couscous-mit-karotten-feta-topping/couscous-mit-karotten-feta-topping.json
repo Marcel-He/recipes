@@ -1,0 +1,24 @@
+{
+  "id": "couscous-mit-karotten-feta-topping",
+  "title": "Couscous mit Karotten-Feta-Topping",
+  "aufwand": "mittel",
+  "servings": 2,
+  "ingredients": [
+    { "name": "Karotten", "amount": 2, "unit": "Stück", "step": 3 },
+    { "name": "Olivenöl", "amount": 3, "unit": "EL", "step": 3 },
+    { "name": "Salz", "amount": null, "unit": "Prise", "step": 3 },
+    { "name": "Pfeffer", "amount": null, "unit": "Prise", "step": 3 },
+    { "name": "Couscous", "amount": 100, "unit": "g", "step": 4 },
+    { "name": "Karottensaft", "amount": 100, "unit": "ml", "step": 4 },
+    { "name": "Feta Käse", "amount": 100, "unit": "g", "step": 5 },
+    { "name": "Joghurt, natur", "amount": 60, "unit": "g", "step": 5 },
+    { "name": "Honig", "amount": 1, "unit": "EL", "step": 5 },
+    { "name": "Kreuzkümmel, gemahlen", "amount": 0.5, "unit": "TL", "step": 5 },
+    { "name": "Currypulver", "amount": 1, "unit": "TL", "step": 5 },
+    { "name": "Zitrone", "amount": 0.5, "unit": "Stück", "step": 5 },
+    { "name": "Minze, frisch", "amount": 6, "unit": "g", "step": 5 },
+    { "name": "Rucola", "amount": 40, "unit": "g", "step": 6 },
+    { "name": "Salz", "amount": null, "unit": "Prise", "step": 6 },
+    { "name": "Pfeffer", "amount": null, "unit": "Prise", "step": 6 }
+  ]
+}
