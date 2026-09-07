@@ -3,6 +3,7 @@ id: spinatknoedel-mit-salbeibutter
 title: Spinatknödel mit Salbeibutter
 aufwand: mittel
 servings: 12
+image: /assets/images/spinatknoedel-mit-salbeibutter.jpg
 ---
 
 Herzhafte Knödel aus altbackenem Weißbrot und Blattspinat, verfeinert mit würzigem Bergkäse und gebräunter Salbeibutter. Ein Familienrezept von Andreas C., das für Heimat und Geborgenheit steht. Schmeckt besonders gut auf frischem Krautsalat.
