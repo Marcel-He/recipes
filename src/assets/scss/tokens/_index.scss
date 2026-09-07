@@ -32,6 +32,17 @@ $danger: $red-600;
 $font-display: 'Playfair Display', Georgia, serif;
 $font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
 
+// Type scale — fluid: each size is a floor (small viewports) that grows to
+// a ceiling on wide viewports, so the named px value is the mobile minimum.
+$text-display-lg-size: clamp(2rem, 1rem + 4vw, 3rem); // 32px -> 48px — headings
+$text-display-lg-line: 1.2;
+$text-headline-md-size: clamp(1.25rem, 0.875rem + 2vw, 2rem); // 20px -> 32px — sub-headings
+$text-headline-md-line: 1.4;
+$text-body-lg-size: clamp(1rem, 0.875rem + 0.333vw, 1.125rem); // 16px -> 18px — general text
+$text-body-lg-line: 1.6;
+$text-label-md-size: clamp(0.75rem, 0.625rem + 0.333vw, 0.875rem); // 12px -> 14px — metadata, captions
+$text-label-md-line: 1.4;
+
 // Layout
 $max-width: 1200px;
 $gutter: 16px;
@@ -41,7 +52,7 @@ $radius-sm: 0.25rem;
 $radius: 0.5rem;
 $radius-md: 0.75rem;
 $radius-lg: 1rem;
-$radius-xl: 1.5rem;
+$radius-xl: 2rem;
 $radius-full: 9999px;
 
 // Shadows — sorted by visual elevation (low → high)
@@ -50,3 +61,4 @@ $shadow-nav:
   0 4px 24px rgba($brand, 0.14),
   0 1px 4px rgba($brand, 0.08); // floating nav island
 $shadow-focus: 0 0 0 2px rgba($brand, 0.15); // focus ring
+$shadow-drawer: 0 -8px 30px rgba($brand, 0.12); // recipe detail drawer, overlapped by hero image

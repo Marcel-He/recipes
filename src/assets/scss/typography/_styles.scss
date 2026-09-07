@@ -18,50 +18,50 @@
 // ── Base ───────────────────────────────────────────────────────────────────
 body {
   font-family: $font-body;
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: $text-body-lg-size;
+  line-height: $text-body-lg-line;
   color: $text-base;
 }
 
 // ── Type scale ─────────────────────────────────────────────────────────────
 .display {
   font-family: $font-display;
-  font-size: clamp(2.25rem, 1.5rem + 3vw, 3rem);
+  font-size: $text-display-lg-size;
   font-weight: 700;
-  line-height: 1.17;
+  line-height: $text-display-lg-line;
   letter-spacing: -0.02em;
   color: $text-heading;
 }
 
 .headline {
   font-family: $font-display;
-  font-size: clamp(1.25rem, 0.875rem + 2vw, 2rem);
+  font-size: $text-headline-md-size;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: $text-headline-md-line;
   color: $text-heading;
 }
 
 .body {
   font-family: $font-body;
-  font-size: clamp(1rem, 0.875rem + 0.333vw, 1.125rem);
+  font-size: $text-body-lg-size;
   font-weight: 400;
-  line-height: 1.56;
+  line-height: $text-body-lg-line;
 }
 
 .label {
   font-family: $font-body;
-  font-size: clamp(0.75rem, 0.625rem + 0.333vw, 0.875rem);
+  font-size: $text-label-md-size;
   font-weight: 600;
-  line-height: 1.43;
+  line-height: $text-label-md-line;
   letter-spacing: 0.05em;
 }
 
 // ── HTML element defaults ───────────────────────────────────────────────────
 h1 {
   font-family: $font-display;
-  font-size: clamp(1.25rem, 0.875rem + 2vw, 2rem);
+  font-size: $text-headline-md-size;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: $text-headline-md-line;
   color: $text-heading;
   margin: 0 0 0.25rem;
 }
@@ -77,7 +77,7 @@ h2 {
 
 h3 {
   font-family: $font-display;
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   font-weight: 600;
   line-height: 1.5;
   color: $text-heading;

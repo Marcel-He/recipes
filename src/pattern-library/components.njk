@@ -10,3 +10,113 @@ title: Components
     <p class="pl-label">.back-button — circular icon-only link, used to return from a detail screen</p>
   </div>
 </section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Hero panel + drawer</h2>
+  <p>.recipe-hero / .recipe-drawer — full-bleed brand-green panel topped by a white rounded
+    drawer, with a circular image straddling the seam between them. Used on the recipe detail
+    screen to hold the dish photo and back button above everything else.</p>
+  <div class="recipe-hero">
+    <div class="recipe-hero__panel"></div>
+    <a href="#" class="back-button back-button--floating" aria-label="Back"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class="recipe-hero__image-wrap">
+      <img src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="" class="recipe-hero__image">
+    </div>
+  </div>
+  <div class="recipe-drawer">
+    <header>
+      <h1>Bifteki auf Orzotto</h1>
+      <span class="difficulty">Mittel</span>
+    </header>
+    <section id="ingredients-section">
+      <h2>Ingredients</h2>
+      <ul>
+        <li>250 g Hackfleisch gemischt</li>
+        <li>100 g Hirtenkäse</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Recipe row</h2>
+  <p>.recipe-row / .recipe-row__item / .recipe-row__remove / .recipe-row__name — a horizontally
+    scrolling row of circular recipe photos, used on the planner screen for the recipes currently
+    in the plan. Each photo carries a small circular "×" badge overlapping its top-right corner to
+    remove that recipe, and a name caption below.</p>
+  <ul class="recipe-row" style="list-style: none; margin: 0; padding: 0.5rem 0.25rem;">
+    <li class="recipe-row__item">
+      <img class="recipe-row__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+      <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+      <span class="recipe-row__name">Citrus Bowl</span>
+    </li>
+    <li class="recipe-row__item">
+      <div class="recipe-row__image recipe-row__image--placeholder"><i class="fa-solid fa-utensils"></i></div>
+      <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+      <span class="recipe-row__name">Pesto Linguine</span>
+    </li>
+  </ul>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Plan drawer</h2>
+  <p>.planner-drawer / .drawer-handle / .planner-drawer__header / .planner-drawer__actions — a
+    full-bleed white rounded-top card, the same visual weight as .recipe-drawer above but not
+    seamed to a hero image — a centered drag-handle bar marks its top edge instead. Holds the
+    planner's shopping list, with a filter icon-button (currently a visual placeholder) and a
+    kebab icon-button that opens the .planner-menu dropdown below.</p>
+  <div class="planner-drawer" style="position: relative; width: auto; margin-inline: 0;">
+    <div class="drawer-handle" aria-hidden="true"></div>
+    <div class="planner-drawer__header">
+      <h2>Shopping List</h2>
+      <div class="planner-drawer__actions">
+        <button type="button" class="icon-button" aria-label="Filter" disabled><i class="fa-solid fa-sliders"></i></button>
+        <button type="button" class="icon-button" aria-label="More options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+      </div>
+    </div>
+    <ul class="shopping-list">
+      <li><span class="item-name">Organic Spinach</span> <span class="item-qty">(250g)</span></li>
+      <li><span class="item-name">Cherry Tomatoes</span> <span class="item-qty">(1 punnet)</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Planner menu</h2>
+  <p>.planner-menu / .planner-menu__item — a small dropdown card toggled by the drawer's kebab
+    button, holding the planner's secondary actions. The destructive action gets the
+    .planner-menu__item--danger variant.</p>
+  <div class="planner-menu-wrap" style="display: inline-block;">
+    <div class="planner-menu" style="position: static;">
+      <button type="button" class="planner-menu__item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Export to Bring</button>
+      <button type="button" class="planner-menu__item planner-menu__item--danger"><i class="fa-solid fa-trash"></i> Clear planner</button>
+    </div>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Recipe preview</h2>
+  <p>.recipe-preview — bottom-sheet modal shown when a recipe is tapped in the list, as an
+    intermediate step before the full detail screen. Circular image straddles the panel's top
+    edge; the primary action navigates to the detail page, the icon button adds straight to the
+    planner without leaving the list.</p>
+  <div style="position: relative; height: 520px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    <div class="recipe-preview" style="position: absolute; inset: 0;">
+      <div class="recipe-preview__backdrop" style="position: absolute; opacity: 1;"></div>
+      <div class="recipe-preview__panel" style="position: absolute; bottom: 0; transform: none;">
+        <button type="button" class="icon-button recipe-preview__close" aria-label="Close preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="recipe-preview__image-wrap">
+          <img class="recipe-preview__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+        </div>
+        <h2 class="recipe-preview__title">Bifteki auf Orzotto</h2>
+        <p class="recipe-preview__description">Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto.</p>
+        <div class="recipe-preview__actions">
+          <a class="recipe-preview__cta" href="#">View Full Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

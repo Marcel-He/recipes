@@ -1,6 +1,6 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
-import { formatIngredientLine } from './lib/format.js';
+import { formatIngredientLine, formatQuantity } from './lib/format.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -28,7 +28,12 @@ function renderIngredients() {
 
 function renderAll(ingredients) {
   document.getElementById('ingredients-all').innerHTML =
-    `<ul>${ingredients.map(i => `<li>${formatIngredientLine(i)}</li>`).join('')}</ul>`;
+    `<ul>${ingredients
+      .map(
+        i =>
+          `<li><span class="ingredient-name">${i.name}</span><span class="ingredient-qty">${formatQuantity(i)}</span></li>`
+      )
+      .join('')}</ul>`;
 }
 
 function renderStepIngredients(ingredients) {
@@ -60,18 +65,28 @@ document.getElementById('servings-up').addEventListener('click', () => {
 
 // Wake lock
 let wakeLock = null;
-document.getElementById('wake-lock-toggle').addEventListener('click', async () => {
+const wakeLockBtn = document.getElementById('wake-lock-toggle');
+const wakeLockIcon = wakeLockBtn.querySelector('i');
+
+function setWakeLockState(active) {
+  wakeLockBtn.classList.toggle('is-active', active);
+  wakeLockBtn.setAttribute('aria-pressed', String(active));
+  wakeLockIcon.classList.toggle('fa-regular', !active);
+  wakeLockIcon.classList.toggle('fa-solid', active);
+}
+
+wakeLockBtn.addEventListener('click', async () => {
   if (wakeLock) {
     await wakeLock.release();
     wakeLock = null;
-    document.getElementById('wake-lock-toggle').textContent = 'Keep screen on';
+    setWakeLockState(false);
   } else {
     try {
       wakeLock = await navigator.wakeLock.request('screen');
-      document.getElementById('wake-lock-toggle').textContent = 'Screen on ✓';
+      setWakeLockState(true);
       wakeLock.addEventListener('release', () => {
         wakeLock = null;
-        document.getElementById('wake-lock-toggle').textContent = 'Keep screen on';
+        setWakeLockState(false);
       });
     } catch {
       // Wake lock unsupported or denied; fail silently
@@ -87,7 +102,10 @@ document.getElementById('add-to-planner').addEventListener('click', () => {
     localStorage.setItem('planner', JSON.stringify(planner));
   }
   const btn = document.getElementById('add-to-planner');
-  btn.textContent = '✓ In planner';
+  btn.classList.add('is-active');
+  btn.setAttribute('aria-pressed', 'true');
+  btn.setAttribute('aria-label', 'Added to planner');
+  btn.querySelector('i').className = 'fa-solid fa-calendar-check';
   btn.disabled = true;
 });
 

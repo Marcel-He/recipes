@@ -1,0 +1,252 @@
+@use '../tokens' as *;
+
+// Match the page background to the hero so the drawer's rounded top
+// corners reveal green underneath instead of a mismatched page color.
+// Scoped to [data-recipe-id] (the real recipe article) rather than
+// .recipe-hero directly, so the pattern-library's demo snippet of this
+// component doesn't also turn the whole page green.
+body:has([data-recipe-id]) {
+  background: $brand;
+}
+
+// ── Hero ───────────────────────────────────────────────────────────────────
+$hero-panel-height: clamp(190px, 26vw, 230px);
+$hero-image-size: clamp(200px, 45vw, 300px);
+$hero-image-ring: 6px;
+// Half the image (+ ring) — the drawer's top edge sits at the image's
+// vertical center, so this much of it hangs below the seam into the drawer.
+$hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
+
+.recipe-hero {
+  position: relative;
+  // Cancel main's 2rem top padding so the panel is flush with the viewport top.
+  margin-top: -2rem;
+}
+
+.recipe-hero__panel {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  height: $hero-panel-height;
+  background: $brand;
+}
+
+// On-panel variant of .back-button — solid white against the brand green.
+// Fixed positioning means it also scrolls over the white drawer, so it
+// needs a solid (not translucent) surface to stay legible on both.
+// Selector combines both classes so it reliably beats the base .back-button
+// rule regardless of @use output order (equal-specificity single classes
+// would otherwise lose to whichever rule happens to compile last).
+.back-button.back-button--floating {
+  position: fixed;
+  top: 1.1rem;
+  left: 1.1rem;
+  z-index: 10;
+  margin: 0;
+  background: $card;
+  border-color: $card;
+  color: $brand;
+  box-shadow: $shadow-nav;
+
+  &:hover {
+    background: $bg;
+  }
+}
+
+.recipe-hero__image-wrap {
+  position: absolute;
+  top: $hero-panel-height;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $hero-image-size;
+  height: $hero-image-size;
+  padding: $hero-image-ring;
+  background: $card;
+  border-radius: $radius-full;
+  box-shadow: $shadow-card;
+}
+
+.recipe-hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+// ── Drawer ─────────────────────────────────────────────────────────────────
+// Note: no `position` here — it must stay a non-positioned box so it paints
+// below the absolutely-positioned hero image/back-button, not above them.
+.recipe-drawer {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: calc(#{$hero-image-half} + 1.5rem) 1.5rem 1.5rem;
+  background: $card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  box-shadow: $shadow-drawer;
+}
+
+.recipe-header__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.recipe-header__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: $radius-full;
+  background: rgba($brand, 0.08);
+  color: $brand;
+  font-size: $text-body-lg-size;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba($brand, 0.16);
+  }
+
+  &.is-active {
+    background: $brand;
+    color: $brand-text;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+[data-recipe-id] h1 {
+  margin: 0;
+}
+
+.difficulty {
+  display: inline-block;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $text-subtle;
+  margin-top: 0.5rem;
+}
+
+.servings-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0 0;
+
+  label {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: $radius-full;
+    background: rgba($brand, 0.08);
+    color: $brand;
+    font-size: $text-body-lg-size;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($brand, 0.16);
+    }
+  }
+}
+
+#servings {
+  font-size: $text-body-lg-size;
+  font-weight: 700;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+// ── Ingredients / steps ──────────────────────────────────────────────────
+// Plain sections on the drawer surface — the drawer itself is the elevated
+// card now, so these no longer carry their own background/shadow.
+#ingredients-section,
+#steps-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border;
+
+  h2 {
+    margin: 0 0 0.75rem;
+  }
+  ul,
+  ol {
+    margin: 0;
+  }
+}
+
+#ingredients-section ul li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $row;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ingredient-name {
+  color: $text-base;
+}
+
+.ingredient-qty {
+  color: $text-subtle;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#steps-section {
+  ol {
+    padding: 1rem;
+  }
+  li {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Per-step ingredient header — inside each <li> in #steps-section
+.step-ingredients {
+  display: block;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $brand;
+  background: rgba($brand, 0.08);
+  padding: 0.4rem 0.65rem;
+  border-radius: $radius-sm;
+  margin-bottom: 0.6rem;
+}

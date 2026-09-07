@@ -2,6 +2,9 @@
 @use './scss/typography';
 @use './scss/images';
 @use './scss/recipe-list';
+@use './scss/recipe-detail';
+@use './scss/recipe-preview';
+@use './scss/planner';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *,
@@ -56,7 +59,7 @@ main {
   }
 
   a {
-    font-size: 18px;
+    font-size: $text-body-lg-size;
     text-decoration: none;
     color: $text-subtle;
     width: 56px;
@@ -90,7 +93,7 @@ main {
   border: 1px solid $border;
   border-radius: $radius-lg;
   font-family: $font-body;
-  font-size: 1rem;
+  font-size: $text-body-lg-size;
   color: $text-base;
   margin-bottom: 1.5rem;
 
@@ -113,7 +116,7 @@ button {
   border-radius: $radius-full;
   padding: 0.45rem 1.1rem;
   font-family: $font-body;
-  font-size: 14px;
+  font-size: $text-label-md-size;
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -134,34 +137,10 @@ button {
   }
 }
 
-// Primary — recipe detail page + export
-#add-to-planner,
-#bring-export {
-  background: $brand;
-  color: $brand-text;
-  border-color: $brand;
-
-  &:hover:not(:disabled) {
-    background: $brand-hover;
-    border-color: $brand-hover;
-    color: $brand-text;
-  }
-}
-
 // Small secondary — list-item "+ Planner" (class, not id)
 .add-to-planner {
-  font-size: 12px;
+  font-size: $text-label-md-size;
   padding: 0.3rem 0.85rem;
-}
-
-// Destructive — clear planner
-#clear-planner {
-  color: $danger;
-  border-color: $danger;
-
-  &:hover:not(:disabled) {
-    background: rgba($danger, 0.06);
-  }
 }
 
 // Circular servings controls
@@ -170,24 +149,10 @@ button {
   width: 28px;
   height: 28px;
   padding: 0;
-  font-size: 16px;
+  font-size: $text-body-lg-size;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-// Remove planner chip
-.remove-recipe {
-  background: none;
-  border: none;
-  color: $text-subtle;
-  padding: 0;
-  font-size: 1rem;
-  cursor: pointer;
-
-  &:hover {
-    color: $tag;
-  }
 }
 
 // Circular icon-only link — back navigation
@@ -203,7 +168,7 @@ button {
   color: $brand;
   border: 1.5px solid $brand;
   text-decoration: none;
-  font-size: 14px;
+  font-size: $text-label-md-size;
   margin-block-end: 1rem;
   transition:
     background 0.15s,
@@ -215,110 +180,6 @@ button {
   &:focus-visible {
     outline: 2px solid $brand;
     outline-offset: 2px;
-  }
-}
-
-// ── Recipe detail ──────────────────────────────────────────────────────────
-[data-recipe-id] h1 {
-  margin: 2rem 0 0.25rem;
-}
-
-.difficulty {
-  display: inline-block;
-  font-family: $font-body;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: $text-subtle;
-  margin-top: 0.25rem;
-}
-
-.servings-control {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
-
-  label {
-    font-weight: 600;
-    font-size: 13px;
-  }
-}
-
-#servings {
-  font-size: 1rem;
-  font-weight: 700;
-  min-width: 1.5rem;
-  text-align: center;
-}
-
-// ── Drawer containers ──────────────────────────────────────────────────────
-#ingredients-section,
-#steps-section {
-  margin-top: 1rem;
-  padding: 1.25rem 1.4rem;
-  background: $card;
-  border: none;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-card;
-
-  h2 {
-    margin: 0 0 0.75rem;
-  }
-  ul,
-  ol {
-    margin: 0;
-  }
-  li {
-    margin-bottom: 0.35rem;
-  }
-}
-
-#steps-section li {
-  margin-bottom: 1.25rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-// Per-step ingredient header — inside each <li> in #steps-section
-.step-ingredients {
-  display: block;
-  font-family: $font-body;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: $brand;
-  background: rgba($brand, 0.08);
-  padding: 0.4rem 0.65rem;
-  border-radius: $radius-sm;
-  margin-bottom: 0.6rem;
-}
-
-// ── Planner chips ──────────────────────────────────────────────────────────
-#recipe-tags {
-  list-style: none;
-  margin: 0 0 1.5rem;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.85rem;
-    background: rgba($tag-bg, 0.12);
-    border: 1px solid rgba($tag-bg, 0.25);
-    border-radius: $radius-full;
-    font-family: $font-body;
-    font-size: 13px;
-    font-weight: 600;
-    color: $tag;
   }
 }
 
@@ -398,19 +259,3 @@ button {
   white-space: nowrap;
 }
 
-// ── Shopping list ──────────────────────────────────────────────────────────
-#shopping-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid $border;
-    font-size: 16px;
-
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}

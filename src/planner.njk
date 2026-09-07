@@ -3,19 +3,37 @@ layout: base.njk
 title: Planner
 pageScript: planner.js
 ---
-<h1>Planner</h1>
+<div class="planner-header">
+  <span class="planner-header__eyebrow">Your Plan</span>
+  <h1>This Week's Recipes</h1>
+</div>
 
-<section>
-  <h2>Selected recipes</h2>
-  <ul id="recipe-tags"></ul>
-</section>
+<ul id="recipe-tags" class="recipe-row"></ul>
 
-<section>
-  <h2>Shopping list</h2>
-  <ul id="shopping-list"></ul>
-</section>
+<div class="planner-drawer">
+  <div class="drawer-handle" aria-hidden="true"></div>
 
-<div style="display:flex;gap:.5rem;margin-top:1rem">
-  <button id="bring-export" disabled>Export to Bring</button>
-  <button id="clear-planner">Clear planner</button>
+  <div class="planner-drawer__header">
+    <h2>Shopping List</h2>
+    <div class="planner-drawer__actions">
+      <button type="button" class="icon-button" aria-label="Filter shopping list" disabled>
+        <i class="fa-solid fa-sliders"></i>
+      </button>
+      <div class="planner-menu-wrap">
+        <button type="button" id="planner-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-label="More options">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <div id="planner-menu" class="planner-menu" hidden>
+          <button type="button" id="bring-export" class="planner-menu__item" disabled>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Export to Bring
+          </button>
+          <button type="button" id="clear-planner" class="planner-menu__item planner-menu__item--danger">
+            <i class="fa-solid fa-trash"></i> Clear planner
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul id="shopping-list" class="shopping-list"></ul>
 </div>
