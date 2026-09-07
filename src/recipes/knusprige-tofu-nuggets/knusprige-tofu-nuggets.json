@@ -1,0 +1,20 @@
+{
+  "id": "knusprige-tofu-nuggets",
+  "title": "Knusprige Tofu Nuggets",
+  "aufwand": "mittel",
+  "servings": 4,
+  "ingredients": [
+    { "name": "Tofu", "amount": 400, "unit": "g", "step": 1 },
+    { "name": "Panko Paniermehl (oder anderes glutenfreies Paniermehl)", "amount": 1, "unit": "Tasse", "step": 3 },
+    { "name": "Öl (z. B. Oliven-, Raps- oder Sonnenblumenöl)", "amount": 2, "unit": "EL", "step": 3 },
+    { "name": "Paprikapulver", "amount": 1, "unit": "TL", "step": 3 },
+    { "name": "Meersalz", "amount": 1, "unit": "TL", "step": 3 },
+    { "name": "Pfeffer", "amount": 0.5, "unit": "TL", "step": 3 },
+    { "name": "Hefeflocken (optional)", "amount": 1, "unit": "EL", "step": 3 },
+    { "name": "Maisstärke", "amount": 0.5, "unit": "Tasse", "step": 3 },
+    { "name": "Pflanzliche Milch", "amount": 120, "unit": "ml", "step": 3 },
+    { "name": "Apfelessig (optional)", "amount": 1, "unit": "TL", "step": 3 },
+    { "name": "BBQ-Sauce (oder eine andere würzige Sauce)", "amount": 80, "unit": "ml", "step": 6 },
+    { "name": "Öl (oder geschmolzene vegane Butter)", "amount": 2, "unit": "EL", "step": 6 }
+  ]
+}
