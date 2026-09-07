@@ -4,9 +4,8 @@ title: Shakshuka nach Ottolenghi
 aufwand: mittel
 servings: 4
 image: /assets/images/dish-2.jpg
+description: "Würziges nordafrikanisch-israelisches Gericht aus pochierten Eiern in einer aromatischen Paprika-Tomaten-Sauce mit Harissa. Das Rezept basiert auf der Version von Yotam Ottolenghi und eignet sich hervorragend als Frühstück oder leichtes Abendessen."
 ---
-
-Würziges nordafrikanisch-israelisches Gericht aus pochierten Eiern in einer aromatischen Paprika-Tomaten-Sauce mit Harissa. Das Rezept basiert auf der Version von Yotam Ottolenghi und eignet sich hervorragend als Frühstück oder leichtes Abendessen.
 
 1. Olivenöl in einer großen Pfanne erhitzen und Harissa, Tomatenmark, Paprika, Knoblauch, Kreuzkümmel und ¾ TL Salz zusammen anbraten.
 2. Bei mittlerer Hitze 5 Minuten unter häufigem Rühren dünsten, bis die Paprika leicht weich werden.

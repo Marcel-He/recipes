@@ -37,3 +37,30 @@ title: Components
     </section>
   </div>
 </section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Recipe preview</h2>
+  <p>.recipe-preview — bottom-sheet modal shown when a recipe is tapped in the list, as an
+    intermediate step before the full detail screen. Circular image straddles the panel's top
+    edge; the primary action navigates to the detail page, the icon button adds straight to the
+    planner without leaving the list.</p>
+  <div style="position: relative; height: 520px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    <div class="recipe-preview" style="position: absolute; inset: 0;">
+      <div class="recipe-preview__backdrop" style="position: absolute; opacity: 1;"></div>
+      <div class="recipe-preview__panel" style="position: absolute; bottom: 0; transform: none;">
+        <button type="button" class="icon-button recipe-preview__close" aria-label="Close preview">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="recipe-preview__image-wrap">
+          <img class="recipe-preview__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+        </div>
+        <h2 class="recipe-preview__title">Bifteki auf Orzotto</h2>
+        <p class="recipe-preview__description">Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto.</p>
+        <div class="recipe-preview__actions">
+          <a class="recipe-preview__cta" href="#">View Full Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

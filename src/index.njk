@@ -9,7 +9,7 @@ pageScript: main.js
 <div class="recipe-list-container">
   <ul class="recipe-list">
     {% for item in collections.recipe %}
-    <li data-id="{{ item.data.id }}">
+    <li data-id="{{ item.data.id }}" data-description="{{ item.data.description }}">
       <a href="{{ item.url }}">
         {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
         <span class="headline">{{ item.data.title }}</span>
@@ -17,4 +17,26 @@ pageScript: main.js
     </li>
     {% endfor %}
   </ul>
+</div>
+
+<div id="recipe-preview" class="recipe-preview" hidden>
+  <div class="recipe-preview__backdrop" data-close></div>
+  <div class="recipe-preview__panel" role="dialog" aria-modal="true" aria-labelledby="recipe-preview-title">
+    <button type="button" class="icon-button recipe-preview__close" data-close aria-label="Close preview">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="recipe-preview__image-wrap">
+      <img class="recipe-preview__image" src="" alt="">
+    </div>
+    <h2 id="recipe-preview-title" class="recipe-preview__title"></h2>
+    <p class="recipe-preview__description"></p>
+    <div class="recipe-preview__actions">
+      <a class="recipe-preview__cta" href="#">
+        View Full Recipe <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <button type="button" id="recipe-preview-add" class="icon-button" aria-label="Add to planner" aria-pressed="false">
+        <i class="fa-solid fa-calendar-plus"></i>
+      </button>
+    </div>
+  </div>
 </div>

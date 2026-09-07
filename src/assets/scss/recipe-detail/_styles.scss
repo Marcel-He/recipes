@@ -2,7 +2,10 @@
 
 // Match the page background to the hero so the drawer's rounded top
 // corners reveal green underneath instead of a mismatched page color.
-body:has(.recipe-hero) {
+// Scoped to [data-recipe-id] (the real recipe article) rather than
+// .recipe-hero directly, so the pattern-library's demo snippet of this
+// component doesn't also turn the whole page green.
+body:has([data-recipe-id]) {
   background: $brand;
 }
 

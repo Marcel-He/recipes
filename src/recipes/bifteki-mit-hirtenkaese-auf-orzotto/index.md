@@ -4,9 +4,8 @@ title: Bifteki auf Orzotto
 aufwand: mittel
 servings: 2
 image: /assets/images/bifteki-mit-hirtenkase.jpg
+description: "Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto mit Karotten, Spinat und Ajvar. Ein würziges Soulfood-Gericht, bei dem fast alles in einer Pfanne gart."
 ---
-
-Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto mit Karotten, Spinat und Ajvar. Ein würziges Soulfood-Gericht, bei dem fast alles in einer Pfanne gart.
 
 1. Feta in eine große Schüssel zerbröseln, Hackfleisch, Gewürzmischung, die Hälfte des Oreganos, Salz und Pfeffer dazugeben. Gut vermengen und zu 4 ovalen Frikadellen formen.
 2. Öl in einer großen Pfanne bei mittlerer Hitze erhitzen und die Bifteki von jeder Seite 6–7 Minuten braten, bis sie durchgegart sind. Herausnehmen und beiseitestellen.

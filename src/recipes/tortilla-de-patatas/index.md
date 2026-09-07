@@ -4,9 +4,8 @@ title: Tortilla de Patatas
 aufwand: aufwändig
 servings: 4
 image: /assets/images/tortilla-de-patatas.jpeg
+description: "Das klassische spanische Kartoffelomelett mit nur fünf Zutaten: Eier, Kartoffeln, Zwiebel, Olivenöl und Salz. Es eignet sich als Frühstück, Mittagessen, Snack oder Abendessen und schmeckt warm, lauwarm oder kalt."
 ---
-
-Das klassische spanische Kartoffelomelett mit nur fünf Zutaten: Eier, Kartoffeln, Zwiebel, Olivenöl und Salz. Es eignet sich als Frühstück, Mittagessen, Snack oder Abendessen und schmeckt warm, lauwarm oder kalt.
 
 1. Kartoffeln schälen, waschen und ca. 5 mm dünn aufschneiden. Mit Salz bestreuen und trockentupfen.
 2. Reichlich Olivenöl in einer großen Pfanne erhitzen und die Kartoffelscheiben bei niedriger Hitze 20 Minuten weich garen. Abschöpfen und in einem Sieb abtropfen lassen.

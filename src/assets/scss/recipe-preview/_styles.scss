@@ -1,0 +1,115 @@
+@use '../tokens' as *;
+
+// ── Recipe preview ───────────────────────────────────────────────────────────
+// Bottom-sheet modal shown when a recipe is tapped in the list, before
+// navigating to the full detail screen.
+$preview-image-size: clamp(160px, 40vw, 220px);
+$preview-image-ring: 6px;
+$preview-image-half: calc(#{$preview-image-size} / 2 + #{$preview-image-ring});
+
+.recipe-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.recipe-preview__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba($brand, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.recipe-preview__panel {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: calc(#{$preview-image-half} + 1.5rem) 1.5rem 2rem;
+  background: $card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  box-shadow: $shadow-drawer;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.recipe-preview.is-open {
+  .recipe-preview__backdrop {
+    opacity: 1;
+  }
+  .recipe-preview__panel {
+    transform: translateY(0);
+  }
+}
+
+.recipe-preview__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.recipe-preview__image-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $preview-image-size;
+  height: $preview-image-size;
+  padding: $preview-image-ring;
+  background: $card;
+  border-radius: $radius-full;
+  box-shadow: $shadow-card;
+}
+
+.recipe-preview__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.recipe-preview__title {
+  margin: 0 0 0.75rem;
+}
+
+.recipe-preview__description {
+  color: $text-subtle;
+  margin: 0 0 1.5rem;
+}
+
+.recipe-preview__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.recipe-preview__cta {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: $brand;
+  color: $brand-text;
+  border: 1.5px solid $brand;
+  border-radius: $radius-full;
+  padding: 0.75rem 1.25rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $brand-hover;
+    border-color: $brand-hover;
+  }
+}
