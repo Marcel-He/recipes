@@ -60,18 +60,28 @@ document.getElementById('servings-up').addEventListener('click', () => {
 
 // Wake lock
 let wakeLock = null;
-document.getElementById('wake-lock-toggle').addEventListener('click', async () => {
+const wakeLockBtn = document.getElementById('wake-lock-toggle');
+const wakeLockIcon = wakeLockBtn.querySelector('i');
+
+function setWakeLockState(active) {
+  wakeLockBtn.classList.toggle('is-active', active);
+  wakeLockBtn.setAttribute('aria-pressed', String(active));
+  wakeLockIcon.classList.toggle('fa-regular', !active);
+  wakeLockIcon.classList.toggle('fa-solid', active);
+}
+
+wakeLockBtn.addEventListener('click', async () => {
   if (wakeLock) {
     await wakeLock.release();
     wakeLock = null;
-    document.getElementById('wake-lock-toggle').textContent = 'Keep screen on';
+    setWakeLockState(false);
   } else {
     try {
       wakeLock = await navigator.wakeLock.request('screen');
-      document.getElementById('wake-lock-toggle').textContent = 'Screen on ✓';
+      setWakeLockState(true);
       wakeLock.addEventListener('release', () => {
         wakeLock = null;
-        document.getElementById('wake-lock-toggle').textContent = 'Keep screen on';
+        setWakeLockState(false);
       });
     } catch {
       // Wake lock unsupported or denied; fail silently
@@ -87,7 +97,10 @@ document.getElementById('add-to-planner').addEventListener('click', () => {
     localStorage.setItem('planner', JSON.stringify(planner));
   }
   const btn = document.getElementById('add-to-planner');
-  btn.textContent = '✓ In planner';
+  btn.classList.add('is-active');
+  btn.setAttribute('aria-pressed', 'true');
+  btn.setAttribute('aria-label', 'Added to planner');
+  btn.querySelector('i').className = 'fa-solid fa-calendar-check';
   btn.disabled = true;
 });
 

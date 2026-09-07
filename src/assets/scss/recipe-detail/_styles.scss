@@ -1,8 +1,14 @@
 @use '../tokens' as *;
 
+// Match the page background to the hero so the drawer's rounded top
+// corners reveal green underneath instead of a mismatched page color.
+body:has(.recipe-hero) {
+  background: $brand;
+}
+
 // ── Hero ───────────────────────────────────────────────────────────────────
 $hero-panel-height: clamp(190px, 26vw, 230px);
-$hero-image-size: clamp(150px, 34vw, 200px);
+$hero-image-size: clamp(200px, 45vw, 300px);
 $hero-image-ring: 6px;
 // Half the image (+ ring) — the drawer's top edge sits at the image's
 // vertical center, so this much of it hangs below the seam into the drawer.
@@ -21,23 +27,25 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   background: $brand;
 }
 
-// On-panel variant of .back-button — translucent white on the brand green.
+// On-panel variant of .back-button — solid white against the brand green.
+// Fixed positioning means it also scrolls over the white drawer, so it
+// needs a solid (not translucent) surface to stay legible on both.
 // Selector combines both classes so it reliably beats the base .back-button
 // rule regardless of @use output order (equal-specificity single classes
 // would otherwise lose to whichever rule happens to compile last).
 .back-button.back-button--floating {
-  position: absolute;
+  position: fixed;
   top: 1.1rem;
   left: 1.1rem;
+  z-index: 10;
   margin: 0;
-  background: rgba($brand-text, 0.16);
-  border-color: rgba($brand-text, 0.5);
-  color: $brand-text;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: $card;
+  border-color: $card;
+  color: $brand;
+  box-shadow: $shadow-nav;
 
   &:hover {
-    background: rgba($brand-text, 0.28);
+    background: $bg;
   }
 }
 
@@ -74,8 +82,50 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   box-shadow: $shadow-drawer;
 }
 
+.recipe-header__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.recipe-header__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: $radius-full;
+  background: rgba($brand, 0.08);
+  color: $brand;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba($brand, 0.16);
+  }
+
+  &.is-active {
+    background: $brand;
+    color: $brand-text;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
 [data-recipe-id] h1 {
-  margin: 0 0 0.25rem;
+  margin: 0;
 }
 
 .difficulty {
@@ -86,18 +136,38 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: $text-subtle;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .servings-control {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
+  gap: 0.75rem;
+  margin: 1.25rem 0 0;
 
   label {
     font-weight: 600;
     font-size: 13px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: $radius-full;
+    background: rgba($brand, 0.08);
+    color: $brand;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($brand, 0.16);
+    }
   }
 }
 
@@ -124,10 +194,6 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   ol {
     margin: 0;
   }
-}
-
-#ingredients-section {
-  border-top: none;
 }
 
 #ingredients-section ul li {

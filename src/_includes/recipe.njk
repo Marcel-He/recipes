@@ -15,18 +15,26 @@ pageScript: recipe.js
 
   <div class="recipe-drawer">
     <header>
-      <h1>{{ title }}</h1>
+      <div class="recipe-header__top">
+        <h1>{{ title }}</h1>
+        <div class="recipe-header__actions">
+          <button id="wake-lock-toggle" class="icon-button" aria-label="Keep screen on" aria-pressed="false">
+            <i class="fa-regular fa-sun"></i>
+          </button>
+          <button id="add-to-planner" class="icon-button" data-id="{{ id }}" aria-label="Add to planner" aria-pressed="false">
+            <i class="fa-solid fa-calendar-plus"></i>
+          </button>
+        </div>
+      </div>
+
       <span class="difficulty">{{ difficulty }}</span>
 
       <div class="servings-control">
         <label>Servings</label>
-        <button id="servings-down">−</button>
+        <button id="servings-down" aria-label="Decrease servings">−</button>
         <output id="servings">{{ servings }}</output>
-        <button id="servings-up">+</button>
+        <button id="servings-up" aria-label="Increase servings">+</button>
       </div>
-
-      <button id="wake-lock-toggle">Keep screen on</button>
-      <button id="add-to-planner" data-id="{{ id }}">+ Planner</button>
     </header>
 
     <section id="ingredients-section">
