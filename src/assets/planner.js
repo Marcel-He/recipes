@@ -1,5 +1,5 @@
 import { aggregateIngredients } from './lib/aggregator.js';
-import { buildBringUrl } from './lib/bring.js';
+import { buildBringImportUrl } from './lib/bring.js';
 import { formatQuantity } from './lib/format.js';
 
 async function init() {
@@ -43,7 +43,7 @@ async function init() {
   const bringBtn = document.getElementById('bring-export');
   bringBtn.disabled = false;
   bringBtn.addEventListener('click', () => {
-    window.location.href = buildBringUrl(aggregated);
+    window.location.href = buildBringImportUrl(window.location.origin, aggregated);
   });
 }
 

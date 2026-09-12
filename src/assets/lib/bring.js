@@ -1,9 +1,5 @@
-import { formatQuantity } from './format.js';
-
-export function buildBringUrl(ingredients) {
-  if (ingredients.length === 0) return 'bring://bring/';
-  const items = ingredients
-    .map(i => `${encodeURIComponent(i.name)},${encodeURIComponent(formatQuantity(i))}`)
-    .join(';');
-  return `bring://bring/?items=${items}`;
+export function buildBringImportUrl(origin, ingredients) {
+  const data = encodeURIComponent(JSON.stringify(ingredients));
+  const recipeUrl = `${origin}/api/planner-recipe?data=${data}`;
+  return `https://api.getbring.com/rest/bringrecipes/deeplink?url=${encodeURIComponent(recipeUrl)}&source=web`;
 }

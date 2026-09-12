@@ -1,25 +1,29 @@
 import { describe, it, expect } from 'vitest';
-import { buildBringUrl } from '../../src/assets/lib/bring.js';
+import { buildBringImportUrl } from '../../src/assets/lib/bring.js';
 
-describe('buildBringUrl', () => {
-  it('returns a bring:// URL', () => {
-    const url = buildBringUrl([{ name: 'Milk', amount: 1, unit: 'l' }]);
-    expect(url.startsWith('bring://')).toBe(true);
+describe('buildBringImportUrl', () => {
+  it('returns the official Bring recipe-import deeplink', () => {
+    const url = buildBringImportUrl('https://example.com', [{ name: 'Milk', amount: 1, unit: 'l' }]);
+    expect(url.startsWith('https://api.getbring.com/rest/bringrecipes/deeplink?url=')).toBe(true);
+    expect(url).toContain('source=web');
   });
 
-  it('URL-encodes ingredient names with spaces', () => {
-    const url = buildBringUrl([{ name: 'Olive oil', amount: 2, unit: 'tbsp' }]);
-    expect(url).toContain('Olive%20oil');
+  it('points the deeplink at our own planner-recipe endpoint', () => {
+    const url = buildBringImportUrl('https://example.com', [{ name: 'Milk', amount: 1, unit: 'l' }]);
+    const target = new URL(url).searchParams.get('url');
+    expect(target.startsWith('https://example.com/api/planner-recipe?data=')).toBe(true);
+  });
+
+  it('encodes the ingredient list into the recipe-page URL', () => {
+    const ingredients = [{ name: 'Olive oil', amount: 2, unit: 'tbsp' }];
+    const url = buildBringImportUrl('https://example.com', ingredients);
+    const target = new URL(new URL(url).searchParams.get('url'));
+    const data = JSON.parse(target.searchParams.get('data'));
+    expect(data).toEqual(ingredients);
   });
 
   it('returns a valid URL for an empty ingredient list', () => {
-    const url = buildBringUrl([]);
-    expect(typeof url).toBe('string');
-    expect(url.startsWith('bring://')).toBe(true);
-  });
-
-  it('does not include the literal word "null" for ingredients with no amount or unit', () => {
-    const url = buildBringUrl([{ name: 'Salz', amount: null, unit: null }]);
-    expect(url).not.toContain('null');
+    const url = buildBringImportUrl('https://example.com', []);
+    expect(() => new URL(url)).not.toThrow();
   });
 });
