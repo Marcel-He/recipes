@@ -1,0 +1,19 @@
+{
+  "id": "franzoesische-zwiebelsuppe",
+  "title": "Französische Zwiebelsuppe",
+  "aufwand": "mittel",
+  "servings": 4,
+  "ingredients": [
+    { "name": "Zwiebeln", "amount": 650, "unit": "g", "step": 1 },
+    { "name": "Butter", "amount": 50, "unit": "g", "step": 1 },
+    { "name": "Gemüsebrühe (Streuwürze)", "amount": 2, "unit": "TL", "step": 1 },
+    { "name": "Wasser", "amount": 750, "unit": "ml", "step": 1 },
+    { "name": "Mehl", "amount": 1, "unit": "EL", "step": 2 },
+    { "name": "Trockener Weißwein", "amount": 250, "unit": "ml", "step": 2 },
+    { "name": "Meersalz", "amount": 1, "unit": "Prise", "step": 2 },
+    { "name": "Pfeffer, schwarz", "amount": 1, "unit": "Prise", "step": 2 },
+    { "name": "Baguettebrot", "amount": 100, "unit": "g", "step": 3 },
+    { "name": "Emmentaler", "amount": 100, "unit": "g", "step": 3 },
+    { "name": "Frische Rosmarinzweige", "amount": 2, "unit": "Stück", "step": 4 }
+  ]
+}
