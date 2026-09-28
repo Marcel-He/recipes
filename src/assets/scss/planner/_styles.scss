@@ -230,3 +230,75 @@ $recipe-row-image-ring: 4px;
   font-weight: 700;
   color: $text-base;
 }
+
+// ── Suggestions ("Passt dazu") ─────────────────────────────────────────────
+// Unplanned recipes that share base ingredients with the plan, so one
+// shopping trip covers several dishes.
+$suggestion-image-size: 52px;
+
+.suggestions {
+  margin-top: 1.75rem;
+
+  h3 {
+    margin: 0 0 0.25rem;
+  }
+}
+
+.suggestions__hint {
+  margin: 0 0 0.5rem;
+  font-size: $text-label-md-size;
+  color: $text-subtle;
+}
+
+.suggestion-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .icon-button {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.suggestion-list__image {
+  flex-shrink: 0;
+  width: $suggestion-image-size;
+  height: $suggestion-image-size;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.suggestion-list__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($brand, 0.08);
+  color: $brand;
+}
+
+.suggestion-list__text {
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.suggestion-list__name {
+  display: block;
+  font-weight: 700;
+  color: $text-base;
+}
+
+.suggestion-list__shared {
+  display: block;
+  font-size: $text-label-md-size;
+  color: $text-subtle;
+}

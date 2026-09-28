@@ -1,4 +1,5 @@
 import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
+import { suggestRecipes } from './lib/suggestions.js';
 
 async function init() {
   const ids = JSON.parse(localStorage.getItem('planner') || '[]');
@@ -36,6 +37,7 @@ async function init() {
   const loadedIds = loaded.map(x => x.id);
   renderRecipeTags(recipes, loadedIds, images);
   renderBringList(recipes, loadedIds);
+  renderSuggestions(index.filter(r => loadedIds.includes(r.id)), index);
 }
 
 function renderRecipeTags(recipes, ids, images) {
@@ -81,6 +83,41 @@ function renderBringList(recipes, ids) {
         </li>`;
     })
     .join('');
+}
+
+function renderSuggestions(planned, all) {
+  const suggestions = suggestRecipes(planned, all);
+  if (suggestions.length === 0) return;
+
+  const list = document.getElementById('suggestion-list');
+  list.innerHTML = suggestions
+    .map(({ recipe, shared }) => {
+      const photo = recipe.image
+        ? `<img class="suggestion-list__image" src="${recipe.image}" alt="">`
+        : `<div class="suggestion-list__image suggestion-list__image--placeholder"><i class="fa-solid fa-utensils"></i></div>`;
+      return `
+        <li class="suggestion-list__item">
+          ${photo}
+          <a class="suggestion-list__text" href="/recipes/${recipe.id}/">
+            <span class="suggestion-list__name">${recipe.title}</span>
+            <span class="suggestion-list__shared">Auch mit: ${shared.join(', ')}</span>
+          </a>
+          <button type="button" class="icon-button" data-id="${recipe.id}" aria-label="Add ${recipe.title} to planner">
+            <i class="fa-solid fa-calendar-plus"></i>
+          </button>
+        </li>`;
+    })
+    .join('');
+  document.getElementById('suggestions').hidden = false;
+
+  list.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-id]');
+    if (!btn) return;
+    const planner = JSON.parse(localStorage.getItem('planner') || '[]');
+    if (!planner.includes(btn.dataset.id)) planner.push(btn.dataset.id);
+    localStorage.setItem('planner', JSON.stringify(planner));
+    window.location.reload();
+  });
 }
 
 function initMenu() {

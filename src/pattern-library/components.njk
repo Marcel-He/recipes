@@ -88,6 +88,36 @@ title: Components
 </section>
 
 <section class="pl-section">
+  <h2 class="pl-section-title">Suggestions</h2>
+  <p>.suggestions / .suggestion-list — the planner's „Passt dazu“ block below the Bring list.
+    Unplanned recipes that share base ingredients with the plan, ranked by how many they share.
+    Each row: round thumbnail, name, the shared ingredients as a subtle caption, and a
+    calendar-plus icon-button that adds the recipe to the plan.</p>
+  <section class="suggestions" style="margin-top: 0;">
+    <h3>Passt dazu</h3>
+    <p class="suggestions__hint">Rezepte mit denselben Grundzutaten, damit beim Einkauf nichts übrig bleibt.</p>
+    <ul class="suggestion-list">
+      <li class="suggestion-list__item">
+        <img class="suggestion-list__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+        <a class="suggestion-list__text" href="#">
+          <span class="suggestion-list__name">Tortilla de Patatas</span>
+          <span class="suggestion-list__shared">Auch mit: Kartoffeln, Zwiebeln, Eier</span>
+        </a>
+        <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+      </li>
+      <li class="suggestion-list__item">
+        <div class="suggestion-list__image suggestion-list__image--placeholder"><i class="fa-solid fa-utensils"></i></div>
+        <a class="suggestion-list__text" href="#">
+          <span class="suggestion-list__name">Rote-Bete-Carpaccio</span>
+          <span class="suggestion-list__shared">Auch mit: Feta</span>
+        </a>
+        <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+      </li>
+    </ul>
+  </section>
+</section>
+
+<section class="pl-section">
   <h2 class="pl-section-title">Planner menu</h2>
   <p>.planner-menu / .planner-menu__item — a small dropdown card toggled by the drawer's kebab
     button, holding the planner's secondary actions. The destructive action gets the

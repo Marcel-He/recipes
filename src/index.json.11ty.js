@@ -1,3 +1,5 @@
+import { baseIngredients } from './assets/lib/suggestions.js';
+
 export default class RecipesIndex {
   data() {
     return {
@@ -6,7 +8,8 @@ export default class RecipesIndex {
     };
   }
 
-  render({ collections }) {
+  render({ collections, recipes }) {
+    const ingredientsById = new Map((recipes || []).map(r => [r.id, baseIngredients(r.ingredients)]));
     return JSON.stringify(
       collections.recipe.map(item => ({
         id: item.data.id,
@@ -14,6 +17,8 @@ export default class RecipesIndex {
         difficulty: item.data.difficulty,
         aufwand: item.data.aufwand,
         image: item.data.image,
+        // Base ingredients, for the planner's "Passt dazu" suggestions
+        ingredients: ingredientsById.get(item.data.id) || [],
       }))
     );
   }
