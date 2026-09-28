@@ -39,52 +39,77 @@ title: Components
 </section>
 
 <section class="pl-section">
-  <h2 class="pl-section-title">Recipe row</h2>
-  <p>.recipe-row / .recipe-row__item / .recipe-row__remove / .recipe-row__name — a horizontally
-    scrolling row of circular recipe photos, used on the planner screen for the recipes currently
-    in the plan. Each photo carries a small circular "×" badge overlapping its top-right corner to
-    remove that recipe, and a name caption below.</p>
-  <ul class="recipe-row" style="list-style: none; margin: 0; padding: 0.5rem 0.25rem;">
-    <li class="recipe-row__item">
-      <img class="recipe-row__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
-      <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
-      <span class="recipe-row__name">Citrus Bowl</span>
-    </li>
-    <li class="recipe-row__item">
-      <div class="recipe-row__image recipe-row__image--placeholder"><i class="fa-solid fa-utensils"></i></div>
-      <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
-      <span class="recipe-row__name">Pesto Linguine</span>
-    </li>
-  </ul>
-</section>
-
-<section class="pl-section">
-  <h2 class="pl-section-title">Plan drawer</h2>
-  <p>.planner-drawer / .drawer-handle / .planner-drawer__header / .planner-drawer__actions — a
-    full-bleed white rounded-top card, the same visual weight as .recipe-drawer above but not
-    seamed to a hero image — a centered drag-handle bar marks its top edge instead. Holds the
-    planner's Bring list, with a kebab icon-button that opens the .planner-menu dropdown below.</p>
-  <div class="planner-drawer" style="position: relative; width: auto; margin-inline: 0;">
-    <div class="drawer-handle" aria-hidden="true"></div>
-    <div class="planner-drawer__header">
-      <h2>Export to Bring</h2>
-      <div class="planner-drawer__actions">
-        <button type="button" class="icon-button" aria-label="More options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-      </div>
+  <h2 class="pl-section-title">Plan hero</h2>
+  <p>.planner-hero / .planner-header / .recipe-row — the full-bleed white panel at the top of the
+    planner. Holds the eyebrow, heading, and the horizontally scrolling row of circular recipe
+    photos for what's currently in the plan. A plain tap opens the recipe preview; holding down
+    any item reveals the "×" remove button on all of them at once
+    (.recipe-row--removable on the list), shown here for documentation.</p>
+  <div class="planner-hero" style="width: auto; margin-inline: 0; margin-top: 0; border: 1px solid #c8c6c2; border-radius: 0.5rem;">
+    <div class="planner-header">
+      <span class="planner-eyebrow">Your Plan</span>
+      <h1>This Week's Recipes</h1>
     </div>
-    <ul class="bring-list">
-      <li><span class="bring-list__name">Hähnchen Piccata</span> <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a></li>
-      <li><span class="bring-list__name">Französische Zwiebelsuppe</span> <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a></li>
+    <ul class="recipe-row recipe-row--removable" style="list-style: none; margin: 0; padding: 0.5rem 0.25rem;">
+      <li class="recipe-row__item">
+        <img class="recipe-row__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+        <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+        <span class="recipe-row__name">Citrus Bowl</span>
+      </li>
+      <li class="recipe-row__item">
+        <div class="recipe-row__image recipe-row__image--placeholder"><i class="fa-solid fa-utensils"></i></div>
+        <button type="button" class="recipe-row__remove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+        <span class="recipe-row__name">Pesto Linguine</span>
+      </li>
     </ul>
   </div>
 </section>
 
 <section class="pl-section">
-  <h2 class="pl-section-title">Bring list</h2>
-  <p>.bring-list / .bring-list__name — one row per planned recipe, each with its own basket
-    icon-button that opens Bring's recipe import for that recipe. Bring imports recipes one at a
-    time and lets you pick the servings in its import dialog, so there is no combined shopping
-    list. The same basket icon-button sits in the recipe detail header.</p>
+  <h2 class="pl-section-title">Plan drawer</h2>
+  <p>.planner-drawer / .drawer-handle / .planner-menu-wrap--drawer — a full-bleed white
+    rounded-top card, the same visual weight as .recipe-drawer above but not seamed to a hero
+    image — a centered drag-handle bar marks its top edge instead. The kebab menu floats at the
+    drawer's top-right, since "Clear planner" applies to the whole plan, not just the suggestions
+    below it. Per-recipe actions like Bring export live in the recipe preview (tapped from a plan
+    or suggestion item) rather than in the drawer itself.</p>
+  <div class="planner-drawer" style="position: relative; width: auto; margin-inline: 0;">
+    <div class="drawer-handle" aria-hidden="true"></div>
+    <div class="planner-menu-wrap planner-menu-wrap--drawer" style="position: absolute;">
+      <button type="button" class="icon-button" aria-label="More options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+    </div>
+
+    <section class="suggestions">
+      <h2>Mit ähnlichen Zutaten</h2>
+      <p class="suggestions__hint">Rezepte mit denselben Grundzutaten, damit beim Einkauf nichts übrig bleibt.</p>
+      <ul class="suggestion-list">
+        <li class="suggestion-list__item">
+          <img class="suggestion-list__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+          <a class="suggestion-list__text" href="#">
+            <span class="suggestion-list__name">Tortilla de Patatas</span>
+            <span class="suggestion-list__shared">Auch mit: Kartoffeln, Zwiebeln, Eier</span>
+          </a>
+          <button type="button" class="icon-button icon-button--brand" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+        </li>
+        <li class="suggestion-list__item">
+          <div class="suggestion-list__image suggestion-list__image--placeholder"><i class="fa-solid fa-utensils"></i></div>
+          <a class="suggestion-list__text" href="#">
+            <span class="suggestion-list__name">Rote-Bete-Carpaccio</span>
+            <span class="suggestion-list__shared">Auch mit: Feta</span>
+          </a>
+          <button type="button" class="icon-button icon-button--brand" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
+        </li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Suggestions</h2>
+  <p>.suggestions / .suggestion-list — the planner's primary content: unplanned recipes that
+    share base ingredients with the plan, ranked by how many they share. Each card: round
+    thumbnail, name, the shared ingredients as a subtle caption, and a solid-brand calendar-plus
+    icon-button that adds the recipe to the plan.</p>
 </section>
 
 <section class="pl-section">
@@ -101,10 +126,12 @@ title: Components
 
 <section class="pl-section">
   <h2 class="pl-section-title">Recipe preview</h2>
-  <p>.recipe-preview — bottom-sheet modal shown when a recipe is tapped in the list, as an
-    intermediate step before the full detail screen. Circular image straddles the panel's top
-    edge; the primary action navigates to the detail page, the icon button adds straight to the
-    planner without leaving the list.</p>
+  <p>.recipe-preview — bottom-sheet modal shown when a recipe is tapped, as an intermediate step
+    before the full detail screen. Used both from the recipe list and from the planner (plan row
+    and suggestion cards). Circular image straddles the panel's top edge; the primary action
+    navigates to the detail page, the calendar icon-button adds straight to the planner without
+    leaving the list. The basket icon-button is optional — only shown when the caller (currently
+    just the planner, for already-planned recipes) supplies a Bring export link.</p>
   <div style="position: relative; height: 520px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
     <div class="recipe-preview" style="position: absolute; inset: 0;">
       <div class="recipe-preview__backdrop" style="position: absolute; opacity: 1;"></div>
@@ -119,6 +146,7 @@ title: Components
         <p class="recipe-preview__description">Griechisch inspirierte Frikadellen aus Hackfleisch und Hirtenkäse auf einem cremigen One-Pot-Orzotto.</p>
         <div class="recipe-preview__actions">
           <a class="recipe-preview__cta" href="#">View Full Recipe <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a>
           <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
         </div>
       </div>

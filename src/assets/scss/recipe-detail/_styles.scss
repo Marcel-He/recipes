@@ -127,6 +127,17 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   }
 }
 
+// Solid-brand variant for actions that are always prominent (not a toggled
+// state, unlike .is-active) — e.g. adding a suggested recipe to the plan.
+.icon-button--brand {
+  background: $brand;
+  color: $brand-text;
+
+  &:hover {
+    background: $brand-hover;
+  }
+}
+
 [data-recipe-id] h1 {
   margin: 0;
 }
