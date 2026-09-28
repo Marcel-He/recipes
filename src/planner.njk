@@ -3,37 +3,57 @@ layout: base.njk
 title: Planner
 pageScript: planner.js
 ---
-<div class="planner-header">
-  <span class="planner-header__eyebrow">Your Plan</span>
-  <h1>This Week's Recipes</h1>
-</div>
+<div class="planner-hero">
+  <div class="planner-header">
+    <span class="planner-eyebrow">Your Plan</span>
+    <h1>This Week's Recipes</h1>
+  </div>
 
-<ul id="recipe-tags" class="recipe-row"></ul>
+  <ul id="recipe-tags" class="recipe-row"></ul>
+</div>
 
 <div class="planner-drawer">
   <div class="drawer-handle" aria-hidden="true"></div>
 
-  <div class="planner-drawer__header">
-    <h2>Export to Bring</h2>
-    <div class="planner-drawer__actions">
-      <div class="planner-menu-wrap">
-        <button type="button" id="planner-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-label="More options">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
-        <div id="planner-menu" class="planner-menu" hidden>
-          <button type="button" id="clear-planner" class="planner-menu__item planner-menu__item--danger">
-            <i class="fa-solid fa-trash"></i> Clear planner
-          </button>
-        </div>
-      </div>
+  <div class="planner-menu-wrap planner-menu-wrap--drawer">
+    <button type="button" id="planner-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-label="More options">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+    <div id="planner-menu" class="planner-menu" hidden>
+      <button type="button" id="clear-planner" class="planner-menu__item planner-menu__item--danger">
+        <i class="fa-solid fa-trash"></i> Clear planner
+      </button>
     </div>
   </div>
 
-  <ul id="bring-list" class="bring-list"></ul>
-
   <section id="suggestions" class="suggestions" hidden>
-    <h3>Passt dazu</h3>
+    <h2>Mit ähnlichen Zutaten</h2>
     <p class="suggestions__hint">Rezepte mit denselben Grundzutaten, damit beim Einkauf nichts übrig bleibt.</p>
     <ul id="suggestion-list" class="suggestion-list"></ul>
   </section>
+</div>
+
+<div id="recipe-preview" class="recipe-preview" hidden>
+  <div class="recipe-preview__backdrop" data-close></div>
+  <div class="recipe-preview__panel" role="dialog" aria-modal="true" aria-labelledby="recipe-preview-title">
+    <button type="button" class="icon-button recipe-preview__close" data-close aria-label="Close preview">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="recipe-preview__image-wrap">
+      <img class="recipe-preview__image" src="" alt="">
+    </div>
+    <h2 id="recipe-preview-title" class="recipe-preview__title"></h2>
+    <p class="recipe-preview__description"></p>
+    <div class="recipe-preview__actions">
+      <a class="recipe-preview__cta" href="#">
+        View Full Recipe <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <a id="recipe-preview-bring" class="icon-button" href="#" aria-label="Export to Bring" hidden>
+        <i class="fa-solid fa-basket-shopping"></i>
+      </a>
+      <button type="button" id="recipe-preview-add" class="icon-button" aria-label="Add to planner" aria-pressed="false">
+        <i class="fa-solid fa-calendar-plus"></i>
+      </button>
+    </div>
+  </div>
 </div>

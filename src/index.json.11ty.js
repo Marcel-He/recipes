@@ -17,7 +17,8 @@ export default class RecipesIndex {
         difficulty: item.data.difficulty,
         aufwand: item.data.aufwand,
         image: item.data.image,
-        // Base ingredients, for the planner's "Passt dazu" suggestions
+        description: item.data.description,
+        // Base ingredients, for the planner's "Mit ähnlichen Zutaten" suggestions
         ingredients: ingredientsById.get(item.data.id) || [],
       }))
     );

@@ -1,11 +1,9 @@
 @use '../tokens' as *;
 
-// ── Header ─────────────────────────────────────────────────────────────────
-.planner-header {
-  margin-bottom: 1.5rem;
-}
-
-.planner-header__eyebrow {
+// ── Eyebrow ────────────────────────────────────────────────────────────────
+// Shared small-caps label above a heading. Default color assumes a light
+// surface; --inverse is for the dark .planner-hero panel.
+.planner-eyebrow {
   display: block;
   font-family: $font-body;
   font-size: 11px;
@@ -16,6 +14,21 @@
   margin: 0 0 0.35rem;
 }
 
+// ── Hero ───────────────────────────────────────────────────────────────────
+// Full-bleed white panel holding the week's plan.
+.planner-hero {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  // Cancel main's 2rem top padding so the panel is flush with the viewport top.
+  margin-top: -2rem;
+  background: $card;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.planner-header {
+  margin-bottom: 1.5rem;
+}
+
 // ── Recipe row ─────────────────────────────────────────────────────────────
 $recipe-row-image-size: 84px;
 $recipe-row-image-ring: 4px;
@@ -24,8 +37,8 @@ $recipe-row-image-ring: 4px;
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;
-  padding: 0.5rem 0.25rem 1.5rem;
-  margin: 0 -0.25rem 1.5rem;
+  padding: 0.5rem 0.25rem 1rem;
+  margin: 0 -0.25rem;
   scroll-snap-type: x proximity;
 
   &::-webkit-scrollbar {
@@ -39,6 +52,12 @@ $recipe-row-image-ring: 4px;
   width: $recipe-row-image-size;
   text-align: center;
   scroll-snap-align: start;
+}
+
+.recipe-row__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .recipe-row__image {
@@ -62,6 +81,8 @@ $recipe-row-image-ring: 4px;
   font-size: 1.5rem;
 }
 
+// Hidden until any item is held (see .recipe-row--removable below), then
+// shown on all items at once — a plain tap opens the preview instead.
 .recipe-row__remove {
   position: absolute;
   top: -2px;
@@ -79,11 +100,20 @@ $recipe-row-image-ring: 4px;
   box-shadow: $shadow-card;
   font-size: 11px;
   cursor: pointer;
-  transition: color 0.15s;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  transition: color 0.15s, opacity 0.15s ease, transform 0.15s ease;
 
   &:hover {
     color: $danger;
   }
+}
+
+.recipe-row--removable .recipe-row__remove {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .recipe-row__name {
@@ -122,34 +152,24 @@ $recipe-row-image-ring: 4px;
   background: $row;
 }
 
-.planner-drawer__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-
-  h2 {
-    margin: 0;
-  }
+// ── Menu ───────────────────────────────────────────────────────────────────
+.planner-menu-wrap {
+  position: relative;
 }
 
-.planner-drawer__actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-shrink: 0;
+// The kebab menu clears the whole plan, not just the shopping list, so it
+// floats at the top of the drawer rather than anchoring to either section.
+.planner-menu-wrap--drawer {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.5rem;
+  z-index: 5;
 
-  // Drawer header icons sit smaller than the recipe-detail header's 44px
   .icon-button {
     width: 38px;
     height: 38px;
     font-size: $text-body-lg-size;
   }
-}
-
-// ── Menu ───────────────────────────────────────────────────────────────────
-.planner-menu-wrap {
-  position: relative;
 }
 
 .planner-menu {
@@ -203,63 +223,40 @@ $recipe-row-image-ring: 4px;
   }
 }
 
-// ── Bring list ─────────────────────────────────────────────────────────────
-// One row per planned recipe, each with its own Bring export button — Bring
-// imports recipes individually and sets the servings in its import dialog.
-.bring-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid $border;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .icon-button {
-    flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    text-decoration: none;
-  }
-}
-
-.bring-list__name {
-  font-weight: 700;
-  color: $text-base;
-}
-
 // ── Suggestions ("Passt dazu") ─────────────────────────────────────────────
-// Unplanned recipes that share base ingredients with the plan, so one
-// shopping trip covers several dishes.
-$suggestion-image-size: 52px;
+// The screen's primary content: unplanned recipes that share base
+// ingredients with the plan, so one shopping trip covers several dishes.
+// Comes first in the drawer, styled as cards rather than a plain list.
+$suggestion-image-size: 64px;
 
 .suggestions {
+  // Clears the floating kebab menu above it.
   margin-top: 1.75rem;
 
-  h3 {
+  h2 {
     margin: 0 0 0.25rem;
   }
 }
 
 .suggestions__hint {
-  margin: 0 0 0.5rem;
+  margin: 0 0 1rem;
   font-size: $text-label-md-size;
   color: $text-subtle;
+}
+
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .suggestion-list__item {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid $border;
-
-  &:last-child {
-    border-bottom: none;
-  }
+  padding: 0.75rem;
+  background: $bg;
+  border-radius: $radius-md;
 
   .icon-button {
     flex-shrink: 0;
