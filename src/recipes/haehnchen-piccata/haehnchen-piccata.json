@@ -1,0 +1,26 @@
+{
+  "id": "haehnchen-piccata",
+  "title": "Hähnchen Piccata",
+  "aufwand": "mittel",
+  "servings": 4,
+  "ingredients": [
+    { "name": "Hähnchenbrustfilets (ohne Haut und Knochen)", "amount": 4, "unit": "Stück", "step": 1 },
+    { "name": "Grobes Salz (z. B. Meersalz)", "amount": null, "unit": "Prise", "step": 2 },
+    { "name": "Schwarzer Pfeffer", "amount": null, "unit": "Prise", "step": 2 },
+    { "name": "Olivenöl", "amount": null, "unit": null, "step": 4 },
+    { "name": "Weizenmehl (Type 405)", "amount": 125, "unit": "g", "step": 4 },
+    { "name": "Grobes Salz (z. B. Meersalz)", "amount": null, "unit": "Prise", "step": 4 },
+    { "name": "Schwarzer Pfeffer", "amount": null, "unit": "Prise", "step": 4 },
+    { "name": "Knoblauch (grob gehackt)", "amount": 6, "unit": "Zehe", "step": 7 },
+    { "name": "Trockener Weißwein", "amount": 120, "unit": "ml", "step": 7 },
+    { "name": "Kleine Kapern", "amount": 2, "unit": "EL", "step": 8 },
+    { "name": "Hühnerbrühe (heiß)", "amount": 120, "unit": "ml", "step": 8 },
+    { "name": "Zitronen (unbehandelt)", "amount": 2, "unit": "Stück", "step": 9 },
+    { "name": "Zitrone (für Scheiben, optional)", "amount": 1, "unit": "Stück", "step": 9 },
+    { "name": "Ungesalzene Butter (in Stücken)", "amount": 85, "unit": "g", "step": 10 },
+    { "name": "Grobes Salz (z. B. Meersalz)", "amount": null, "unit": null, "step": 10 },
+    { "name": "Schwarzer Pfeffer", "amount": null, "unit": null, "step": 10 },
+    { "name": "Glatte Petersilie (grob gehackt)", "amount": 2, "unit": "EL", "step": 10 },
+    { "name": "Zitronenschale (frisch gerieben)", "amount": null, "unit": null, "step": 10 }
+  ]
+}
