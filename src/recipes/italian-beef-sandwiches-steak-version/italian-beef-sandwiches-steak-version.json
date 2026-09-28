@@ -1,0 +1,27 @@
+{
+  "id": "italian-beef-sandwiches-steak-version",
+  "title": "Italian-Beef-Sandwiches (Steak-Version)",
+  "aufwand": "aufwändig",
+  "servings": 2,
+  "ingredients": [
+    { "name": "Rindersteak", "amount": 400, "unit": "g", "step": 1 },
+    { "name": "Grobes Salz", "amount": 0.75, "unit": "TL", "step": 1 },
+    { "name": "Pfeffer", "amount": 0.25, "unit": "TL", "step": 1 },
+    { "name": "Öl", "amount": 0.5, "unit": "EL", "step": 2 },
+    { "name": "Knoblauch, in Scheiben", "amount": 2, "unit": "Zehe", "step": 3 },
+    { "name": "Zwiebel", "amount": 0.25, "unit": "Stück", "step": 3 },
+    { "name": "Rinderbrühe", "amount": 250, "unit": "ml", "step": 3 },
+    { "name": "Brühe-Pulver", "amount": 0.75, "unit": "TL", "step": 3 },
+    { "name": "Oregano", "amount": 1.5, "unit": "TL", "step": 3 },
+    { "name": "Knoblauchpulver", "amount": 1.5, "unit": "TL", "step": 3 },
+    { "name": "Zwiebelpulver", "amount": 1.5, "unit": "TL", "step": 3 },
+    { "name": "Basilikum", "amount": 0.75, "unit": "TL", "step": 3 },
+    { "name": "Chiliflocken", "amount": 0.25, "unit": "TL", "step": 3 },
+    { "name": "Selleriesamen (optional)", "amount": 0.75, "unit": "TL", "step": 3 },
+    { "name": "Paprikapulver (optional)", "amount": 0.75, "unit": "TL", "step": 3 },
+    { "name": "Grobes Salz", "amount": 0.75, "unit": "TL", "step": 3 },
+    { "name": "Pfeffer", "amount": 0.5, "unit": "TL", "step": 3 },
+    { "name": "Weiche Brötchen", "amount": 2, "unit": "Stück", "step": 7 },
+    { "name": "Giardiniera", "amount": null, "unit": null, "step": 8 }
+  ]
+}
