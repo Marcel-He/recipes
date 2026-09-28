@@ -3,6 +3,7 @@ id: italian-beef-sandwiches-steak-version
 title: Italian-Beef-Sandwiches (Steak-Version)
 aufwand: aufwändig
 servings: 2
+image: /assets/images/italian-beef-sandwiches-steak-version.jpg
 description: "Chicagos Sandwich-Klassiker in der schnellen Steak-Variante: hauchdünn geschnittenes Rindfleisch, im würzigen Kräuter-Jus gegart und in weiche Brötchen gefüllt. Mit extra Jus getränkt und mit Giardiniera garniert wird es herrlich saftig und pikant."
 ---
 
