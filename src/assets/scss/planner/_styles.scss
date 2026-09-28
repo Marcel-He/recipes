@@ -203,23 +203,30 @@ $recipe-row-image-ring: 4px;
   }
 }
 
-// ── Shopping list ────────────────────────────────────────────────────────
-.shopping-list li {
-  padding: 0.65rem 0;
+// ── Bring list ─────────────────────────────────────────────────────────────
+// One row per planned recipe, each with its own Bring export button — Bring
+// imports recipes individually and sets the servings in its import dialog.
+.bring-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid $border;
 
   &:last-child {
     border-bottom: none;
   }
+
+  .icon-button {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    text-decoration: none;
+  }
 }
 
-.item-name {
+.bring-list__name {
   font-weight: 700;
   color: $text-base;
-}
-
-.item-qty {
-  font-weight: 400;
-  color: $text-subtle;
-  margin-left: 0.3rem;
 }

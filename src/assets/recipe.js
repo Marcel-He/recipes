@@ -1,6 +1,7 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
 import { formatIngredientLine, formatQuantity } from './lib/format.js';
+import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -107,6 +108,15 @@ document.getElementById('add-to-planner').addEventListener('click', () => {
   btn.setAttribute('aria-label', 'Added to planner');
   btn.querySelector('i').className = 'fa-solid fa-calendar-check';
   btn.disabled = true;
+});
+
+// Export to Bring — one recipe, pre-set to the servings currently shown
+document.getElementById('bring-export').addEventListener('click', () => {
+  window.location.href = buildBringImportUrl(
+    recipePageUrl(window.location.origin, recipeId),
+    baseServings,
+    currentServings
+  );
 });
 
 loadRecipe();

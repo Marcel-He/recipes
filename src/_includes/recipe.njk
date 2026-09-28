@@ -2,6 +2,7 @@
 layout: base.njk
 pageScript: recipe.js
 ---
+{{ recipes | recipeJsonLd(id, image) | safe }}
 <article data-recipe-id="{{ id }}" data-base-servings="{{ servings }}">
   <div class="recipe-hero">
     <div class="recipe-hero__panel"></div>
@@ -20,6 +21,9 @@ pageScript: recipe.js
         <div class="recipe-header__actions">
           <button id="wake-lock-toggle" class="icon-button" aria-label="Keep screen on" aria-pressed="false">
             <i class="fa-regular fa-sun"></i>
+          </button>
+          <button id="bring-export" class="icon-button" aria-label="Export to Bring">
+            <i class="fa-solid fa-basket-shopping"></i>
           </button>
           <button id="add-to-planner" class="icon-button" data-id="{{ id }}" aria-label="Add to planner" aria-pressed="false">
             <i class="fa-solid fa-calendar-plus"></i>

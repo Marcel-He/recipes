@@ -1,6 +1,4 @@
-import { aggregateIngredients } from './lib/aggregator.js';
-import { buildBringImportUrl, BRING_MAX_URL_LENGTH } from './lib/bring.js';
-import { formatQuantity } from './lib/format.js';
+import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
 
 async function init() {
   const ids = JSON.parse(localStorage.getItem('planner') || '[]');
@@ -14,7 +12,7 @@ async function init() {
   });
 
   if (ids.length === 0) {
-    document.getElementById('shopping-list').innerHTML = '<li>No recipes selected.</li>';
+    document.getElementById('bring-list').innerHTML = '<li>No recipes selected.</li>';
     return;
   }
 
@@ -30,26 +28,14 @@ async function init() {
     .filter(Boolean);
 
   if (loaded.length === 0) {
-    document.getElementById('shopping-list').innerHTML = '<li>Could not load recipes.</li>';
+    document.getElementById('bring-list').innerHTML = '<li>Could not load recipes.</li>';
     return;
   }
 
   const recipes = loaded.map(x => x.recipe);
   const loadedIds = loaded.map(x => x.id);
   renderRecipeTags(recipes, loadedIds, images);
-  const aggregated = aggregateIngredients(recipes);
-  renderShoppingList(aggregated);
-
-  const bringBtn = document.getElementById('bring-export');
-  bringBtn.disabled = false;
-  bringBtn.addEventListener('click', async () => {
-    const url = await buildBringImportUrl(window.location.origin, aggregated);
-    if (url.length > BRING_MAX_URL_LENGTH) {
-      alert('This shopping list is too long for Bring. Please remove a few recipes and try again.');
-      return;
-    }
-    window.location.href = url;
-  });
+  renderBringList(recipes, loadedIds);
 }
 
 function renderRecipeTags(recipes, ids, images) {
@@ -80,12 +66,19 @@ function renderRecipeTags(recipes, ids, images) {
   });
 }
 
-function renderShoppingList(ingredients) {
-  document.getElementById('shopping-list').innerHTML = ingredients
-    .map(i => {
-      const qty = formatQuantity(i);
-      const qtyMarkup = qty ? `<span class="item-qty">(${qty})</span>` : '';
-      return `<li><span class="item-name">${i.name}</span> ${qtyMarkup}</li>`;
+// Bring imports one recipe at a time and asks for the servings in its own
+// import dialog, so each planned recipe gets its own export link.
+function renderBringList(recipes, ids) {
+  document.getElementById('bring-list').innerHTML = recipes
+    .map((r, i) => {
+      const href = buildBringImportUrl(recipePageUrl(window.location.origin, ids[i]), r.servings);
+      return `
+        <li class="bring-list__item">
+          <span class="bring-list__name">${r.title}</span>
+          <a class="icon-button" href="${href}" aria-label="Export ${r.title} to Bring">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </a>
+        </li>`;
     })
     .join('');
 }
