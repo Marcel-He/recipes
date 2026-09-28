@@ -4,6 +4,7 @@ title: Chiliöl-Kartoffelsalat mit weichen Eiern
 aufwand: mittel
 servings: 2
 description: "Eine schnelle Eigenkreation des viral gegangenen japanischen Kartoffelsalats: Statt Mayonnaise sorgt eine cremige Mischung aus Joghurt, Chiliöl und Remoulade für den Dressing-Kick. Weich gekochte Eier mit exakt 6:30 Minuten Kochzeit, knackige Cornichons, Gurke und Lauchzwiebeln machen den Salat frisch und sättigend zugleich."
+image: /assets/images/chilli-öl-kartoffel-salat.png
 ---
 
 1. Die Kartoffeln in Salzwasser gar kochen und leicht abkühlen lassen.

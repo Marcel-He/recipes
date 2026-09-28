@@ -3,7 +3,7 @@ id: franzoesische-zwiebelsuppe
 title: Französische Zwiebelsuppe
 aufwand: mittel
 servings: 4
-image: /assets/images/franzoesische-zwiebelsuppe.jpg
+image: /assets/images/franzoesische-zwiebelsuppe.png
 description: "Zart geschmorte Zwiebeln werden mit Weißwein und Brühe zu einer herzhaften Suppe abgelöscht. Mit geröstetem Baguette und geschmolzenem Emmentaler überbacken, wird daraus ein knusprig-cremiges Gratin."
 ---
 

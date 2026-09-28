@@ -45,6 +45,8 @@
   img {
     display: block;
     width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     border-radius: 100%;
     align-self: center;
     justify-self: center;
