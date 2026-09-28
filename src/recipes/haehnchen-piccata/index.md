@@ -3,7 +3,7 @@ id: haehnchen-piccata
 title: Hähnchen Piccata
 aufwand: mittel
 servings: 4
-image: /assets/images/haehnchen-piccata.jpg
+image: /assets/images/haehnchen-piccata.png
 description: "Italienischer Klassiker aus dünn plattierten, in Mehl gewendeten Hähnchenschnitzeln mit einer spritzigen Zitronen-Kapern-Sauce. Weißwein, Knoblauch und kalt eingeschwenkte Butter sorgen für eine glänzende, cremige Sauce, frische Petersilie für den letzten Schliff."
 ---
 
