@@ -1,3 +1,5 @@
+import { inflateRawSync } from 'node:zlib';
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, c => ({
     '&': '&amp;',
@@ -13,18 +15,34 @@ function formatIngredientLine(ingredient) {
   return qty ? `${qty} ${ingredient.name}` : ingredient.name;
 }
 
-export default function handler(req, res) {
+// `z`: newline-separated ingredient lines, deflate-raw compressed, base64url.
+function decodeCompressedLines(z) {
+  try {
+    const text = inflateRawSync(Buffer.from(z, 'base64url')).toString('utf8');
+    return text.split('\n').map(l => l.trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+// `data`: legacy JSON-encoded ingredient array.
+function decodeJsonLines(data) {
   let ingredients;
   try {
-    ingredients = JSON.parse(req.query.data || '[]');
+    ingredients = JSON.parse(data || '[]');
   } catch {
     ingredients = [];
   }
   if (!Array.isArray(ingredients)) ingredients = [];
-
-  const lines = ingredients
+  return ingredients
     .filter(i => i && typeof i.name === 'string')
     .map(formatIngredientLine);
+}
+
+export default function handler(req, res) {
+  const lines = typeof req.query.z === 'string'
+    ? decodeCompressedLines(req.query.z)
+    : decodeJsonLines(req.query.data);
 
   const jsonLd = {
     '@context': 'https://schema.org/',

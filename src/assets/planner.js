@@ -1,5 +1,5 @@
 import { aggregateIngredients } from './lib/aggregator.js';
-import { buildBringImportUrl } from './lib/bring.js';
+import { buildBringImportUrl, BRING_MAX_URL_LENGTH } from './lib/bring.js';
 import { formatQuantity } from './lib/format.js';
 
 async function init() {
@@ -42,8 +42,13 @@ async function init() {
 
   const bringBtn = document.getElementById('bring-export');
   bringBtn.disabled = false;
-  bringBtn.addEventListener('click', () => {
-    window.location.href = buildBringImportUrl(window.location.origin, aggregated);
+  bringBtn.addEventListener('click', async () => {
+    const url = await buildBringImportUrl(window.location.origin, aggregated);
+    if (url.length > BRING_MAX_URL_LENGTH) {
+      alert('This shopping list is too long for Bring. Please remove a few recipes and try again.');
+      return;
+    }
+    window.location.href = url;
   });
 }
 

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
+import { deflateRawSync } from 'node:zlib';
 import handler from '../../api/planner-recipe.js';
 
 function mockRes() {
@@ -32,6 +33,21 @@ describe('planner-recipe handler', () => {
     const jsonLd = JSON.parse(match[1]);
     expect(jsonLd['@type']).toBe('Recipe');
     expect(jsonLd.recipeIngredient).toEqual(['1 l Milk']);
+  });
+
+  it('decodes the compressed z parameter into recipe ingredients', () => {
+    const z = deflateRawSync('2 Stück Zwiebeln\nSalz').toString('base64url');
+    const res = mockRes();
+    handler({ query: { z } }, res);
+    const match = res.body.match(/<script type="application\/ld\+json">(.*)<\/script>/s);
+    expect(JSON.parse(match[1]).recipeIngredient).toEqual(['2 Stück Zwiebeln', 'Salz']);
+  });
+
+  it('falls back to an empty list for a corrupt z parameter', () => {
+    const res = mockRes();
+    handler({ query: { z: 'not-deflate' } }, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toContain('"recipeIngredient":[]');
   });
 
   it('falls back to an empty list for missing or invalid data', () => {
