@@ -1,0 +1,18 @@
+{
+  "id": "rosmarin-kartoffelpueree-mit-parmesan",
+  "title": "Rosmarin-Kartoffelpüree mit Parmesan",
+  "aufwand": "einfach",
+  "servings": 4,
+  "ingredients": [
+    { "name": "Mehlig kochende Kartoffeln", "amount": 1, "unit": "kg", "step": 1 },
+    { "name": "Salz", "amount": null, "unit": null, "step": 1 },
+    { "name": "Milch (oder Milch und Sahne gemischt)", "amount": 250, "unit": "ml", "step": 2 },
+    { "name": "Frische Rosmarinzweige", "amount": 2, "unit": "Stück", "step": 2 },
+    { "name": "Butter", "amount": 80, "unit": "g", "step": 5 },
+    { "name": "Parmesan", "amount": 200, "unit": "g", "step": 5 },
+    { "name": "Salz", "amount": null, "unit": "Prise", "step": 6 },
+    { "name": "Pfeffer, schwarz", "amount": null, "unit": "Prise", "step": 6 },
+    { "name": "Muskatnuss (frisch gerieben)", "amount": null, "unit": "Prise", "step": 6 },
+    { "name": "Parmesan", "amount": null, "unit": null, "step": 6 }
+  ]
+}
