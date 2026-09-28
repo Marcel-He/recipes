@@ -3,6 +3,7 @@ id: rosmarin-kartoffelpueree-mit-parmesan
 title: Rosmarin-Kartoffelpüree mit Parmesan
 aufwand: einfach
 servings: 4
+image: /assets/images/rosmarin-kartoffelpueree-mit-parmesan.jpg
 description: "Frischer Rosmarin zieht in warmer Milch und gibt sein Aroma sanft an das Püree ab. Frisch geriebener Parmesan sorgt für eine würzige, cremig-schmelzende Note."
 ---
 
