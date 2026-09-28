@@ -17,7 +17,7 @@
     { "name": "Mehl (gehäuft)", "amount": 2, "unit": "EL", "step": 5 },
     { "name": "Milch", "amount": 50, "unit": "ml", "step": 5 },
     { "name": "Butter", "amount": 100, "unit": "g", "step": 8 },
-    { "name": "Getrockneter Salbei", "amount": 1, "unit": "EL", "step": 8 },
+    { "name": "Salbei (getrocknet)", "amount": 1, "unit": "EL", "step": 8 },
     { "name": "Parmesan (frisch gerieben)", "amount": null, "unit": null, "step": 9 }
   ]
 }

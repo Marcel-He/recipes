@@ -58,6 +58,18 @@ Nur diese drei Werte erlaubt:
 - Unklare oder fehlende Mengen: `"amount": null, "unit": null`
 - `step` bezieht sich auf die Schrittnummer in der MD-Datei
 
+### Zutatennamen
+Der Planer schlägt Rezepte mit gemeinsamen Grundzutaten vor und vergleicht dafür den Namen ohne Klammerteil. Deshalb:
+
+- `name` beginnt mit der **Grundzutat, wie man sie einkauft**, und nur mit ihr: `Kartoffeln`, nicht `Mehlig kochende Kartoffeln`.
+- Alles Weitere steht **in Klammern dahinter**, kommagetrennt: Sorte, Zustand, Zubereitung, Alternativen, „optional“.
+  - `Kartoffeln (mehlig kochend)`, `Butter (geschmolzen)`, `Pfeffer (schwarz)`, `Zitronen (unbehandelt, optional)`
+- Keine Adjektive vor dem Namen und keine Zusätze mit Komma außerhalb der Klammer (`Pfeffer, schwarz` → `Pfeffer (schwarz)`).
+- Zählbares immer im **Plural**, auch bei Menge 1: `Kartoffeln`, `Zwiebeln`, `Eier`, `Zitronen`, `Karotten`. Unzählbares im Singular: `Knoblauch`, `Butter`, `Mehl`, `Salz`.
+- Knoblauch heißt immer `Knoblauch` mit Einheit `Zehe` (nicht `Knoblauchzehe`).
+- Eigenständige Produkte behalten ihren eigenen Namen, weil man sie getrennt kauft: `Olivenöl` ≠ `Öl`, `Zwiebelpulver` ≠ `Zwiebeln`, `Lauchzwiebeln` ≠ `Zwiebeln`, `Hirtenkäse` ≠ `Feta`.
+- **Vor dem Schreiben** die vorhandenen Namen in `src/recipes/*/*.json` ansehen und für dieselbe Grundzutat exakt denselben Namen verwenden.
+
 ### Einheiten (nur diese verwenden)
 
 | Einheit | Bedeutung |
@@ -111,7 +123,7 @@ Die Hitze der Pasta gart die Eier sanft zu einer seidigen Sauce.
     { "name": "Pancetta", "amount": 100, "unit": "g", "step": 2 },
     { "name": "Eier", "amount": 2, "unit": "Stück", "step": 3 },
     { "name": "Parmesan", "amount": 50, "unit": "g", "step": 3 },
-    { "name": "Schwarzer Pfeffer", "amount": null, "unit": "Prise", "step": 4 }
+    { "name": "Pfeffer (schwarz)", "amount": null, "unit": "Prise", "step": 4 }
   ]
 }
 ```
@@ -125,3 +137,7 @@ Die Hitze der Pasta gart die Eier sanft zu einer seidigen Sauce.
 | Eine Zutat für alle Schritte | Pro Schritt ein separater Eintrag |
 | Fehlende Menge als `0` | Fehlende Menge als `null` |
 | Englische Einheit `tbsp` | Immer `EL` verwenden |
+| `Mehlig kochende Kartoffeln` | `Kartoffeln (mehlig kochend)` |
+| `Zwiebel` bei Menge 1 | `Zwiebeln` (immer Plural) |
+| `Knoblauchzehe` | `Knoblauch` mit Einheit `Zehe` |
+| `Feta Käse` neben vorhandenem `Feta` | Vorhandenen Namen `Feta` übernehmen |

@@ -1,49 +1,39 @@
 import { describe, it, expect } from 'vitest';
-import { inflateRawSync } from 'node:zlib';
-import { buildBringImportUrl, BRING_MAX_URL_LENGTH } from '../../src/assets/lib/bring.js';
-
-function decodeLines(url) {
-  const target = new URL(new URL(url).searchParams.get('url'));
-  return inflateRawSync(Buffer.from(target.searchParams.get('z'), 'base64url')).toString('utf8').split('\n');
-}
+import { buildBringImportUrl, recipePageUrl } from '../../src/assets/lib/bring.js';
 
 describe('buildBringImportUrl', () => {
-  it('returns the official Bring recipe-import deeplink', async () => {
-    const url = await buildBringImportUrl('https://example.com', [{ name: 'Milk', amount: 1, unit: 'l' }]);
-    expect(url.startsWith('https://api.getbring.com/rest/bringrecipes/deeplink?url=')).toBe(true);
-    expect(url).toContain('source=web');
+  it('returns the official Bring recipe-import deeplink', () => {
+    const url = buildBringImportUrl('https://example.com/recipes/pasta/', 4);
+    expect(url.startsWith('https://api.getbring.com/rest/bringrecipes/deeplink?')).toBe(true);
+    expect(new URL(url).searchParams.get('source')).toBe('web');
   });
 
-  it('points the deeplink at our own planner-recipe endpoint', async () => {
-    const url = await buildBringImportUrl('https://example.com', [{ name: 'Milk', amount: 1, unit: 'l' }]);
-    const target = new URL(url).searchParams.get('url');
-    expect(target.startsWith('https://example.com/api/planner-recipe?z=')).toBe(true);
+  it('points the deeplink at the recipe page itself', () => {
+    const url = buildBringImportUrl('https://example.com/recipes/pasta/', 4);
+    expect(new URL(url).searchParams.get('url')).toBe('https://example.com/recipes/pasta/');
   });
 
-  it('encodes the ingredient list into the recipe-page URL', async () => {
-    const ingredients = [{ name: 'Olive oil', amount: 2, unit: 'tbsp' }];
-    const url = await buildBringImportUrl('https://example.com', ingredients);
-    expect(decodeLines(url)).toEqual(['2 tbsp Olive oil']);
+  it('defaults the requested servings to the recipe servings', () => {
+    const params = new URL(buildBringImportUrl('https://example.com/recipes/pasta/', 4)).searchParams;
+    expect(params.get('baseQuantity')).toBe('4');
+    expect(params.get('requestedQuantity')).toBe('4');
   });
 
-  it('returns a valid URL for an empty ingredient list', async () => {
-    const url = await buildBringImportUrl('https://example.com', []);
-    expect(() => new URL(url)).not.toThrow();
+  it('passes scaled servings as the requested quantity', () => {
+    const params = new URL(buildBringImportUrl('https://example.com/recipes/pasta/', 4, 6)).searchParams;
+    expect(params.get('baseQuantity')).toBe('4');
+    expect(params.get('requestedQuantity')).toBe('6');
   });
 
-  it('omits missing quantities and keeps non-ASCII names intact', async () => {
-    const url = await buildBringImportUrl('https://example.com', [
-      { name: 'Salz', amount: null, unit: null },
-      { name: 'Frühlingszwiebeln', amount: 3, unit: null }
-    ]);
-    expect(decodeLines(url)).toEqual(['Salz', '3 Frühlingszwiebeln']);
+  it('omits quantities when the recipe has no servings', () => {
+    const params = new URL(buildBringImportUrl('https://example.com/recipes/pasta/')).searchParams;
+    expect(params.has('baseQuantity')).toBe(false);
+    expect(params.has('requestedQuantity')).toBe(false);
   });
+});
 
-  it('keeps a typical weekly shopping list under the Bring URL limit', async () => {
-    const ingredients = Array.from({ length: 60 }, (_, i) => ({
-      name: `Zutat Nummer ${i}`, amount: i * 50, unit: 'g'
-    }));
-    const url = await buildBringImportUrl('https://recipes-faulpelz-project-space.vercel.app', ingredients);
-    expect(url.length).toBeLessThan(BRING_MAX_URL_LENGTH);
+describe('recipePageUrl', () => {
+  it('builds the public recipe page URL', () => {
+    expect(recipePageUrl('https://example.com', 'haehnchen-piccata')).toBe('https://example.com/recipes/haehnchen-piccata/');
   });
 });

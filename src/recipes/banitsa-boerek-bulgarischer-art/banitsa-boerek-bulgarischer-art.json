@@ -4,13 +4,13 @@
   "aufwand": "aufwändig",
   "servings": 8,
   "ingredients": [
-    { "name": "Butter oder Öl", "amount": null, "unit": null, "step": 2 },
-    { "name": "Naturjoghurt", "amount": 500, "unit": "ml", "step": 3 },
+    { "name": "Butter (oder Öl)", "amount": null, "unit": null, "step": 2 },
+    { "name": "Joghurt (natur)", "amount": 500, "unit": "ml", "step": 3 },
     { "name": "Natron", "amount": 1, "unit": "TL", "step": 3 },
     { "name": "Eier", "amount": 4, "unit": "Stück", "step": 4 },
     { "name": "Feta", "amount": 300, "unit": "g", "step": 5 },
     { "name": "Yufka-Teigblätter", "amount": null, "unit": null, "step": 6 },
-    { "name": "Geschmolzene Butter", "amount": 100, "unit": "g", "step": 6 },
+    { "name": "Butter (geschmolzen)", "amount": 100, "unit": "g", "step": 6 },
     { "name": "Milch", "amount": 20, "unit": "ml", "step": 7 }
   ]
 }

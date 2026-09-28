@@ -63,22 +63,28 @@ title: Components
   <p>.planner-drawer / .drawer-handle / .planner-drawer__header / .planner-drawer__actions — a
     full-bleed white rounded-top card, the same visual weight as .recipe-drawer above but not
     seamed to a hero image — a centered drag-handle bar marks its top edge instead. Holds the
-    planner's shopping list, with a filter icon-button (currently a visual placeholder) and a
-    kebab icon-button that opens the .planner-menu dropdown below.</p>
+    planner's Bring list, with a kebab icon-button that opens the .planner-menu dropdown below.</p>
   <div class="planner-drawer" style="position: relative; width: auto; margin-inline: 0;">
     <div class="drawer-handle" aria-hidden="true"></div>
     <div class="planner-drawer__header">
-      <h2>Shopping List</h2>
+      <h2>Export to Bring</h2>
       <div class="planner-drawer__actions">
-        <button type="button" class="icon-button" aria-label="Filter" disabled><i class="fa-solid fa-sliders"></i></button>
         <button type="button" class="icon-button" aria-label="More options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
       </div>
     </div>
-    <ul class="shopping-list">
-      <li><span class="item-name">Organic Spinach</span> <span class="item-qty">(250g)</span></li>
-      <li><span class="item-name">Cherry Tomatoes</span> <span class="item-qty">(1 punnet)</span></li>
+    <ul class="bring-list">
+      <li><span class="bring-list__name">Hähnchen Piccata</span> <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a></li>
+      <li><span class="bring-list__name">Französische Zwiebelsuppe</span> <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a></li>
     </ul>
   </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Bring list</h2>
+  <p>.bring-list / .bring-list__name — one row per planned recipe, each with its own basket
+    icon-button that opens Bring's recipe import for that recipe. Bring imports recipes one at a
+    time and lets you pick the servings in its import dialog, so there is no combined shopping
+    list. The same basket icon-button sits in the recipe detail header.</p>
 </section>
 
 <section class="pl-section">
@@ -88,7 +94,6 @@ title: Components
     .planner-menu__item--danger variant.</p>
   <div class="planner-menu-wrap" style="display: inline-block;">
     <div class="planner-menu" style="position: static;">
-      <button type="button" class="planner-menu__item"><i class="fa-solid fa-arrow-up-right-from-square"></i> Export to Bring</button>
       <button type="button" class="planner-menu__item planner-menu__item--danger"><i class="fa-solid fa-trash"></i> Clear planner</button>
     </div>
   </div>
