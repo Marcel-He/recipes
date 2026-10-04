@@ -54,19 +54,30 @@ pageScript: recipe.js
 </article>
 
 <div id="cook-mode" class="cook-mode" hidden>
+  <button type="button" id="cook-mode-close" class="icon-button cook-mode__close" aria-label="Exit cook mode">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
   <div class="cook-mode__header">
-    <span id="cook-mode-progress" class="cook-mode__progress"></span>
-    <button type="button" id="cook-mode-close" class="icon-button" aria-label="Exit cook mode">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+    <h2 id="cook-mode-title" class="cook-mode__title"></h2>
+    <div class="cook-mode__progress">
+      <span id="cook-mode-dots" class="cook-mode__dots"></span>
+      <span id="cook-mode-progress-text" class="cook-mode__progress-text"></span>
+    </div>
   </div>
-  <div id="cook-mode-step" class="cook-mode__step"></div>
+  <div id="cook-mode-step" class="cook-mode__step">
+    <div id="cook-mode-ingredients" class="cook-mode__ingredients" hidden>
+      <span class="cook-mode__ingredients-label">Ingredients</span>
+      <div id="cook-mode-ingredients-list"></div>
+    </div>
+    <h3 id="cook-mode-step-title" class="cook-mode__step-title"></h3>
+    <p id="cook-mode-step-body" class="cook-mode__step-body"></p>
+  </div>
   <div class="cook-mode__controls">
-    <button type="button" id="cook-mode-prev" class="cook-mode__nav cook-mode__nav--prev" aria-label="Previous step">
-      <i class="fa-solid fa-chevron-left"></i>
+    <button type="button" id="cook-mode-prev" class="cook-mode__back">
+      <i class="fa-solid fa-chevron-left"></i> Back
     </button>
-    <button type="button" id="cook-mode-next" class="cook-mode__nav cook-mode__nav--next" aria-label="Next step">
-      <i class="fa-solid fa-chevron-right"></i>
+    <button type="button" id="cook-mode-next" class="cook-mode__next">
+      <span id="cook-mode-next-label">Next Step</span> <i class="fa-solid fa-chevron-right"></i>
     </button>
   </div>
 </div>
