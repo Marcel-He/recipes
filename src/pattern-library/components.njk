@@ -157,28 +157,46 @@ title: Components
 <section class="pl-section">
   <h2 class="pl-section-title">Cook mode</h2>
   <p>.cook-mode — full-screen step-by-step overlay opened from the recipe detail screen's
-    "Start cook mode" button, which replaces the old standalone "keep screen on" toggle —
-    cook mode now owns the wake lock itself. Shows one step (with its per-step ingredient
-    chips, already rendered by the page) at a time in large type spanning the full width,
-    readable at a glance while actively cooking. The prev/next controls sit in their own bar
-    below the text rather than flanking it, so the text isn't squeezed. Advances via those
-    buttons, a left/right swipe on the step, or the arrow keys. Opening it enables the screen
-    wake lock; closing it releases it again.</p>
-  <div style="position: relative; height: 420px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    "Start cook mode" button. Shows the recipe title and a dot progress indicator at the
+    top, that step's ingredients as a plain list (only shown when the step has any), a
+    short step title (the bold lead-in every migrated step starts with), and the step
+    body — all left-aligned so the text can use the full width. Advances via the "Next
+    Step" pill (becomes "Done" and closes cook mode on the last step), a left/right swipe
+    on the step, or the arrow keys; "Back" is disabled on the first step. The close (×)
+    button floats in the top-right corner, separate from the centered header. Opening it
+    enables the screen wake lock; closing it releases it again.</p>
+  <div style="position: relative; height: 560px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
     <div class="cook-mode is-open" style="position: absolute; inset: 0;">
+      <button type="button" class="icon-button cook-mode__close" aria-label="Exit cook mode"><i class="fa-solid fa-xmark"></i></button>
       <div class="cook-mode__header">
-        <span class="cook-mode__progress">Step 2 / 6</span>
-        <button type="button" class="icon-button" aria-label="Exit cook mode"><i class="fa-solid fa-xmark"></i></button>
+        <h2 class="cook-mode__title">Bifteki auf Orzotto</h2>
+        <div class="cook-mode__progress">
+          <span class="cook-mode__dots">
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot is-current"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+          </span>
+          <span class="cook-mode__progress-text">Step 4 of 6</span>
+        </div>
       </div>
       <div class="cook-mode__step">
-        <div class="step-ingredients">
-          <span class="step-ingredients__item"><span class="step-ingredients__qty">400 g</span> Tomaten</span>
+        <div class="cook-mode__ingredients">
+          <span class="cook-mode__ingredients-label">Ingredients</span>
+          <div class="cook-mode__ingredient">Ajvar (25 g)</div>
+          <div class="cook-mode__ingredient">Oregano (getrocknet) (1 g)</div>
+          <div class="cook-mode__ingredient">Orzo-Nudeln (180 g)</div>
+          <div class="cook-mode__ingredient">Hühnerbrühepulver (4 g)</div>
+          <div class="cook-mode__ingredient">Wasser (400 ml)</div>
         </div>
-        Tomaten hinzufügen und 10 Minuten köcheln lassen, bis eine dicke Sauce entsteht.
+        <h3 class="cook-mode__step-title">Orzotto köcheln</h3>
+        <p class="cook-mode__step-body">Die Pfanne erneut erhitzen und die Zwiebelstreifen 1–2 Minuten anschwitzen. Ajvar, restlichen Oregano, Orzo, Karotten und Knoblauch dazugeben und 2–3 Minuten anbraten. Wasser und Brühepulver hinzufügen, zugedeckt bei niedriger Hitze 10–12 Minuten köcheln lassen, dabei gelegentlich umrühren.</p>
       </div>
       <div class="cook-mode__controls">
-        <button type="button" class="cook-mode__nav cook-mode__nav--prev" aria-label="Previous step"><i class="fa-solid fa-chevron-left"></i></button>
-        <button type="button" class="cook-mode__nav cook-mode__nav--next" aria-label="Next step"><i class="fa-solid fa-chevron-right"></i></button>
+        <button type="button" class="cook-mode__back"><i class="fa-solid fa-chevron-left"></i> Back</button>
+        <button type="button" class="cook-mode__next">Next Step <i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
