@@ -1,12 +1,12 @@
 @use '../tokens' as *;
 
 // Match the page background to the hero so the drawer's rounded top
-// corners reveal green underneath instead of a mismatched page color.
+// corners reveal the panel underneath instead of a mismatched page color.
 // Scoped to [data-recipe-id] (the real recipe article) rather than
 // .recipe-hero directly, so the pattern-library's demo snippet of this
-// component doesn't also turn the whole page green.
+// component doesn't also recolor the whole page.
 body:has([data-recipe-id]) {
-  background: $brand;
+  background: $panel;
 }
 
 // ── Hero ───────────────────────────────────────────────────────────────────
@@ -27,10 +27,13 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   width: 100vw;
   margin-inline: calc(50% - 50vw);
   height: $hero-panel-height;
-  background: $brand;
+  // Soft spotlight behind the dish photo — lighter at the image, fading to
+  // $panel at the edges — so the panel reads as a deliberate surface rather
+  // than flat empty gray. Swap the two stops for a dark-theme pass later.
+  background: radial-gradient(circle at 50% 100%, $bg 0%, $panel 70%);
 }
 
-// On-panel variant of .back-button — solid white against the brand green.
+// On-panel variant of .back-button — solid white against the panel.
 // Fixed positioning means it also scrolls over the white drawer, so it
 // needs a solid (not translucent) surface to stay legible on both.
 // Selector combines both classes so it reliably beats the base .back-button
@@ -247,17 +250,34 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   }
 }
 
-// Per-step ingredient header — inside each <li> in #steps-section
+// Per-step ingredient header — inside each <li> in #steps-section.
+// Each ingredient gets its own chip (rather than one run-on line) so a long
+// name with a parenthetical note stays contained and doesn't blur into its
+// neighbor — meant to be scannable at a glance while cooking.
 .step-ingredients {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.step-ingredients__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
   font-family: $font-body;
   font-size: $text-label-md-size;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: $brand;
+  color: $text-base;
   background: rgba($brand, 0.08);
-  padding: 0.4rem 0.65rem;
+  padding: 0.3rem 0.6rem;
   border-radius: $radius-sm;
-  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+// Quantity leads each chip (bold, accented) since that's what a cook
+// scans for first; the name follows at normal weight.
+.step-ingredients__qty {
+  font-weight: 700;
+  color: $brand;
+  white-space: nowrap;
 }

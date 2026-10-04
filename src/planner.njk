@@ -3,34 +3,36 @@ layout: base.njk
 title: Planner
 pageScript: planner.js
 ---
-<div class="planner-hero">
-  <div class="planner-header">
-    <span class="planner-eyebrow">Your Plan</span>
-    <h1>This Week's Recipes</h1>
-  </div>
-
-  <ul id="recipe-tags" class="recipe-row"></ul>
-</div>
-
-<div class="planner-drawer">
-  <div class="drawer-handle" aria-hidden="true"></div>
-
-  <div class="planner-menu-wrap planner-menu-wrap--drawer">
-    <button type="button" id="planner-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-label="More options">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </button>
-    <div id="planner-menu" class="planner-menu" hidden>
-      <button type="button" id="clear-planner" class="planner-menu__item planner-menu__item--danger">
-        <i class="fa-solid fa-trash"></i> Clear planner
-      </button>
+<div class="planner-page">
+  <div class="planner-hero">
+    <div class="planner-header">
+      <span class="planner-eyebrow">Your Plan</span>
+      <h1>This Week's Recipes</h1>
     </div>
+
+    <ul id="recipe-tags" class="recipe-row"></ul>
   </div>
 
-  <section id="suggestions" class="suggestions" hidden>
-    <h2>Mit ähnlichen Zutaten</h2>
-    <p class="suggestions__hint">Rezepte mit denselben Grundzutaten, damit beim Einkauf nichts übrig bleibt.</p>
-    <ul id="suggestion-list" class="suggestion-list"></ul>
-  </section>
+  <div class="planner-drawer">
+    <div class="drawer-handle" aria-hidden="true"></div>
+
+    <div class="planner-menu-wrap planner-menu-wrap--drawer">
+      <button type="button" id="planner-menu-toggle" class="icon-button" aria-haspopup="true" aria-expanded="false" aria-label="More options">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+      <div id="planner-menu" class="planner-menu" hidden>
+        <button type="button" id="clear-planner" class="planner-menu__item planner-menu__item--danger">
+          <i class="fa-solid fa-trash"></i> Clear planner
+        </button>
+      </div>
+    </div>
+
+    <section id="suggestions" class="suggestions" hidden>
+      <h2>Mit ähnlichen Zutaten</h2>
+      <p class="suggestions__hint">Rezepte mit denselben Grundzutaten, damit beim Einkauf nichts übrig bleibt.</p>
+      <ul id="suggestion-list" class="suggestion-list"></ul>
+    </section>
+  </div>
 </div>
 
 <div id="recipe-preview" class="recipe-preview" hidden>

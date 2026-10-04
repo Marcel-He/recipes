@@ -1,6 +1,6 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
-import { formatIngredientLine, formatQuantity } from './lib/format.js';
+import { formatQuantity } from './lib/format.js';
 import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
 
 const article = document.querySelector('[data-recipe-id]');
@@ -45,7 +45,13 @@ function renderStepIngredients(ingredients) {
     if (!ings || !ings.length) return;
     const header = document.createElement('div');
     header.className = 'step-ingredients';
-    header.textContent = ings.map(formatIngredientLine).join(' · ');
+    header.innerHTML = ings
+      .map(i => {
+        const qty = formatQuantity(i);
+        const qtyEl = qty ? `<span class="step-ingredients__qty">${qty}</span> ` : '';
+        return `<span class="step-ingredients__item">${qtyEl}${i.name}</span>`;
+      })
+      .join('');
     li.prepend(header);
   });
 }
