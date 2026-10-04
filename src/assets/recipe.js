@@ -9,6 +9,7 @@ const recipeId = article.dataset.recipeId;
 const baseServings = parseInt(article.dataset.baseServings, 10);
 let currentServings = baseServings;
 let recipeData = null;
+let currentStepGroups = {};
 
 async function loadRecipe() {
   try {
@@ -26,6 +27,7 @@ function renderIngredients() {
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
   renderStepIngredients(scaled);
+  currentStepGroups = groupIngredientsByStep(scaled);
 }
 
 function renderAll(ingredients) {
@@ -94,7 +96,7 @@ async function releaseWakeLock() {
 
 // Cook mode
 const cookMode = createCookMode({ requestWakeLock, releaseWakeLock });
-document.getElementById('start-cook-mode').addEventListener('click', () => cookMode.open());
+document.getElementById('start-cook-mode').addEventListener('click', () => cookMode.open(currentStepGroups));
 
 // Add to planner
 document.getElementById('add-to-planner').addEventListener('click', () => {

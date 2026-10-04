@@ -1,3 +1,5 @@
+import { formatIngredientParenthetical } from './format.js';
+
 export function nextStepIndex(current, total) {
   return Math.min(current + 1, total - 1);
 }
@@ -20,28 +22,56 @@ export function parseStep(html) {
 
 // Full-screen step-by-step overlay for the recipe detail page (see the
 // pattern library's "Cook mode" entry). Reads the already-rendered step
-// list — including the per-step ingredient chips the page injects — rather
-// than re-deriving it, so it never duplicates the servings-scaling logic.
+// list's text (title/body, via parseStep) from the live DOM, but takes
+// per-step ingredient groups as structured data from recipe.js rather than
+// scraping the ingredient-chip markup the page renders for its own list —
+// cook mode's ingredient display looks different (plain list, not chips).
 // Cook mode is the only caller of requestWakeLock/releaseWakeLock (there's
 // no separate wake-lock toggle on the page), so it always acquires on open
 // and releases on close.
 export function createCookMode({ requestWakeLock, releaseWakeLock }) {
   const overlay = document.getElementById('cook-mode');
-  const progressEl = document.getElementById('cook-mode-progress');
+  const titleEl = document.getElementById('cook-mode-title');
+  const dotsEl = document.getElementById('cook-mode-dots');
+  const progressTextEl = document.getElementById('cook-mode-progress-text');
   const stepEl = document.getElementById('cook-mode-step');
+  const ingredientsEl = document.getElementById('cook-mode-ingredients');
+  const ingredientsListEl = document.getElementById('cook-mode-ingredients-list');
+  const stepTitleEl = document.getElementById('cook-mode-step-title');
+  const stepBodyEl = document.getElementById('cook-mode-step-body');
   const prevBtn = document.getElementById('cook-mode-prev');
   const nextBtn = document.getElementById('cook-mode-next');
+  const nextLabelEl = document.getElementById('cook-mode-next-label');
   const closeBtn = document.getElementById('cook-mode-close');
 
   let steps = [];
+  let stepGroups = {};
   let currentIndex = 0;
   let touchStartX = null;
 
   function render() {
-    stepEl.innerHTML = steps[currentIndex];
-    progressEl.textContent = `Step ${currentIndex + 1} / ${steps.length}`;
+    const { title, body } = parseStep(steps[currentIndex]);
+    stepTitleEl.innerHTML = title;
+    stepBodyEl.innerHTML = body;
+
+    const ingredients = stepGroups[currentIndex + 1];
+    if (ingredients && ingredients.length) {
+      ingredientsEl.hidden = false;
+      ingredientsListEl.innerHTML = ingredients
+        .map(i => `<div class="cook-mode__ingredient">${formatIngredientParenthetical(i)}</div>`)
+        .join('');
+    } else {
+      ingredientsEl.hidden = true;
+      ingredientsListEl.innerHTML = '';
+    }
+
+    dotsEl.querySelectorAll('.cook-mode__dot').forEach((dot, i) => {
+      dot.classList.toggle('is-current', i === currentIndex);
+    });
+    progressTextEl.textContent = `Step ${currentIndex + 1} of ${steps.length}`;
+
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === steps.length - 1;
+    nextLabelEl.textContent = currentIndex === steps.length - 1 ? 'Done' : 'Next Step';
   }
 
   function goTo(index) {
@@ -49,10 +79,13 @@ export function createCookMode({ requestWakeLock, releaseWakeLock }) {
     render();
   }
 
-  async function open() {
+  async function open(groups) {
     steps = Array.from(document.querySelectorAll('#steps-section ol > li')).map(li => li.innerHTML);
     if (!steps.length) return;
+    stepGroups = groups;
     currentIndex = 0;
+    titleEl.textContent = document.querySelector('[data-recipe-id] h1').textContent;
+    dotsEl.innerHTML = steps.map(() => '<span class="cook-mode__dot"></span>').join('');
     render();
     overlay.hidden = false;
     requestAnimationFrame(() => overlay.classList.add('is-open'));
@@ -67,7 +100,13 @@ export function createCookMode({ requestWakeLock, releaseWakeLock }) {
   }
 
   prevBtn.addEventListener('click', () => goTo(prevStepIndex(currentIndex)));
-  nextBtn.addEventListener('click', () => goTo(nextStepIndex(currentIndex, steps.length)));
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex === steps.length - 1) {
+      close();
+      return;
+    }
+    goTo(nextStepIndex(currentIndex, steps.length));
+  });
   closeBtn.addEventListener('click', close);
 
   document.addEventListener('keydown', e => {
