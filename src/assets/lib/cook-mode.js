@@ -12,6 +12,12 @@ export function swipeDirection(deltaX, threshold = 40) {
   return null;
 }
 
+export function parseStep(html) {
+  const match = html.match(/^\s*(?:<div class="step-ingredients">.*?<\/div>)?\s*<strong>(.*?)\.?<\/strong>\s*(.*)$/s);
+  if (!match) return { title: '', body: html.trim() };
+  return { title: match[1], body: match[2].trim() };
+}
+
 // Full-screen step-by-step overlay for the recipe detail page (see the
 // pattern library's "Cook mode" entry). Reads the already-rendered step
 // list — including the per-step ingredient chips the page injects — rather
