@@ -19,8 +19,8 @@ pageScript: recipe.js
       <div class="recipe-header__top">
         <h1>{{ title }}</h1>
         <div class="recipe-header__actions">
-          <button id="wake-lock-toggle" class="icon-button" aria-label="Keep screen on" aria-pressed="false">
-            <i class="fa-regular fa-sun"></i>
+          <button id="start-cook-mode" class="icon-button" aria-label="Start cook mode">
+            <i class="fa-solid fa-utensils"></i>
           </button>
           <button id="bring-export" class="icon-button" aria-label="Export to Bring">
             <i class="fa-solid fa-basket-shopping"></i>
@@ -52,3 +52,21 @@ pageScript: recipe.js
     </section>
   </div>
 </article>
+
+<div id="cook-mode" class="cook-mode" hidden>
+  <div class="cook-mode__header">
+    <span id="cook-mode-progress" class="cook-mode__progress"></span>
+    <button type="button" id="cook-mode-close" class="icon-button" aria-label="Exit cook mode">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  <div id="cook-mode-step" class="cook-mode__step"></div>
+  <div class="cook-mode__controls">
+    <button type="button" id="cook-mode-prev" class="cook-mode__nav cook-mode__nav--prev" aria-label="Previous step">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button type="button" id="cook-mode-next" class="cook-mode__nav cook-mode__nav--next" aria-label="Next step">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>

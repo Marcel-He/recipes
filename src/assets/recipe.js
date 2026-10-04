@@ -2,6 +2,7 @@ import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
 import { formatQuantity } from './lib/format.js';
 import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
+import { createCookMode } from './lib/cook-mode.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -70,36 +71,30 @@ document.getElementById('servings-up').addEventListener('click', () => {
   renderIngredients();
 });
 
-// Wake lock
+// Wake lock — only used by cook mode, to keep the screen on while cooking
 let wakeLock = null;
-const wakeLockBtn = document.getElementById('wake-lock-toggle');
-const wakeLockIcon = wakeLockBtn.querySelector('i');
 
-function setWakeLockState(active) {
-  wakeLockBtn.classList.toggle('is-active', active);
-  wakeLockBtn.setAttribute('aria-pressed', String(active));
-  wakeLockIcon.classList.toggle('fa-regular', !active);
-  wakeLockIcon.classList.toggle('fa-solid', active);
+async function requestWakeLock() {
+  if (wakeLock) return;
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      wakeLock = null;
+    });
+  } catch {
+    // Wake lock unsupported or denied; fail silently
+  }
 }
 
-wakeLockBtn.addEventListener('click', async () => {
-  if (wakeLock) {
-    await wakeLock.release();
-    wakeLock = null;
-    setWakeLockState(false);
-  } else {
-    try {
-      wakeLock = await navigator.wakeLock.request('screen');
-      setWakeLockState(true);
-      wakeLock.addEventListener('release', () => {
-        wakeLock = null;
-        setWakeLockState(false);
-      });
-    } catch {
-      // Wake lock unsupported or denied; fail silently
-    }
-  }
-});
+async function releaseWakeLock() {
+  if (!wakeLock) return;
+  await wakeLock.release();
+  wakeLock = null;
+}
+
+// Cook mode
+const cookMode = createCookMode({ requestWakeLock, releaseWakeLock });
+document.getElementById('start-cook-mode').addEventListener('click', () => cookMode.open());
 
 // Add to planner
 document.getElementById('add-to-planner').addEventListener('click', () => {

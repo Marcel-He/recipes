@@ -153,3 +153,33 @@ title: Components
     </div>
   </div>
 </section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Cook mode</h2>
+  <p>.cook-mode — full-screen step-by-step overlay opened from the recipe detail screen's
+    "Start cook mode" button, which replaces the old standalone "keep screen on" toggle —
+    cook mode now owns the wake lock itself. Shows one step (with its per-step ingredient
+    chips, already rendered by the page) at a time in large type spanning the full width,
+    readable at a glance while actively cooking. The prev/next controls sit in their own bar
+    below the text rather than flanking it, so the text isn't squeezed. Advances via those
+    buttons, a left/right swipe on the step, or the arrow keys. Opening it enables the screen
+    wake lock; closing it releases it again.</p>
+  <div style="position: relative; height: 420px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    <div class="cook-mode is-open" style="position: absolute; inset: 0;">
+      <div class="cook-mode__header">
+        <span class="cook-mode__progress">Step 2 / 6</span>
+        <button type="button" class="icon-button" aria-label="Exit cook mode"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cook-mode__step">
+        <div class="step-ingredients">
+          <span class="step-ingredients__item"><span class="step-ingredients__qty">400 g</span> Tomaten</span>
+        </div>
+        Tomaten hinzufügen und 10 Minuten köcheln lassen, bis eine dicke Sauce entsteht.
+      </div>
+      <div class="cook-mode__controls">
+        <button type="button" class="cook-mode__nav cook-mode__nav--prev" aria-label="Previous step"><i class="fa-solid fa-chevron-left"></i></button>
+        <button type="button" class="cook-mode__nav cook-mode__nav--next" aria-label="Next step"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
