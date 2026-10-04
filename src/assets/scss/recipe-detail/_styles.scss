@@ -293,6 +293,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   display: flex;
   flex-direction: column;
   background: $card;
+  padding: 1.5rem;
   opacity: 0;
   transition: opacity 0.25s ease;
 }
@@ -301,14 +302,49 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   opacity: 1;
 }
 
+// Floats clear of the centered title/progress block below it, rather than
+// sharing a header row with them (see the mockup this redesign matches).
+.cook-mode__close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+}
+
 .cook-mode__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem;
+  text-align: center;
+  padding: 0.5rem 3rem 1.5rem;
+}
+
+.cook-mode__title {
+  margin: 0 0 0.75rem;
+  font-size: $text-headline-md-size;
+  line-height: $text-headline-md-line;
 }
 
 .cook-mode__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.cook-mode__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.cook-mode__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: $radius-full;
+  background: $row;
+
+  &.is-current {
+    background: $brand;
+  }
+}
+
+.cook-mode__progress-text {
   font-family: $font-body;
   font-weight: 700;
   font-size: $text-label-md-size;
@@ -317,61 +353,90 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   letter-spacing: 0.06em;
 }
 
-// Full-width step text — swipeable, so the touch listeners in cook-mode.js
-// bind directly to this element rather than a wrapper that also held the
-// nav buttons.
+// Left-aligned content column — swipeable, so the touch listeners in
+// cook-mode.js bind directly to this element.
 .cook-mode__step {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 0 2rem;
   overflow-y: auto;
-  font-family: $font-display;
+  padding: 0.5rem 0.5rem 1.5rem;
+}
+
+.cook-mode__ingredients {
+  margin-bottom: 1.5rem;
+}
+
+.cook-mode__ingredients-label {
+  display: block;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-subtle;
+  margin-bottom: 0.5rem;
+}
+
+.cook-mode__ingredient {
+  padding: 0.4rem 0;
+  color: $text-base;
+  font-size: $text-body-lg-size;
+}
+
+.cook-mode__step-title {
+  margin: 0 0 0.75rem;
   font-size: $text-headline-md-size;
   line-height: $text-headline-md-line;
-  color: $text-base;
-  text-align: center;
-
-  .step-ingredients {
-    justify-content: center;
-  }
 }
 
-// Bottom bar — kept separate from .cook-mode__step so the step text can use
-// the full width instead of being squeezed between two flanking buttons.
+.cook-mode__step-body {
+  margin: 0;
+  color: $text-base;
+  font-size: $text-body-lg-size;
+  line-height: $text-body-lg-line;
+}
+
 .cook-mode__controls {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem 1.5rem;
+  gap: 1rem;
+  padding-top: 1rem;
 }
 
-// Bigger than the header's .icon-button — these are the primary controls
-// while cooking, meant to be hit reliably without looking closely.
-.cook-mode__nav {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  padding: 0;
+.cook-mode__back {
+  background: transparent;
+  color: $text-subtle;
   border: none;
-  border-radius: $radius-full;
-  background: rgba($brand, 0.08);
-  color: $brand;
-  font-size: $text-headline-md-size;
+  padding: 0.75rem 0.5rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background 0.2s ease;
-
-  &:hover:not(:disabled) {
-    background: rgba($brand, 0.16);
-  }
 
   &:disabled {
-    opacity: 0.3;
+    opacity: 0.4;
     cursor: default;
+  }
+}
+
+.cook-mode__next {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: $brand;
+  color: $brand-text;
+  border: none;
+  border-radius: $radius-full;
+  padding: 0.85rem 1.5rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $brand-hover;
   }
 }
