@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatQuantity } from '../../src/assets/lib/format.js';
+import { formatQuantity, formatIngredientParenthetical } from '../../src/assets/lib/format.js';
 
 describe('formatQuantity', () => {
   it('combines amount and unit', () => {
@@ -20,5 +20,19 @@ describe('formatQuantity', () => {
 
   it('returns empty string when amount is 0', () => {
     expect(formatQuantity({ amount: 0, unit: 'g' })).toBe('');
+  });
+});
+
+describe('formatIngredientParenthetical', () => {
+  it('combines name and quantity in parentheses', () => {
+    expect(formatIngredientParenthetical({ name: 'Paprika', amount: 300, unit: 'g' })).toBe('Paprika (300 g)');
+  });
+
+  it('returns just the name when there is no quantity', () => {
+    expect(formatIngredientParenthetical({ name: 'Joghurt', amount: null, unit: null })).toBe('Joghurt');
+  });
+
+  it('returns just the name when amount is 0', () => {
+    expect(formatIngredientParenthetical({ name: 'Salz', amount: 0, unit: 'Prise' })).toBe('Salz');
   });
 });
