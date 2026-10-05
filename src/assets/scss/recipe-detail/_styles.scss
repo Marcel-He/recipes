@@ -7,6 +7,21 @@
 // component doesn't also recolor the whole page.
 body:has([data-recipe-id]) {
   background: $panel;
+  // Cancelled like the planner's body:has(.planner-page) rule — the drawer
+  // below stretches under the floating nav itself and reserves the
+  // clearance as its own bottom padding, so the global 80px would just add
+  // extra gray space past where the drawer already ends.
+  padding-bottom: 0;
+}
+
+// Flex column so .recipe-drawer can stretch to the bottom of the viewport
+// (cancelling main's 2rem top/bottom padding) instead of leaving the
+// $panel background exposed below a short recipe.
+[data-recipe-id] {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2rem);
+  margin-bottom: -2rem;
 }
 
 // ── Hero ───────────────────────────────────────────────────────────────────
@@ -19,6 +34,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 
 .recipe-hero {
   position: relative;
+  flex: 0 0 auto;
   // Cancel main's 2rem top padding so the panel is flush with the viewport top.
   margin-top: -2rem;
 }
@@ -82,10 +98,14 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 .recipe-drawer {
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding: calc(#{$hero-image-half} + 1.5rem) 1.5rem 1.5rem;
+  // Bottom padding includes the 80px nav-island clearance body used to
+  // reserve globally — now the drawer's own background extends under the
+  // nav to the screen edge, so real content still needs to clear it.
+  padding: calc(#{$hero-image-half} + 1.5rem) 1.5rem calc(1.5rem + 80px);
   background: $card;
   border-radius: $radius-xl $radius-xl 0 0;
   box-shadow: $shadow-drawer;
+  flex: 1 0 auto;
 }
 
 .recipe-header__top {
