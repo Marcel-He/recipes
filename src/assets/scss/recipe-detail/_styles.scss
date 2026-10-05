@@ -219,7 +219,8 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 // Plain sections on the drawer surface — the drawer itself is the elevated
 // card now, so these no longer carry their own background/shadow.
 #ingredients-section,
-#steps-section {
+#steps-section,
+#notes-section {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid $border;
@@ -231,6 +232,12 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   ol {
     margin: 0;
   }
+}
+
+.notes-timestamp {
+  margin: 0.5rem 0 0;
+  font-size: $text-label-md-size;
+  color: $text-subtle;
 }
 
 #ingredients-section ul li {

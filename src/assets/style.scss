@@ -115,6 +115,31 @@ main {
   }
 }
 
+// ── Textarea ───────────────────────────────────────────────────────────────
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 0.75rem 1rem;
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  font-family: $font-body;
+  font-size: $text-body-lg-size;
+  color: $text-base;
+  resize: vertical;
+
+  &::placeholder {
+    color: $text-subtle;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $brand;
+    box-shadow: $shadow-focus;
+  }
+}
+
 // ── Buttons ────────────────────────────────────────────────────────────────
 button {
   background: transparent;

@@ -3,6 +3,7 @@ import { groupIngredientsByStep } from './lib/steps.js';
 import { formatQuantity } from './lib/format.js';
 import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
 import { createCookMode } from './lib/cook-mode.js';
+import { getNote, saveNote } from './lib/notes.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
@@ -121,5 +122,40 @@ document.getElementById('bring-export').addEventListener('click', () => {
     currentServings
   );
 });
+
+// Notes — autosaved to localStorage, debounced while typing and flushed on blur
+const notesTextarea = document.getElementById('notes-textarea');
+const notesTimestamp = document.getElementById('notes-timestamp');
+
+function renderNotesTimestamp(note) {
+  if (!note) {
+    notesTimestamp.hidden = true;
+    return;
+  }
+  const formatted = new Date(note.updatedAt).toLocaleDateString('de-DE', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+  });
+  notesTimestamp.textContent = `Zuletzt bearbeitet am ${formatted}`;
+  notesTimestamp.hidden = false;
+}
+
+const existingNote = getNote(localStorage, recipeId);
+notesTextarea.value = existingNote?.text ?? '';
+renderNotesTimestamp(existingNote);
+
+let notesSaveTimeout = null;
+function persistNote() {
+  clearTimeout(notesSaveTimeout);
+  renderNotesTimestamp(saveNote(localStorage, recipeId, notesTextarea.value));
+}
+
+notesTextarea.addEventListener('input', () => {
+  clearTimeout(notesSaveTimeout);
+  notesSaveTimeout = setTimeout(persistNote, 500);
+});
+
+notesTextarea.addEventListener('blur', persistNote);
 
 loadRecipe();

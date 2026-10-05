@@ -50,6 +50,12 @@ pageScript: recipe.js
       <h2>Steps</h2>
       {{ content | safe }}
     </section>
+
+    <section id="notes-section">
+      <h2>Notizen</h2>
+      <textarea id="notes-textarea" class="textarea" rows="3" placeholder="z. B. mehr Salz, 5 Min kürzer garen…"></textarea>
+      <p id="notes-timestamp" class="notes-timestamp" hidden></p>
+    </section>
   </div>
 </article>
 
