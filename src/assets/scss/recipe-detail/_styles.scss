@@ -312,11 +312,19 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 
 .cook-mode__header {
   text-align: center;
-  padding: 0.5rem 3rem 1.5rem;
+  padding: 0.5rem 0 1.5rem;
 }
 
+// Side padding (not on .cook-mode__header) clears the floating close button
+// for the title only — the progress row below it doesn't reach that far up,
+// so it keeps the full width instead of inheriting padding it doesn't need
+// (that inherited padding was overflowing a long dot row on 10+ step
+// recipes at phone widths). overflow-wrap guards the one remaining case: a
+// single unbreakable word wider than the clear space under the button.
 .cook-mode__title {
   margin: 0 0 0.75rem;
+  padding: 0 3rem;
+  overflow-wrap: break-word;
   font-size: $text-headline-md-size;
   line-height: $text-headline-md-line;
 }
@@ -333,7 +341,10 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   gap: 0.4rem;
 }
 
+// flex: 0 0 auto — without it, a long dot row (10+ steps) on a narrow
+// screen shrinks each dot into an oval instead of overflowing/wrapping.
 .cook-mode__dot {
+  flex: 0 0 auto;
   width: 7px;
   height: 7px;
   border-radius: $radius-full;
@@ -345,6 +356,8 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 }
 
 .cook-mode__progress-text {
+  flex-shrink: 0;
+  white-space: nowrap;
   font-family: $font-body;
   font-weight: 700;
   font-size: $text-label-md-size;
