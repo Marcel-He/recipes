@@ -1,0 +1,170 @@
+@use '../tokens' as *;
+
+// ── Hero ───────────────────────────────────────────────────────────────────
+// Same full-bleed white panel as .planner-hero.
+.weekplan-hero {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2rem;
+  background: $card;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+// ── Grid ───────────────────────────────────────────────────────────────────
+// 7 columns × 2 rows, chronological (cell 1 = today) — not weekday-anchored.
+.weekplan-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+
+.weekplan-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.2rem;
+  background: $bg;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba($brand, 0.06);
+  }
+  &:focus-visible {
+    outline: 2px solid $brand;
+    outline-offset: 2px;
+  }
+}
+
+.weekplan-cell__weekday {
+  font-family: $font-body;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $text-subtle;
+}
+
+.weekplan-cell__day {
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  color: $text-base;
+}
+
+$weekplan-thumb-size: 32px;
+
+.weekplan-cell__thumb {
+  display: block;
+  width: $weekplan-thumb-size;
+  height: $weekplan-thumb-size;
+  border-radius: $radius-full;
+  object-fit: cover;
+}
+
+.weekplan-cell__thumb--empty,
+.weekplan-cell__thumb--warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $weekplan-thumb-size;
+  height: $weekplan-thumb-size;
+  border-radius: $radius-full;
+  font-size: 12px;
+}
+
+.weekplan-cell__thumb--empty {
+  background: rgba($brand, 0.08);
+  color: $brand;
+}
+
+.weekplan-cell__thumb--warning {
+  background: rgba($danger, 0.1);
+  color: $danger;
+}
+
+// ── Day-select drawer ────────────────────────────────────────────────────
+// Same bottom-sheet structure as .recipe-preview (backdrop + sliding panel),
+// different content: suggestions + search + full recipe list.
+.day-select {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.day-select__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba($brand, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.day-select__panel {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 2rem;
+  background: $card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  box-shadow: $shadow-drawer;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.day-select.is-open {
+  .day-select__backdrop {
+    opacity: 1;
+  }
+  .day-select__panel {
+    transform: translateY(0);
+  }
+}
+
+.day-select__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.day-select__title {
+  margin: 0 2.5rem 0.5rem 0; // leave room for the close button
+}
+
+.day-select__missing-hint {
+  margin: 0 0 1rem;
+  font-size: $text-label-md-size;
+  color: $danger;
+}
+
+#day-select-search {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  font-family: $font-body;
+  font-size: $text-body-lg-size;
+  color: $text-base;
+  margin: 0.5rem 0 1rem;
+
+  &::placeholder {
+    color: $text-subtle;
+  }
+  &:focus {
+    outline: none;
+    border-color: $brand;
+    box-shadow: $shadow-focus;
+  }
+}
