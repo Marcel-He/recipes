@@ -1,0 +1,64 @@
+---
+layout: base.njk
+title: Wochenplan
+pageScript: plan.js
+---
+<div class="weekplan-page">
+  <div class="weekplan-hero">
+    <div class="planner-header">
+      <span class="planner-eyebrow">Dein Plan</span>
+      <h1>Die nächsten 14 Tage</h1>
+    </div>
+    <div id="weekplan-grid" class="weekplan-grid"></div>
+  </div>
+</div>
+
+<div id="day-select" class="day-select" hidden>
+  <div class="day-select__backdrop" data-close></div>
+  <div class="day-select__panel" role="dialog" aria-modal="true" aria-labelledby="day-select-title">
+    <button type="button" class="icon-button day-select__close" data-close aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <h2 id="day-select-title" class="day-select__title"></h2>
+    <p id="day-select-missing-hint" class="day-select__missing-hint" hidden>Rezept nicht mehr verfügbar.</p>
+
+    <section id="day-select-suggestions" class="suggestions" hidden>
+      <h3>Mit ähnlichen Zutaten</h3>
+      <ul id="day-select-suggestion-list" class="suggestion-list"></ul>
+    </section>
+
+    <input id="day-select-search" type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+    <ul id="day-select-list" class="recipe-list">
+      {% for item in collections.recipe %}
+      <li data-id="{{ item.data.id }}">
+        <a href="#" data-id="{{ item.data.id }}">
+          {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
+          <span class="headline">{{ item.data.title }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div id="recipe-preview" class="recipe-preview" hidden>
+  <div class="recipe-preview__backdrop" data-close></div>
+  <div class="recipe-preview__panel" role="dialog" aria-modal="true" aria-labelledby="recipe-preview-title">
+    <button type="button" class="icon-button recipe-preview__close" data-close aria-label="Close preview">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="recipe-preview__image-wrap">
+      <img class="recipe-preview__image" src="" alt="">
+    </div>
+    <h2 id="recipe-preview-title" class="recipe-preview__title"></h2>
+    <p class="recipe-preview__description"></p>
+    <div class="recipe-preview__actions">
+      <a class="recipe-preview__cta" href="#">
+        View Full Recipe <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <button type="button" id="recipe-preview-add" class="icon-button" aria-label="Tag leeren" aria-pressed="false">
+        <i class="fa-solid fa-calendar-xmark"></i>
+      </button>
+    </div>
+  </div>
+</div>
