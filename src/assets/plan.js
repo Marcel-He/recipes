@@ -1,4 +1,6 @@
+import Fuse from '/assets/fuse.min.mjs';
 import { getWindowDates, loadWeekplan, saveWeekplan } from './lib/weekplan.js';
+import { suggestRecipes } from './lib/suggestions.js';
 import { createRecipePreview } from './lib/recipe-preview.js';
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
@@ -9,6 +11,9 @@ let windowDates = [];
 let plan = {};
 let indexById = new Map();
 let allRecipes = [];
+let currentSelectDate = null;
+let daySelectFuse = null;
+let daySelectItems = [];
 
 async function init() {
   windowDates = getWindowDates(new Date());
@@ -16,9 +21,12 @@ async function init() {
 
   allRecipes = await fetch('/index.json').then(r => r.json()).catch(() => []);
   indexById = new Map(allRecipes.map(r => [r.id, r]));
+  daySelectFuse = new Fuse(allRecipes, { keys: ['title', 'difficulty', 'aufwand'], threshold: 0.4 });
+  daySelectItems = Array.from(document.querySelectorAll('#day-select-list > li'));
 
   renderGrid();
   initGridTap();
+  initDaySelect();
 }
 
 function cellLabel(date) {
@@ -92,6 +100,102 @@ function initGridTap() {
         onClick: () => clearDay(date)
       }
     });
+  });
+}
+
+function plannedRecipes() {
+  return windowDates
+    .map(d => plan[d])
+    .filter(Boolean)
+    .map(id => indexById.get(id))
+    .filter(Boolean);
+}
+
+function renderDaySelectSuggestions() {
+  const section = document.getElementById('day-select-suggestions');
+  const suggestions = suggestRecipes(plannedRecipes(), allRecipes);
+  if (suggestions.length === 0) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  document.getElementById('day-select-suggestion-list').innerHTML = suggestions
+    .map(({ recipe, shared }) => {
+      const photo = recipe.image
+        ? `<img class="suggestion-list__image" src="${recipe.image}" alt="">`
+        : `<div class="suggestion-list__image suggestion-list__image--placeholder"><i class="fa-solid fa-utensils"></i></div>`;
+      return `
+        <li class="suggestion-list__item" data-id="${recipe.id}">
+          ${photo}
+          <span class="suggestion-list__text">
+            <span class="suggestion-list__name">${recipe.title}</span>
+            <span class="suggestion-list__shared">Auch mit: ${shared.join(', ')}</span>
+          </span>
+        </li>`;
+    })
+    .join('');
+}
+
+function openDaySelect(date, { missing = false } = {}) {
+  currentSelectDate = date;
+  const { weekday, day } = cellLabel(date);
+  document.getElementById('day-select-title').textContent = `${weekday}, ${day}.`;
+  document.getElementById('day-select-missing-hint').hidden = !missing;
+
+  renderDaySelectSuggestions();
+  document.getElementById('day-select-search').value = '';
+  daySelectItems.forEach(el => { el.hidden = false; });
+
+  const panel = document.getElementById('day-select');
+  panel.hidden = false;
+  requestAnimationFrame(() => panel.classList.add('is-open'));
+}
+
+function closeDaySelect() {
+  const panel = document.getElementById('day-select');
+  panel.classList.remove('is-open');
+  panel.addEventListener('transitionend', () => { panel.hidden = true; }, { once: true });
+}
+
+function assignDay(date, recipeId) {
+  plan[date] = recipeId;
+  saveWeekplan(plan);
+  renderGrid();
+  closeDaySelect();
+}
+
+function initDaySelect() {
+  const panel = document.getElementById('day-select');
+
+  panel.addEventListener('click', e => {
+    if (e.target.closest('[data-close]')) {
+      closeDaySelect();
+      return;
+    }
+    const suggestion = e.target.closest('.suggestion-list__item');
+    if (suggestion) {
+      assignDay(currentSelectDate, suggestion.dataset.id);
+      return;
+    }
+    const link = e.target.closest('#day-select-list a[data-id]');
+    if (link) {
+      e.preventDefault();
+      assignDay(currentSelectDate, link.dataset.id);
+    }
+  });
+
+  document.getElementById('day-select-search').addEventListener('input', e => {
+    const query = e.target.value.trim();
+    if (!query) {
+      daySelectItems.forEach(el => { el.hidden = false; });
+      return;
+    }
+    const matchedIds = new Set(daySelectFuse.search(query).map(r => r.item.id));
+    daySelectItems.forEach(el => { el.hidden = !matchedIds.has(el.dataset.id); });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !panel.hidden) closeDaySelect();
   });
 }
 
