@@ -14,7 +14,10 @@
 // 7 columns × 2 rows, chronological (cell 1 = today) — not weekday-anchored.
 .weekplan-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  // minmax(0, 1fr), not plain 1fr (= minmax(auto, 1fr)) — lets tracks shrink
+  // below their content's min size instead of overflowing the viewport on
+  // narrow phones (plain 1fr floored each track at the thumb's width).
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 0.4rem;
 }
 
@@ -57,10 +60,13 @@
 
 $weekplan-thumb-size: 32px;
 
+// width: 100% + max-width (not a fixed width) — lets the thumb shrink with
+// its grid track on narrow phones instead of forcing the track to overflow.
 .weekplan-cell__thumb {
   display: block;
-  width: $weekplan-thumb-size;
-  height: $weekplan-thumb-size;
+  width: 100%;
+  max-width: $weekplan-thumb-size;
+  aspect-ratio: 1 / 1;
   border-radius: $radius-full;
   object-fit: cover;
 }
@@ -70,8 +76,9 @@ $weekplan-thumb-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: $weekplan-thumb-size;
-  height: $weekplan-thumb-size;
+  width: 100%;
+  max-width: $weekplan-thumb-size;
+  aspect-ratio: 1 / 1;
   border-radius: $radius-full;
   font-size: 12px;
 }
@@ -121,6 +128,10 @@ $weekplan-thumb-size: 32px;
   box-shadow: $shadow-drawer;
   transform: translateY(100%);
   transition: transform 0.3s ease;
+  // The reused .recipe-list's cqi-based padding/margins (scss/recipe-list)
+  // need a query container to resolve against — without this they fall
+  // back to resolving against the viewport, wildly oversizing them here.
+  container-type: inline-size;
 }
 
 .day-select.is-open {
