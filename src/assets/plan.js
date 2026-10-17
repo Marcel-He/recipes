@@ -1,5 +1,5 @@
 import Fuse from '/assets/fuse.min.mjs';
-import { getWindowDates, loadWeekplan, saveWeekplan } from './lib/weekplan.js';
+import { getWindowDates, loadWeekplan, saveWeekplan, swapPlanDays, cellThumbState } from './lib/weekplan.js';
 import { suggestRecipes } from './lib/suggestions.js';
 import { createRecipePreview } from './lib/recipe-preview.js';
 
@@ -11,6 +11,7 @@ let windowDates = [];
 let plan = {};
 let indexById = new Map();
 let allRecipes = [];
+let indexLoadFailed = false;
 let currentSelectDate = null;
 let daySelectFuse = null;
 let daySelectItems = [];
@@ -19,7 +20,10 @@ async function init() {
   windowDates = getWindowDates(new Date());
   plan = loadWeekplan(windowDates);
 
-  allRecipes = await fetch('/index.json').then(r => r.json()).catch(() => []);
+  allRecipes = await fetch('/index.json').then(r => r.json()).catch(() => {
+    indexLoadFailed = true;
+    return [];
+  });
   indexById = new Map(allRecipes.map(r => [r.id, r]));
   daySelectFuse = new Fuse(allRecipes, { keys: ['title', 'difficulty', 'aufwand'], threshold: 0.4 });
   daySelectItems = Array.from(document.querySelectorAll('#day-select-list > li'));
@@ -45,14 +49,21 @@ function renderCell(date) {
   const recipe = recipeId ? indexById.get(recipeId) : null;
 
   let thumb;
-  if (!recipeId) {
-    thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-plus"></i></span>';
-  } else if (!recipe) {
-    thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--warning"><i class="fa-solid fa-triangle-exclamation"></i></span>';
-  } else if (recipe.image) {
-    thumb = `<img class="weekplan-cell__thumb" src="${recipe.image}" alt="">`;
-  } else {
-    thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-utensils"></i></span>';
+  switch (cellThumbState(recipeId, recipe, indexLoadFailed)) {
+    case 'empty':
+      thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-plus"></i></span>';
+      break;
+    case 'unknown':
+      thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-question"></i></span>';
+      break;
+    case 'missing':
+      thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--warning"><i class="fa-solid fa-triangle-exclamation"></i></span>';
+      break;
+    case 'image':
+      thumb = `<img class="weekplan-cell__thumb" src="${recipe.image}" alt="">`;
+      break;
+    default: // placeholder
+      thumb = '<span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-utensils"></i></span>';
   }
 
   return `
@@ -81,6 +92,12 @@ function initGridTap() {
       openDaySelect(date);
       return;
     }
+
+    // The index hasn't loaded (e.g. offline) — we can't tell a deleted
+    // recipe from a transient fetch failure, so don't act on this cell at
+    // all rather than risk routing to the "no longer available" drawer and
+    // having the user overwrite a perfectly valid assignment.
+    if (indexLoadFailed) return;
 
     const recipe = indexById.get(recipeId);
     if (!recipe) {
@@ -200,14 +217,6 @@ function initDaySelect() {
   });
 }
 
-function swapDays(fromDate, toDate) {
-  const temp = plan[toDate];
-  plan[toDate] = plan[fromDate];
-  plan[fromDate] = temp;
-  saveWeekplan(plan);
-  renderGrid();
-}
-
 function initDragAndDrop() {
   const grid = document.getElementById('weekplan-grid');
 
@@ -227,8 +236,11 @@ function initDragAndDrop() {
     e.preventDefault();
     const fromDate = e.dataTransfer.getData('text/plain');
     const toDate = target.dataset.date;
-    if (!fromDate || fromDate === toDate) return;
-    swapDays(fromDate, toDate);
+    const next = swapPlanDays(plan, fromDate, toDate);
+    if (next === plan) return; // no-op: same day, or fromDate wasn't one of ours (e.g. foreign drag data)
+    plan = next;
+    saveWeekplan(plan);
+    renderGrid();
   });
 }
 

@@ -45,3 +45,30 @@ export function loadWeekplan(windowDates) {
 export function saveWeekplan(map) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
 }
+
+// Swaps the recipe ids assigned to two days. Returns the same plan reference
+// unchanged (never mutated) if either date isn't an actual day in the plan —
+// guards against swapping in data from an unrelated drag source (a dragged
+// link/image/text, not one of our own cells).
+export function swapPlanDays(plan, fromDate, toDate) {
+  const hasOwn = Object.prototype.hasOwnProperty;
+  if (fromDate === toDate || !hasOwn.call(plan, fromDate) || !hasOwn.call(plan, toDate)) {
+    return plan;
+  }
+  const next = { ...plan };
+  next[toDate] = plan[fromDate];
+  next[fromDate] = plan[toDate];
+  return next;
+}
+
+// What a grid cell's thumbnail should show, given the day's assigned
+// recipe id, the resolved recipe (or undefined/null if lookup failed), and
+// whether the index fetch itself failed. Keeping "the index didn't load"
+// distinct from "this recipe id no longer exists" matters: a transient
+// fetch failure must not look like every planned recipe was deleted.
+export function cellThumbState(recipeId, recipe, indexLoadFailed) {
+  if (!recipeId) return 'empty';
+  if (indexLoadFailed) return 'unknown';
+  if (!recipe) return 'missing';
+  return recipe.image ? 'image' : 'placeholder';
+}
