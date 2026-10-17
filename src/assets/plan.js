@@ -27,6 +27,7 @@ async function init() {
   renderGrid();
   initGridTap();
   initDaySelect();
+  initDragAndDrop();
 }
 
 function cellLabel(date) {
@@ -196,6 +197,38 @@ function initDaySelect() {
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !panel.hidden) closeDaySelect();
+  });
+}
+
+function swapDays(fromDate, toDate) {
+  const temp = plan[toDate];
+  plan[toDate] = plan[fromDate];
+  plan[fromDate] = temp;
+  saveWeekplan(plan);
+  renderGrid();
+}
+
+function initDragAndDrop() {
+  const grid = document.getElementById('weekplan-grid');
+
+  grid.addEventListener('dragstart', e => {
+    const cell = e.target.closest('.weekplan-cell[draggable="true"]');
+    if (!cell) return;
+    e.dataTransfer.setData('text/plain', cell.dataset.date);
+  });
+
+  grid.addEventListener('dragover', e => {
+    if (e.target.closest('.weekplan-cell')) e.preventDefault(); // allow drop
+  });
+
+  grid.addEventListener('drop', e => {
+    const target = e.target.closest('.weekplan-cell');
+    if (!target) return;
+    e.preventDefault();
+    const fromDate = e.dataTransfer.getData('text/plain');
+    const toDate = target.dataset.date;
+    if (!fromDate || fromDate === toDate) return;
+    swapDays(fromDate, toDate);
   });
 }
 
