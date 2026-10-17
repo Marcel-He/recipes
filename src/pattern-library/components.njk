@@ -13,7 +13,7 @@ title: Components
 
 <section class="pl-section">
   <h2 class="pl-section-title">Hero panel + drawer</h2>
-  <p>.recipe-hero / .recipe-drawer — full-bleed brand-green panel topped by a white rounded
+  <p>.recipe-hero / .recipe-drawer — full-bleed neutral panel topped by a white rounded
     drawer, with a circular image straddling the seam between them. Used on the recipe detail
     screen to hold the dish photo and back button above everything else.</p>
   <div class="recipe-hero">
@@ -149,6 +149,146 @@ title: Components
           <a class="icon-button" href="#" aria-label="Export to Bring"><i class="fa-solid fa-basket-shopping"></i></a>
           <button type="button" class="icon-button" aria-label="Add to planner"><i class="fa-solid fa-calendar-plus"></i></button>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Steps</h2>
+  <p>#steps-section ol/li — the numbered step list on the recipe detail screen. Each step gets
+    a grey circle connected to the next by a vertical line; the circle aligns with the step's
+    bold title line rather than the top of the list item, so it stays put even when a
+    step-ingredients chip row sits above the title. The title itself is a bold, sentence-case
+    lead-in rendered at a step up from body size. Circles are always the plain/grey treatment
+    here — the brand-filled "current step" state only exists in cook mode, never on this
+    screen.</p>
+  <section id="steps-section" style="border-top: none; margin-top: 0; padding-top: 0;">
+    <ol>
+      <li>
+        <strong>Preparation.</strong> Preheat your oven to 425°F (220°C). Bring the beef to room temperature for 30 minutes before seasoning. Pat dry with paper towels.
+      </li>
+      <li>
+        <div class="step-ingredients">
+          <span class="step-ingredients__item"><span class="step-ingredients__qty">1 TL</span> Räucherpaprika</span>
+        </div>
+        <strong>The glaze.</strong> In a small bowl, whisk together the smoked paprika, maple syrup, dijon mustard, salt, and cracked black pepper until emulsified.
+      </li>
+      <li>
+        <strong>Roasting.</strong> Generously coat the meat with the glaze. Roast for 25–30 minutes for medium-rare, basting once halfway through with pan juices.
+      </li>
+    </ol>
+  </section>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Cook mode</h2>
+  <p>.cook-mode — full-screen step-by-step overlay opened from the recipe detail screen's
+    "Start cook mode" button. Shows the recipe title and a dot progress indicator at the
+    top, that step's ingredients as a plain list (only shown when the step has any), a
+    short step title (the bold lead-in every migrated step starts with), and the step
+    body — all left-aligned so the text can use the full width. Advances via the "Next
+    Step" pill (becomes "Done" and closes cook mode on the last step), a left/right swipe
+    on the step, or the arrow keys; "Back" is disabled on the first step. The close (×)
+    button floats in the top-right corner, separate from the centered header. Opening it
+    enables the screen wake lock; closing it releases it again.</p>
+  <div style="position: relative; height: 560px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    <div class="cook-mode is-open" style="position: absolute; inset: 0;">
+      <button type="button" class="icon-button cook-mode__close" aria-label="Exit cook mode"><i class="fa-solid fa-xmark"></i></button>
+      <div class="cook-mode__header">
+        <h2 class="cook-mode__title">Bifteki auf Orzotto</h2>
+        <div class="cook-mode__progress">
+          <span class="cook-mode__dots">
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot is-current"></span>
+            <span class="cook-mode__dot"></span>
+            <span class="cook-mode__dot"></span>
+          </span>
+          <span class="cook-mode__progress-text">Step 4 of 6</span>
+        </div>
+      </div>
+      <div class="cook-mode__step">
+        <div class="cook-mode__ingredients">
+          <span class="cook-mode__ingredients-label">Ingredients</span>
+          <div class="cook-mode__ingredient">Ajvar (25 g)</div>
+          <div class="cook-mode__ingredient">Oregano (getrocknet) (1 g)</div>
+          <div class="cook-mode__ingredient">Orzo-Nudeln (180 g)</div>
+          <div class="cook-mode__ingredient">Hühnerbrühepulver (4 g)</div>
+          <div class="cook-mode__ingredient">Wasser (400 ml)</div>
+        </div>
+        <h3 class="cook-mode__step-title">Orzotto köcheln</h3>
+        <p class="cook-mode__step-body">Die Pfanne erneut erhitzen und die Zwiebelstreifen 1–2 Minuten anschwitzen. Ajvar, restlichen Oregano, Orzo, Karotten und Knoblauch dazugeben und 2–3 Minuten anbraten. Wasser und Brühepulver hinzufügen, zugedeckt bei niedriger Hitze 10–12 Minuten köcheln lassen, dabei gelegentlich umrühren.</p>
+      </div>
+      <div class="cook-mode__controls">
+        <button type="button" class="cook-mode__back"><i class="fa-solid fa-chevron-left"></i> Back</button>
+        <button type="button" class="cook-mode__next">Next Step <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Weekplan grid cell</h2>
+  <p>.weekplan-cell — one button per day in the /plan/ page's 7×2 grid. Shows the weekday
+    abbreviation, day number, and a small round thumbnail: the recipe's image when
+    assigned, a "+" placeholder when empty, or a warning icon when the assigned recipe no
+    longer resolves against /index.json. No title text — details only appear in the
+    recipe-preview (filled) or day-select drawer (empty/missing) opened on tap.</p>
+  <div class="pl-row" style="gap: 0.75rem;">
+    <button type="button" class="weekplan-cell">
+      <span class="weekplan-cell__weekday">Sa</span>
+      <span class="weekplan-cell__day">17</span>
+      <span class="weekplan-cell__thumb weekplan-cell__thumb--empty"><i class="fa-solid fa-plus"></i></span>
+    </button>
+    <button type="button" class="weekplan-cell">
+      <span class="weekplan-cell__weekday">So</span>
+      <span class="weekplan-cell__day">18</span>
+      <img class="weekplan-cell__thumb" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+    </button>
+    <button type="button" class="weekplan-cell">
+      <span class="weekplan-cell__weekday">Mo</span>
+      <span class="weekplan-cell__day">19</span>
+      <span class="weekplan-cell__thumb weekplan-cell__thumb--warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+    </button>
+  </div>
+</section>
+
+<section class="pl-section">
+  <h2 class="pl-section-title">Day-select drawer</h2>
+  <p>.day-select — bottom-sheet opened by tapping an empty (or no-longer-resolvable) day in
+    the weekplan grid. Same backdrop+panel structure as .recipe-preview. Suggestions
+    (shared base ingredients with already-planned days, via suggestRecipes) come first,
+    reusing .suggestion-list verbatim; a search field plus the full recipe list (reusing
+    .recipe-list) follow. Tapping any entry assigns that recipe to the open day and closes
+    the drawer.</p>
+  <div style="position: relative; height: 480px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
+    <div class="day-select is-open" style="position: absolute; inset: 0;">
+      <div class="day-select__panel" style="position: absolute; bottom: 0; transform: none;">
+        <button type="button" class="icon-button day-select__close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        <h2 class="day-select__title">Sa, 17.10.</h2>
+        <section class="suggestions">
+          <h3>Mit ähnlichen Zutaten</h3>
+          <ul class="suggestion-list">
+            <li class="suggestion-list__item">
+              <img class="suggestion-list__image" src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+              <span class="suggestion-list__text">
+                <span class="suggestion-list__name">Tortilla de Patatas</span>
+                <span class="suggestion-list__shared">Auch mit: Kartoffeln</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+        <input type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+        <ul class="recipe-list">
+          <li>
+            <a href="#">
+              <img src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+              <span class="headline">Bifteki auf Orzotto</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

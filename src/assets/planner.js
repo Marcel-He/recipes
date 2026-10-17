@@ -206,6 +206,17 @@ function initMenu() {
     toggle.setAttribute('aria-expanded', String(opening));
   });
 
+  // Explicit alternative to the plan row's long-press gesture: reveals the
+  // same per-item "×" remove buttons. Stops propagation so the long-press
+  // module's "tap outside the list closes it" document listener (see
+  // initLongPressRemove) doesn't immediately undo this same click.
+  document.getElementById('toggle-remove-mode')?.addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById('recipe-tags').classList.add('recipe-row--removable');
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
   document.addEventListener('click', e => {
     if (menu.hidden || menu.contains(e.target) || toggle.contains(e.target)) return;
     menu.hidden = true;

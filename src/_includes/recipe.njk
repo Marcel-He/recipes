@@ -19,8 +19,8 @@ pageScript: recipe.js
       <div class="recipe-header__top">
         <h1>{{ title }}</h1>
         <div class="recipe-header__actions">
-          <button id="wake-lock-toggle" class="icon-button" aria-label="Keep screen on" aria-pressed="false">
-            <i class="fa-regular fa-sun"></i>
+          <button id="start-cook-mode" class="icon-button" aria-label="Start cook mode">
+            <i class="fa-solid fa-utensils"></i>
           </button>
           <button id="bring-export" class="icon-button" aria-label="Export to Bring">
             <i class="fa-solid fa-basket-shopping"></i>
@@ -50,5 +50,40 @@ pageScript: recipe.js
       <h2>Steps</h2>
       {{ content | safe }}
     </section>
+
+    <section id="notes-section">
+      <h2>Notizen</h2>
+      <textarea id="notes-textarea" class="textarea" rows="3" placeholder="z. B. mehr Salz, 5 Min kürzer garen…"></textarea>
+      <p id="notes-timestamp" class="notes-timestamp" hidden></p>
+    </section>
   </div>
 </article>
+
+<div id="cook-mode" class="cook-mode" hidden>
+  <button type="button" id="cook-mode-close" class="icon-button cook-mode__close" aria-label="Exit cook mode">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <div class="cook-mode__header">
+    <h2 id="cook-mode-title" class="cook-mode__title"></h2>
+    <div class="cook-mode__progress">
+      <span id="cook-mode-dots" class="cook-mode__dots"></span>
+      <span id="cook-mode-progress-text" class="cook-mode__progress-text"></span>
+    </div>
+  </div>
+  <div id="cook-mode-step" class="cook-mode__step">
+    <div id="cook-mode-ingredients" class="cook-mode__ingredients" hidden>
+      <span class="cook-mode__ingredients-label">Ingredients</span>
+      <div id="cook-mode-ingredients-list"></div>
+    </div>
+    <h3 id="cook-mode-step-title" class="cook-mode__step-title"></h3>
+    <p id="cook-mode-step-body" class="cook-mode__step-body"></p>
+  </div>
+  <div class="cook-mode__controls">
+    <button type="button" id="cook-mode-prev" class="cook-mode__back">
+      <i class="fa-solid fa-chevron-left"></i> Back
+    </button>
+    <button type="button" id="cook-mode-next" class="cook-mode__next">
+      <span id="cook-mode-next-label">Next Step</span> <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>

@@ -4,7 +4,7 @@ export function formatQuantity(ingredient) {
   return unit ? `${amount} ${unit}` : `${amount}`;
 }
 
-export function formatIngredientLine(ingredient) {
+export function formatIngredientParenthetical(ingredient) {
   const qty = formatQuantity(ingredient);
-  return qty ? `${ingredient.name}: ${qty}` : ingredient.name;
+  return qty ? `${ingredient.name} (${qty})` : ingredient.name;
 }

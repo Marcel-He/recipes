@@ -1,13 +1,16 @@
 import { scaleIngredients } from './lib/scaling.js';
 import { groupIngredientsByStep } from './lib/steps.js';
-import { formatIngredientLine, formatQuantity } from './lib/format.js';
+import { formatQuantity } from './lib/format.js';
 import { buildBringImportUrl, recipePageUrl } from './lib/bring.js';
+import { createCookMode } from './lib/cook-mode.js';
+import { getNote, saveNote } from './lib/notes.js';
 
 const article = document.querySelector('[data-recipe-id]');
 const recipeId = article.dataset.recipeId;
 const baseServings = parseInt(article.dataset.baseServings, 10);
 let currentServings = baseServings;
 let recipeData = null;
+let currentStepGroups = {};
 
 async function loadRecipe() {
   try {
@@ -25,6 +28,7 @@ function renderIngredients() {
   const scaled = scaleIngredients(recipeData.ingredients, baseServings, currentServings);
   renderAll(scaled);
   renderStepIngredients(scaled);
+  currentStepGroups = groupIngredientsByStep(scaled);
 }
 
 function renderAll(ingredients) {
@@ -45,7 +49,13 @@ function renderStepIngredients(ingredients) {
     if (!ings || !ings.length) return;
     const header = document.createElement('div');
     header.className = 'step-ingredients';
-    header.textContent = ings.map(formatIngredientLine).join(' · ');
+    header.innerHTML = ings
+      .map(i => {
+        const qty = formatQuantity(i);
+        const qtyEl = qty ? `<span class="step-ingredients__qty">${qty}</span> ` : '';
+        return `<span class="step-ingredients__item">${qtyEl}${i.name}</span>`;
+      })
+      .join('');
     li.prepend(header);
   });
 }
@@ -64,36 +74,30 @@ document.getElementById('servings-up').addEventListener('click', () => {
   renderIngredients();
 });
 
-// Wake lock
+// Wake lock — only used by cook mode, to keep the screen on while cooking
 let wakeLock = null;
-const wakeLockBtn = document.getElementById('wake-lock-toggle');
-const wakeLockIcon = wakeLockBtn.querySelector('i');
 
-function setWakeLockState(active) {
-  wakeLockBtn.classList.toggle('is-active', active);
-  wakeLockBtn.setAttribute('aria-pressed', String(active));
-  wakeLockIcon.classList.toggle('fa-regular', !active);
-  wakeLockIcon.classList.toggle('fa-solid', active);
+async function requestWakeLock() {
+  if (wakeLock) return;
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      wakeLock = null;
+    });
+  } catch {
+    // Wake lock unsupported or denied; fail silently
+  }
 }
 
-wakeLockBtn.addEventListener('click', async () => {
-  if (wakeLock) {
-    await wakeLock.release();
-    wakeLock = null;
-    setWakeLockState(false);
-  } else {
-    try {
-      wakeLock = await navigator.wakeLock.request('screen');
-      setWakeLockState(true);
-      wakeLock.addEventListener('release', () => {
-        wakeLock = null;
-        setWakeLockState(false);
-      });
-    } catch {
-      // Wake lock unsupported or denied; fail silently
-    }
-  }
-});
+async function releaseWakeLock() {
+  if (!wakeLock) return;
+  await wakeLock.release();
+  wakeLock = null;
+}
+
+// Cook mode
+const cookMode = createCookMode({ requestWakeLock, releaseWakeLock });
+document.getElementById('start-cook-mode').addEventListener('click', () => cookMode.open(currentStepGroups));
 
 // Add to planner
 document.getElementById('add-to-planner').addEventListener('click', () => {
@@ -118,5 +122,40 @@ document.getElementById('bring-export').addEventListener('click', () => {
     currentServings
   );
 });
+
+// Notes — autosaved to localStorage, debounced while typing and flushed on blur
+const notesTextarea = document.getElementById('notes-textarea');
+const notesTimestamp = document.getElementById('notes-timestamp');
+
+function renderNotesTimestamp(note) {
+  if (!note) {
+    notesTimestamp.hidden = true;
+    return;
+  }
+  const formatted = new Date(note.updatedAt).toLocaleDateString('de-DE', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+  });
+  notesTimestamp.textContent = `Zuletzt bearbeitet am ${formatted}`;
+  notesTimestamp.hidden = false;
+}
+
+const existingNote = getNote(localStorage, recipeId);
+notesTextarea.value = existingNote?.text ?? '';
+renderNotesTimestamp(existingNote);
+
+let notesSaveTimeout = null;
+function persistNote() {
+  clearTimeout(notesSaveTimeout);
+  renderNotesTimestamp(saveNote(localStorage, recipeId, notesTextarea.value));
+}
+
+notesTextarea.addEventListener('input', () => {
+  clearTimeout(notesSaveTimeout);
+  notesSaveTimeout = setTimeout(persistNote, 500);
+});
+
+notesTextarea.addEventListener('blur', persistNote);
 
 loadRecipe();

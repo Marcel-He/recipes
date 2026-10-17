@@ -5,6 +5,7 @@
 @use './scss/recipe-detail';
 @use './scss/recipe-preview';
 @use './scss/planner';
+@use './scss/weekplan';
 
 // ── Reset ──────────────────────────────────────────────────────────────────
 *,
@@ -62,10 +63,13 @@ main {
     font-size: $text-body-lg-size;
     text-decoration: none;
     color: $text-subtle;
-    width: 56px;
-    height: 44px;
+    width: 60px;
+    height: 48px;
     border-radius: $radius-full;
-    transition: color 0.15s;
+    transition:
+      color 0.15s,
+      background 0.15s,
+      transform 0.1s;
     position: relative;
     display: flex;
     align-items: center;
@@ -73,6 +77,10 @@ main {
 
     &:hover {
       color: $brand;
+    }
+    &:active {
+      background: rgba($brand, 0.12);
+      transform: scale(0.92);
     }
     &:focus-visible {
       outline: 2px solid $brand;
@@ -96,6 +104,31 @@ main {
   font-size: $text-body-lg-size;
   color: $text-base;
   margin-bottom: 1.5rem;
+
+  &::placeholder {
+    color: $text-subtle;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $brand;
+    box-shadow: $shadow-focus;
+  }
+}
+
+// ── Textarea ───────────────────────────────────────────────────────────────
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 0.75rem 1rem;
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  font-family: $font-body;
+  font-size: $text-body-lg-size;
+  color: $text-base;
+  resize: vertical;
 
   &::placeholder {
     color: $text-subtle;

@@ -1,12 +1,27 @@
 @use '../tokens' as *;
 
 // Match the page background to the hero so the drawer's rounded top
-// corners reveal green underneath instead of a mismatched page color.
+// corners reveal the panel underneath instead of a mismatched page color.
 // Scoped to [data-recipe-id] (the real recipe article) rather than
 // .recipe-hero directly, so the pattern-library's demo snippet of this
-// component doesn't also turn the whole page green.
+// component doesn't also recolor the whole page.
 body:has([data-recipe-id]) {
-  background: $brand;
+  background: $panel;
+  // Cancelled like the planner's body:has(.planner-page) rule — the drawer
+  // below stretches under the floating nav itself and reserves the
+  // clearance as its own bottom padding, so the global 80px would just add
+  // extra gray space past where the drawer already ends.
+  padding-bottom: 0;
+}
+
+// Flex column so .recipe-drawer can stretch to the bottom of the viewport
+// (cancelling main's 2rem top/bottom padding) instead of leaving the
+// $panel background exposed below a short recipe.
+[data-recipe-id] {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2rem);
+  margin-bottom: -2rem;
 }
 
 // ── Hero ───────────────────────────────────────────────────────────────────
@@ -19,6 +34,7 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 
 .recipe-hero {
   position: relative;
+  flex: 0 0 auto;
   // Cancel main's 2rem top padding so the panel is flush with the viewport top.
   margin-top: -2rem;
 }
@@ -27,10 +43,13 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   width: 100vw;
   margin-inline: calc(50% - 50vw);
   height: $hero-panel-height;
-  background: $brand;
+  // Soft spotlight behind the dish photo — lighter at the image, fading to
+  // $panel at the edges — so the panel reads as a deliberate surface rather
+  // than flat empty gray. Swap the two stops for a dark-theme pass later.
+  background: radial-gradient(circle at 50% 100%, $bg 0%, $panel 70%);
 }
 
-// On-panel variant of .back-button — solid white against the brand green.
+// On-panel variant of .back-button — solid white against the panel.
 // Fixed positioning means it also scrolls over the white drawer, so it
 // needs a solid (not translucent) surface to stay legible on both.
 // Selector combines both classes so it reliably beats the base .back-button
@@ -79,10 +98,14 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 .recipe-drawer {
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding: calc(#{$hero-image-half} + 1.5rem) 1.5rem 1.5rem;
+  // Bottom padding includes the 80px nav-island clearance body used to
+  // reserve globally — now the drawer's own background extends under the
+  // nav to the screen edge, so real content still needs to clear it.
+  padding: calc(#{$hero-image-half} + 1.5rem) 1.5rem calc(1.5rem + 80px);
   background: $card;
   border-radius: $radius-xl $radius-xl 0 0;
   box-shadow: $shadow-drawer;
+  flex: 1 0 auto;
 }
 
 .recipe-header__top {
@@ -196,7 +219,8 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
 // Plain sections on the drawer surface — the drawer itself is the elevated
 // card now, so these no longer carry their own background/shadow.
 #ingredients-section,
-#steps-section {
+#steps-section,
+#notes-section {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid $border;
@@ -208,6 +232,12 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   ol {
     margin: 0;
   }
+}
+
+.notes-timestamp {
+  margin: 0.5rem 0 0;
+  font-size: $text-label-md-size;
+  color: $text-subtle;
 }
 
 #ingredients-section ul li {
@@ -247,17 +277,206 @@ $hero-image-half: calc(#{$hero-image-size} / 2 + #{$hero-image-ring});
   }
 }
 
-// Per-step ingredient header — inside each <li> in #steps-section
+// Per-step ingredient header — inside each <li> in #steps-section.
+// Each ingredient gets its own chip (rather than one run-on line) so a long
+// name with a parenthetical note stays contained and doesn't blur into its
+// neighbor — meant to be scannable at a glance while cooking.
 .step-ingredients {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.step-ingredients__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
   font-family: $font-body;
   font-size: $text-label-md-size;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: $brand;
+  color: $text-base;
   background: rgba($brand, 0.08);
-  padding: 0.4rem 0.65rem;
+  padding: 0.3rem 0.6rem;
   border-radius: $radius-sm;
-  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+// Quantity leads each chip (bold, accented) since that's what a cook
+// scans for first; the name follows at normal weight.
+.step-ingredients__qty {
+  font-weight: 700;
+  color: $brand;
+  white-space: nowrap;
+}
+
+// ── Cook mode ──────────────────────────────────────────────────────────────
+// Full-screen step-by-step overlay. Opacity-only transition (no translateY
+// like .recipe-preview) since it covers the whole screen rather than
+// sliding up from an edge.
+.cook-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  background: $card;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cook-mode.is-open {
+  opacity: 1;
+}
+
+// Floats clear of the centered title/progress block below it, rather than
+// sharing a header row with them (see the mockup this redesign matches).
+.cook-mode__close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+}
+
+.cook-mode__header {
+  text-align: center;
+  padding: 0.5rem 0 1.5rem;
+}
+
+// Side padding (not on .cook-mode__header) clears the floating close button
+// for the title only — the progress row below it doesn't reach that far up,
+// so it keeps the full width instead of inheriting padding it doesn't need
+// (that inherited padding was overflowing a long dot row on 10+ step
+// recipes at phone widths). overflow-wrap guards the one remaining case: a
+// single unbreakable word wider than the clear space under the button.
+.cook-mode__title {
+  margin: 0 0 0.75rem;
+  padding: 0 3rem;
+  overflow-wrap: break-word;
+  font-size: $text-headline-md-size;
+  line-height: $text-headline-md-line;
+}
+
+.cook-mode__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.cook-mode__dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+// flex: 0 0 auto — without it, a long dot row (10+ steps) on a narrow
+// screen shrinks each dot into an oval instead of overflowing/wrapping.
+.cook-mode__dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: $radius-full;
+  background: $row;
+
+  &.is-current {
+    background: $brand;
+  }
+}
+
+.cook-mode__progress-text {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: $font-body;
+  font-weight: 700;
+  font-size: $text-label-md-size;
+  color: $text-subtle;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+// Left-aligned content column — swipeable, so the touch listeners in
+// cook-mode.js bind directly to this element.
+.cook-mode__step {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0.5rem 1.5rem;
+}
+
+.cook-mode__ingredients {
+  margin-bottom: 1.5rem;
+}
+
+.cook-mode__ingredients-label {
+  display: block;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $text-subtle;
+  margin-bottom: 0.5rem;
+}
+
+.cook-mode__ingredient {
+  padding: 0.4rem 0;
+  color: $text-base;
+  font-size: $text-body-lg-size;
+}
+
+.cook-mode__step-title {
+  margin: 0 0 0.75rem;
+  font-size: $text-headline-md-size;
+  line-height: $text-headline-md-line;
+}
+
+.cook-mode__step-body {
+  margin: 0;
+  color: $text-base;
+  font-size: $text-body-lg-size;
+  line-height: $text-body-lg-line;
+}
+
+.cook-mode__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.cook-mode__back {
+  background: transparent;
+  color: $text-subtle;
+  border: none;
+  padding: 0.75rem 0.5rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.cook-mode__next {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: $brand;
+  color: $brand-text;
+  border: none;
+  border-radius: $radius-full;
+  padding: 0.85rem 1.5rem;
+  font-family: $font-body;
+  font-size: $text-label-md-size;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $brand-hover;
+  }
 }

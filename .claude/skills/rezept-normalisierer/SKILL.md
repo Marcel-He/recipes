@@ -53,6 +53,15 @@ Nur diese drei Werte erlaubt:
 - `mittel` — mehrere Techniken oder Schritte, 30–60 Min
 - `aufwändig` — komplexe Technik, viele Schritte, über 60 Min oder Ruhephasen
 
+### Schritt-Titel
+Jeder Schritt beginnt mit einem kurzen, fett gesetzten Titel (2–4 Wörter, endet mit einem
+Punkt), gefolgt vom eigentlichen Schritttext:
+
+`1. **Zwiebeln andünsten.** Zwiebeln schälen und in einer Pfanne bei mittlerer Hitze glasig dünsten.`
+
+Der Titel fasst die Haupthandlung des Schritts zusammen (Verb + Objekt), nicht das
+Ergebnis.
+
 ### Zutaten
 - Wenn eine Zutat in mehreren Schritten vorkommt: je ein Eintrag pro Schritt mit der entsprechenden `step`-Nummer
 - Unklare oder fehlende Mengen: `"amount": null, "unit": null`
@@ -105,10 +114,10 @@ servings: 2
 Ein klassisches römisches Nudelgericht mit cremiger Ei-Käse-Sauce ohne Sahne.
 Die Hitze der Pasta gart die Eier sanft zu einer seidigen Sauce.
 
-1. Spaghetti in Salzwasser al dente kochen.
-2. Pancetta in einer Pfanne knusprig ausbraten.
-3. Eier und Parmesan in einer Schüssel verquirlen.
-4. Pasta vom Herd nehmen, Pancetta und Ei-Käse-Mischung unterheben, mit Pfeffer würzen.
+1. **Pasta kochen.** Spaghetti in Salzwasser al dente kochen.
+2. **Pancetta anbraten.** Pancetta in einer Pfanne knusprig ausbraten.
+3. **Ei-Käse-Mischung verquirlen.** Eier und Parmesan in einer Schüssel verquirlen.
+4. **Alles vermengen.** Pasta vom Herd nehmen, Pancetta und Ei-Käse-Mischung unterheben, mit Pfeffer würzen.
 ```
 
 **`spaghetti-carbonara.json`:**
@@ -141,3 +150,4 @@ Die Hitze der Pasta gart die Eier sanft zu einer seidigen Sauce.
 | `Zwiebel` bei Menge 1 | `Zwiebeln` (immer Plural) |
 | `Knoblauchzehe` | `Knoblauch` mit Einheit `Zehe` |
 | `Feta Käse` neben vorhandenem `Feta` | Vorhandenen Namen `Feta` übernehmen |
+| Schritt ohne Titel | Jeder Schritt beginnt mit `**Kurztitel.**` |

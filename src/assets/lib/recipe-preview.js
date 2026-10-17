@@ -12,6 +12,7 @@ export function createRecipePreview() {
   // (e.g. the planner, which knows servings for already-planned recipes).
   const previewBringBtn = document.getElementById('recipe-preview-bring');
   let previewRecipeId = null;
+  let currentAction = null;
 
   function isPlanned(id) {
     const planner = JSON.parse(localStorage.getItem('planner') || '[]');
@@ -26,7 +27,7 @@ export function createRecipePreview() {
     previewAddBtn.disabled = added;
   }
 
-  function open({ id, image, imageAlt, title, description, href, bringHref }) {
+  function open({ id, image, imageAlt, title, description, href, bringHref, action }) {
     previewRecipeId = id;
     previewImage.src = image || '';
     previewImage.alt = imageAlt || '';
@@ -37,7 +38,16 @@ export function createRecipePreview() {
       previewBringBtn.hidden = !bringHref;
       if (bringHref) previewBringBtn.href = bringHref;
     }
-    setAddButtonState(isPlanned(id));
+    currentAction = action || null;
+    if (currentAction) {
+      previewAddBtn.classList.remove('is-active');
+      previewAddBtn.disabled = false;
+      previewAddBtn.setAttribute('aria-label', currentAction.label);
+      previewAddBtn.removeAttribute('aria-pressed');
+      previewAddBtn.querySelector('i').className = `fa-solid ${currentAction.icon}`;
+    } else {
+      setAddButtonState(isPlanned(id));
+    }
     preview.hidden = false;
     requestAnimationFrame(() => preview.classList.add('is-open'));
     previewAddBtn.closest('.recipe-preview__panel').querySelector('.recipe-preview__close').focus();
@@ -57,6 +67,10 @@ export function createRecipePreview() {
   });
 
   previewAddBtn.addEventListener('click', () => {
+    if (currentAction) {
+      currentAction.onClick();
+      return;
+    }
     if (!previewRecipeId) return;
     const planner = JSON.parse(localStorage.getItem('planner') || '[]');
     if (!planner.includes(previewRecipeId)) {
