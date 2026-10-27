@@ -7,6 +7,7 @@
     "start": "eleventy --serve",
     "test": "vitest run",
     "test:watch": "vitest",
+    "fetch-offers": "node scripts/fetch-offers.mjs",
     "precommit": "prettier --write 'src/**/*.scss'"
   },
   "dependencies": {

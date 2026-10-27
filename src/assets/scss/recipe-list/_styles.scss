@@ -62,3 +62,20 @@
     align-self: start;
   }
 }
+
+// Shown on day-select-drawer entries whose ingredients are currently on a
+// local offer — "Zutat (Markt)", comma-separated. Hidden by default (plan.js
+// toggles the attribute); uses the tag tokens reserved for this purpose.
+.recipe-list__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  align-self: center;
+  margin-top: 0.15rem;
+  padding: 0.15rem 0.5rem;
+  background: rgba($tag-bg, 0.18);
+  color: $tag;
+  border-radius: $radius-full;
+  font-size: $text-label-md-size;
+  font-weight: 600;
+}

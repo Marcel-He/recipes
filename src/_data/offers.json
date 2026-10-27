@@ -1,0 +1,7 @@
+{
+  "fetchedAt": null,
+  "plz": "00000",
+  "retailers": ["ALDI", "LIDL", "REWE", "EDEKA", "KAUFLAND"],
+  "failedRetailers": [],
+  "offers": []
+}

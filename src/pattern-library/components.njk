@@ -260,9 +260,15 @@ title: Components
   <p>.day-select — bottom-sheet opened by tapping an empty (or no-longer-resolvable) day in
     the weekplan grid. Same backdrop+panel structure as .recipe-preview. Suggestions
     (shared base ingredients with already-planned days, via suggestRecipes) come first,
-    reusing .suggestion-list verbatim; a search field plus the full recipe list (reusing
-    .recipe-list) follow. Tapping any entry assigns that recipe to the open day and closes
-    the drawer.</p>
+    reusing .suggestion-list verbatim; a toolbar with the search field and an offer-sort
+    toggle, plus the full recipe list (reusing .recipe-list) follow. Tapping any entry
+    assigns that recipe to the open day and closes the drawer.</p>
+  <p>Recipe-list entries whose ingredients are currently on a local offer (see
+    docs/superpowers/specs/2026-10-27-lokale-angebote-design.md) show a .recipe-list__badge
+    — "Zutat (Markt)", comma-separated, hidden otherwise. The toolbar's toggle button
+    (.icon-button, same is-active/aria-pressed pattern as the recipe-preview's add
+    button) re-sorts the list by offer-match count when pressed; it resets to off every
+    time the drawer opens, so the default list order is untouched unless the user opts in.</p>
   <div style="position: relative; height: 480px; background: rgba(0,0,0,0.05); border-radius: 1rem; overflow: hidden;">
     <div class="day-select is-open" style="position: absolute; inset: 0;">
       <div class="day-select__panel" style="position: absolute; bottom: 0; transform: none;">
@@ -280,12 +286,24 @@ title: Components
             </li>
           </ul>
         </section>
-        <input type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+        <div class="day-select__toolbar">
+          <input type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+          <button type="button" class="icon-button is-active" aria-pressed="true" aria-label="Nach Angeboten sortieren">
+            <i class="fa-solid fa-tag"></i>
+          </button>
+        </div>
         <ul class="recipe-list">
           <li>
             <a href="#">
               <img src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
               <span class="headline">Bifteki auf Orzotto</span>
+              <span class="recipe-list__badge"><i class="fa-solid fa-tag"></i> Rinderhack (REWE)</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="/assets/images/bifteki-mit-hirtenkase.jpg" alt="">
+              <span class="headline">Tortilla de Patatas</span>
             </a>
           </li>
         </ul>

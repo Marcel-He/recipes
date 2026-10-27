@@ -27,13 +27,19 @@ pageScript: plan.js
       <ul id="day-select-suggestion-list" class="suggestion-list"></ul>
     </section>
 
-    <input id="day-select-search" type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+    <div class="day-select__toolbar">
+      <input id="day-select-search" type="search" placeholder="Rezepte durchsuchen…" autocomplete="off">
+      <button type="button" id="day-select-sort-toggle" class="icon-button" aria-pressed="false" aria-label="Nach Angeboten sortieren">
+        <i class="fa-solid fa-tag"></i>
+      </button>
+    </div>
     <ul id="day-select-list" class="recipe-list">
       {% for item in collections.recipe %}
       <li data-id="{{ item.data.id }}">
         <a href="#" data-id="{{ item.data.id }}">
           {% if item.data.image %}<img src="{{ item.data.image }}" alt="{{ item.data.title }}">{% endif %}
           <span class="headline">{{ item.data.title }}</span>
+          <span class="recipe-list__badge" hidden></span>
         </a>
       </li>
       {% endfor %}

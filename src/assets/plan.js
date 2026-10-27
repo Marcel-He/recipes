@@ -27,11 +27,51 @@ async function init() {
   indexById = new Map(allRecipes.map(r => [r.id, r]));
   daySelectFuse = new Fuse(allRecipes, { keys: ['title', 'difficulty', 'aufwand'], threshold: 0.4 });
   daySelectItems = Array.from(document.querySelectorAll('#day-select-list > li'));
+  annotateDaySelectOffers();
 
   renderGrid();
   initGridTap();
   initDaySelect();
+  initDaySelectOfferSort();
   initDragAndDrop();
+}
+
+// Badge + sort key per day-select entry, from the recipe's offerMatches
+// (baked in at build time — see index.json.11ty.js). Static per page load,
+// so this only needs to run once, not on every drawer open.
+function annotateDaySelectOffers() {
+  daySelectItems.forEach(li => {
+    const recipe = indexById.get(li.dataset.id);
+    const matches = recipe?.offerMatches || [];
+    li.dataset.offerCount = String(matches.length);
+    const badge = li.querySelector('.recipe-list__badge');
+    if (!badge) return;
+    badge.hidden = matches.length === 0;
+    if (matches.length > 0) {
+      const text = matches.map(m => `${m.ingredient} (${m.retailer})`).join(', ');
+      badge.innerHTML = `<i class="fa-solid fa-tag"></i> ${text}`;
+    }
+  });
+}
+
+// Reorders the existing <li> elements in place — the text search (below)
+// only toggles `hidden` and never reorders, so the two compose cleanly.
+function sortDaySelectList(byOffers) {
+  const list = document.getElementById('day-select-list');
+  const ordered = byOffers
+    ? [...daySelectItems].sort((a, b) => Number(b.dataset.offerCount) - Number(a.dataset.offerCount))
+    : daySelectItems;
+  ordered.forEach(el => list.appendChild(el));
+}
+
+function initDaySelectOfferSort() {
+  const toggle = document.getElementById('day-select-sort-toggle');
+  toggle.addEventListener('click', () => {
+    const active = toggle.getAttribute('aria-pressed') !== 'true';
+    toggle.setAttribute('aria-pressed', String(active));
+    toggle.classList.toggle('is-active', active);
+    sortDaySelectList(active);
+  });
 }
 
 function cellLabel(date) {
@@ -163,6 +203,11 @@ function openDaySelect(date, { missing = false } = {}) {
   renderDaySelectSuggestions();
   document.getElementById('day-select-search').value = '';
   daySelectItems.forEach(el => { el.hidden = false; });
+
+  const sortToggle = document.getElementById('day-select-sort-toggle');
+  sortToggle.setAttribute('aria-pressed', 'false');
+  sortToggle.classList.remove('is-active');
+  sortDaySelectList(false);
 
   const panel = document.getElementById('day-select');
   panel.hidden = false;
